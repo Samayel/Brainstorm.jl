@@ -18,9 +18,9 @@ else
   nthprime{T<:Integer}(n::T) = nprimes(n)[n]
 end
 
-divisorsigma{T<:Integer}(n::T) = prod([e+1 for e in values(mfactor(n))])
-factorsort{T<:Integer}(n::T) = SortedDict(mfactor(n))
-invfactor{T<:Integer}(e::Array{T,1}) = prod([big(nthprime(i))^e[i] for i = 1:length(e)])
+divisorsigma{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
+factorsort{T<:Integer}(n::T) = n |> mfactor |> SortedDict
+invfactor{T<:Integer}(e::Array{T,1}) = [big(nthprime(i))^e[i] for i = 1:length(e)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors{T<:Integer}(d::T) = min(
