@@ -14,17 +14,19 @@ if isdefined(:PrimeSieve)
 else
   println("Using native functions for mfactor(), nprimes() and nthprime()")
   mfactor{T<:Integer}(n::T) = factor(n)
-  nprimes{T<:Integer}(n::T) = primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
+  nprimes{T<:Integer}(n::T) =
+    primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
   nthprime{T<:Integer}(n::T) = nprimes(n)[n]
 end
 
 divisorsigma{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
 factorsort{T<:Integer}(n::T) = n |> mfactor |> SortedDict
-invfactor{T<:Integer}(e::Array{T,1}) = [big(nthprime(i))^e[i] for i = 1:length(e)] |> prod
+invfactor{T<:Integer}(e::Array{T,1}) =
+  [big(nthprime(i))^e[i] for i = 1:length(e)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
-least_number_with_d_divisors{T<:Integer}(d::T) = min(
-  [invfactor(e) for e in least_number_with_d_divisors_exponents(d)]...)
+least_number_with_d_divisors{T<:Integer}(d::T) =
+  [invfactor(e) for e in least_number_with_d_divisors_exponents(d)] |> minimum
 
 function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)
   (d <= 1) && return Any[Integer[]]
