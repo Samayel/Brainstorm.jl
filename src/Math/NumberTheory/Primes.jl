@@ -12,7 +12,7 @@ if isdefined(:PrimeSieve)
   nprimes(n::Integer) = PrimeSieve.nprimes(n, 1)
   nthprime(n::Integer) = PrimeSieve.nthprime(n)
 else
-  nprimes(n::Integer) = primes(iceil(n*log(n+2) + n*log(log(n+2))))[1:n]
+  nprimes(n::Integer) = primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
   nthprime(n::Integer) = nprimes(n)[n]
 end
 
@@ -33,7 +33,7 @@ function least_number_with_d_divisors_exponents(d::Integer, i::Integer = 1, prev
 
   p = nthprime(k+i-1)
   pi = nthprime(i)
-  m = ifloor(log(p) / log(pi))
+  m = floor(Integer, log(p) / log(pi))
 
   c = [pmax]
   for b = 2:m
