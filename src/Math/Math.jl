@@ -3,8 +3,8 @@ module Math
 import Base.min
 import Base.max
 
-min(n::Number) = n
-max(n::Number) = n
+min{T<:Number}(n::T) = n
+max{T<:Number}(n::T) = n
 
 include("NumberTheory/NumberTheory.jl")
 

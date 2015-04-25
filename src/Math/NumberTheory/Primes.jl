@@ -1,30 +1,31 @@
 using DataStructures
 
 try
-  import PrimeSieve
-  println("Using PrimeSieve package for factor(), nprimes() and nthprime()")
-catch
-  println("Using native functions for factor(), nprimes() and nthprime()")
+  eval(Expr(:import,:PrimeSieve))
+catch err
+  @show err
 end
 
 if isdefined(:PrimeSieve)
-  factor(n::Integer) = PrimeSieve.mfactor(n)
-  nprimes(n::Integer) = PrimeSieve.nprimes(n, 1)
-  nthprime(n::Integer) = PrimeSieve.nthprime(n)
+  println("Using PrimeSieve package for factor(), nprimes() and nthprime()")
+  factor{T<:Integer}(n::T) = PrimeSieve.mfactor(n)
+  nprimes{T<:Integer}(n::T) = PrimeSieve.nprimes(n, 1)
+  nthprime{T<:Integer}(n::T) = PrimeSieve.nthprime(n)
 else
-  nprimes(n::Integer) = primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
-  nthprime(n::Integer) = nprimes(n)[n]
+  println("Using native functions for factor(), nprimes() and nthprime()")
+  nprimes{T<:Integer}(n::T) = primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
+  nthprime{T<:Integer}(n::T) = nprimes(n)[n]
 end
 
-divisorsigma(n::Integer) = prod([e+1 for e in values(factor(n))])
-factorsort(n::Integer) = SortedDict(factor(n))
-invfactor(e::Array{Integer,1}) = prod([big(nthprime(i))^e[i] for i = 1:length(e)])
+divisorsigma{T<:Integer}(n::T) = prod([e+1 for e in values(factor(n))])
+factorsort{T<:Integer}(n::T) = SortedDict(factor(n))
+invfactor{T<:Integer}(e::Array{T,1}) = prod([big(nthprime(i))^e[i] for i = 1:length(e)])
 
 # http://www.primepuzzles.net/problems/prob_019.htm
-least_number_with_d_divisors(d::Integer) = min(
+least_number_with_d_divisors{T<:Integer}(d::T) = min(
   [invfactor(e) for e in least_number_with_d_divisors_exponents(d)]...)
 
-function least_number_with_d_divisors_exponents(d::Integer, i::Integer = 1, prevn::Integer = 0)
+function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)
   (d <= 1) && return Any[Integer[]]
 
   f = factorsort(d)
