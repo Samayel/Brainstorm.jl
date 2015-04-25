@@ -7,18 +7,19 @@ catch err
 end
 
 if isdefined(:PrimeSieve)
-  println("Using PrimeSieve package for factor(), nprimes() and nthprime()")
-  factor{T<:Integer}(n::T) = PrimeSieve.mfactor(n)
+  println("Using PrimeSieve package for mfactor(), nprimes() and nthprime()")
+  mfactor{T<:Integer}(n::T) = PrimeSieve.mfactor(n)
   nprimes{T<:Integer}(n::T) = PrimeSieve.nprimes(n, 1)
   nthprime{T<:Integer}(n::T) = PrimeSieve.nthprime(n)
 else
-  println("Using native functions for factor(), nprimes() and nthprime()")
+  println("Using native functions for mfactor(), nprimes() and nthprime()")
+  mfactor{T<:Integer}(n::T) = factor(n)
   nprimes{T<:Integer}(n::T) = primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
   nthprime{T<:Integer}(n::T) = nprimes(n)[n]
 end
 
-divisorsigma{T<:Integer}(n::T) = prod([e+1 for e in values(factor(n))])
-factorsort{T<:Integer}(n::T) = SortedDict(factor(n))
+divisorsigma{T<:Integer}(n::T) = prod([e+1 for e in values(mfactor(n))])
+factorsort{T<:Integer}(n::T) = SortedDict(mfactor(n))
 invfactor{T<:Integer}(e::Array{T,1}) = prod([big(nthprime(i))^e[i] for i = 1:length(e)])
 
 # http://www.primepuzzles.net/problems/prob_019.htm
