@@ -1,4 +1,4 @@
-using DataStructures
+using DataStructures.SortedDict
 
 try
   eval(Expr(:import,:PrimeSieve))
