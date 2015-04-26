@@ -20,7 +20,9 @@ immutable FibonacciCountIterator{T<:Integer, S<:Integer} <: FibonacciAbstractIte
 end
 
 nthfibonacci{T<:Integer}(n::T, S::Type = Int) =
-  first(drop(allfibonacci(S), n - one(T)))
+  allfibonacci(S) |>
+  s -> drop(s, n - one(T)) |>
+  first
 nfibonacci{T<:Integer}(n::T, S::Type = Int) = [x for x in exactfibonacci(n, S)]
 
 allfibonacci(T::Type = Int) = allfibonacci(zero(T), one(T))
