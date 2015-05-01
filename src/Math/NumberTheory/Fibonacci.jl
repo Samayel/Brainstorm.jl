@@ -41,16 +41,20 @@ exactfibonacci(n::Int, x1::Integer, x2::Integer) =
 exactfibonacci{S<:Integer}(n::Int, x1::S, x2::S) =
   FibonacciCountIterator{Int,S}(n, x1, x2)
 
-Base.start{T<:FibonacciAbstractIterator}(fib::T) = (fib.x2 - fib.x1, fib.x1)
-Base.start(fib::FibonacciCountIterator) = (fib.x2 - fib.x1, fib.x1, one(fib.n))
+Base.start{T<:FibonacciAbstractIterator}(it::T) = (it.x2 - it.x1, it.x1)
+Base.start(it::FibonacciCountIterator) = (it.x2 - it.x1, it.x1, one(it.n))
 
-Base.next{T<:FibonacciAbstractIterator}(fib::T, state) =
+Base.next{T<:FibonacciAbstractIterator}(it::T, state) =
   (state[2], (state[2], state[1] + state[2]))
-Base.next(fib::FibonacciCountIterator, state) =
-  (state[2], (state[2], state[1] + state[2], state[3] + one(fib.n)))
+Base.next(it::FibonacciCountIterator, state) =
+  (state[2], (state[2], state[1] + state[2], state[3] + one(it.n)))
 
-Base.done(fib::FibonacciInfiniteIterator, state) = false
-Base.done(fib::FibonacciRangeIterator, state) = state[2] > fib.xmax
-Base.done(fib::FibonacciCountIterator, state) = state[3] > fib.n
+Base.done(it::FibonacciInfiniteIterator, state) = false
+Base.done(it::FibonacciRangeIterator, state) = state[2] > it.xmax
+Base.done(it::FibonacciCountIterator, state) = state[3] > it.n
 
-Base.length(fib::FibonacciCountIterator) = fib.n
+Base.eltype(it::FibonacciInfiniteIterator) = typeof(it.x1)
+Base.eltype(it::FibonacciRangeIterator) = typeof(it.x1)
+Base.eltype(it::FibonacciCountIterator) = typeof(it.x1)
+
+Base.length(it::FibonacciCountIterator) = it.n
