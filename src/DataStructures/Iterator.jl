@@ -5,8 +5,9 @@ using Iterators
 # http://slendermeans.org/julia-iterators.html
 #
 
-Base.next(it::Iterators.Repeat{Function}, state) = it.x(), state - 1
-Base.next(it::Iterators.RepeatForever{Function}, state) = it.x(), nothing
+# Some iterators have been moved into Base
+#Base.next(it::Iterators.Repeat{Function}, state) = it.x(), state - 1
+#Base.next(it::Iterators.RepeatForever{Function}, state) = it.x(), nothing
 
 immutable TakeWhile{I}
   xs::I
