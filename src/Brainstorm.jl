@@ -1,5 +1,8 @@
 module Brainstorm
 
-# package code goes here
+include("DataStructures/DataStructures.jl")
+include("Math/Math.jl")
+
+include("Export.jl")
 
 end # module
