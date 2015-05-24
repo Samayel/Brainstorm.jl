@@ -6,7 +6,11 @@ julia:
   - release
   - nightly
 notifications:
-  email: true
+  email:
+    recipients:
+      - johm@quyo.de
+    on_success: always
+    on_failure: always
 # uncomment the following lines to override the default test script
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
