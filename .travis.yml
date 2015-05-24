@@ -10,4 +10,6 @@ notifications:
 # uncomment the following lines to override the default test script
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia --check-bounds=yes -e 'Pkg.clone("https://github.com/jlapeyre/DeepConvert.jl.git"); Pkg.build("DeepConvert"); Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve"); Pkg.clone(pwd()); Pkg.build("Brainstorm"); Pkg.test("Brainstorm"; coverage=true)'
+  - julia -e 'Pkg.clone("https://github.com/jlapeyre/DeepConvert.jl.git"); Pkg.build("DeepConvert");'
+  - julia -e 'Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve");'
+  - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("Brainstorm"); Pkg.test("Brainstorm"; coverage=true)'
