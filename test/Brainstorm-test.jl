@@ -1,14 +1,14 @@
 module Test
 
-using Brainstorm
-using Base.Test
+include("DataStructures/DataStructures-test.jl")
+include("Math/Math-test.jl")
 
-function test_dummy()
-  @test 1 == 1
-end
+using Brainstorm.Test.DataStructures
+using Brainstorm.Test.Math
 
 function test_all()
-  test_dummy()
+  DataStructures.test_all()
+  Math.test_all()
 end
 
 end
