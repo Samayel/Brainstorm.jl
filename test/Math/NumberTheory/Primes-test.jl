@@ -14,12 +14,36 @@ function test_primes_nthprime()
   @test nthprime(1000) == 7919
 end
 
-function test_primes_divisorsigma0()
-  @test divisorsigma0(2) == 2
-  @test divisorsigma0(7) == 2
-  @test divisorsigma0(20) == 6
-  @test divisorsigma0(99) == 6
-  @test divisorsigma0(100) == 9
+function test_primes_divisorsigma()
+  @test divisorsigma(1) == 1
+  @test divisorsigma(2) == 3
+  @test divisorsigma(7) == 8
+  @test divisorsigma(20) == 42
+  @test divisorsigma(99) == 156
+  @test divisorsigma(100) == 217
+
+  @test_throws DomainError divisorsigma(1, -1)
+
+  @test divisorsigma(1, 0) == 1
+  @test divisorsigma(2, 0) == 2
+  @test divisorsigma(7, 0) == 2
+  @test divisorsigma(20, 0) == 6
+  @test divisorsigma(99, 0) == 6
+  @test divisorsigma(100, 0) == 9
+
+  @test divisorsigma(1, 1) == 1
+  @test divisorsigma(2, 1) == 3
+  @test divisorsigma(7, 1) == 8
+  @test divisorsigma(20, 1) == 42
+  @test divisorsigma(99, 1) == 156
+  @test divisorsigma(100, 1) == 217
+
+  @test divisorsigma(1, 2) == 1
+  @test divisorsigma(2, 2) == 5
+  @test divisorsigma(7, 2) == 50
+  @test divisorsigma(20, 2) == 546
+  @test divisorsigma(99, 2) == 11102
+  @test divisorsigma(100, 2) == 13671
 end
 
 function test_primes_least_number_with_d_divisors()
@@ -36,7 +60,7 @@ function test_primes_all()
   test_primes_mfactor()
   test_primes_nprimes()
   test_primes_nthprime()
-  test_primes_divisorsigma0()
+  test_primes_divisorsigma()
   test_primes_least_number_with_d_divisors()
 
   println("PASS")

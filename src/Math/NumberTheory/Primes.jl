@@ -1,4 +1,5 @@
 using DataStructures.SortedDict
+using Iterators.imap
 
 useprimesieve = false
 try
@@ -25,15 +26,28 @@ else
   fastprimes() = false
 end
 
-divisorsigma0{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
+# https://oeis.org/wiki/Divisor_function
+divisorsigma{T<:Integer}(n::T, k = 1) = begin
+  ((k < 0) || (n <= 0)) && throw(DomainError())
+  (n == 1) && return 1
+
+  f = ifelse(k == 0,
+    x -> x[2] + 1,
+    x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1))
+
+  n |> mfactor |> p -> imap(f, p) |> prod
+end
 
 factorsort{T<:Integer}(n::T) = n |> mfactor |> SortedDict
-invfactor{T<:Integer}(e::Array{T,1}) =
-  [big(nthprime(i))^e[i] for i = 1:length(e)] |> prod
+invfactor{T<:Integer}(x::Array{T,1}) =
+  [big(nthprime(i))^e for (i, e) = enumerate(x)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors{T<:Integer}(d::T) =
-  [invfactor(e) for e in least_number_with_d_divisors_exponents(d)] |> minimum
+  d |>
+  least_number_with_d_divisors_exponents |>
+  e -> imap(invfactor, e) |>
+  minimum
 
 function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)
   (d <= 1) && return Any[Integer[]]
