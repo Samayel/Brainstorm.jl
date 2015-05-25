@@ -1,5 +1,8 @@
 module NumberTheory
 
+using Brainstorm
+using Base.Test
+
 include("Fibonacci-test.jl")
 include("Primes-test.jl")
 

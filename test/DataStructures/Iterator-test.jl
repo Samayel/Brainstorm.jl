@@ -1,6 +1,3 @@
-using Brainstorm
-using Base.Test
-
 function test_iterator_takewhile()
   @test collect(takewhile(1:10, x -> x^2 < 25)) == [1, 2, 3, 4]
 end
