@@ -1,17 +1,20 @@
 using DataStructures.SortedDict
 
+useprimesieve = false
 try
   eval(Expr(:import,:PrimeSieve))
+  useprimesieve = true
 catch err
   @show err
 end
 
-if isdefined(:PrimeSieve)
+if useprimesieve
   println("Using PrimeSieve package for mfactor(), nprimes() and nthprime()")
   println("")
   mfactor{T<:Integer}(n::T) = PrimeSieve.mfactor(n)
   nprimes{T<:Integer}(n::T) = PrimeSieve.nprimes(n, 1)
   nthprime{T<:Integer}(n::T) = PrimeSieve.nthprime(n)
+  fastprimes() = true
 else
   println("Using native functions for mfactor(), nprimes() and nthprime()")
   println("")
@@ -19,6 +22,7 @@ else
   nprimes{T<:Integer}(n::T) =
     primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
   nthprime{T<:Integer}(n::T) = nprimes(n)[n]
+  fastprimes() = false
 end
 
 divisorsigma0{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
