@@ -2,6 +2,7 @@ module NumberTheory
 
 using Brainstorm
 using Base.Test
+using Compat
 
 include("Fibonacci-test.jl")
 include("Primes-test.jl")

@@ -21,7 +21,8 @@ else
   nthprime{T<:Integer}(n::T) = nprimes(n)[n]
 end
 
-divisorsigma{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
+divisorsigma0{T<:Integer}(n::T) = [e+1 for e in values(mfactor(n))] |> prod
+
 factorsort{T<:Integer}(n::T) = n |> mfactor |> SortedDict
 invfactor{T<:Integer}(e::Array{T,1}) =
   [big(nthprime(i))^e[i] for i = 1:length(e)] |> prod
