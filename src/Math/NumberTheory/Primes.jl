@@ -31,9 +31,9 @@ divisorsigma{T<:Integer}(n::T, k = 1) = begin
   ((k < 0) || (n <= 0)) && throw(DomainError())
   (n == 1) && return 1
 
-  f = ifelse(k == 0,
-    x -> x[2] + 1,
-    x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1))
+  f = (k == 0) ?
+    x -> x[2] + 1 :
+    x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1)
 
   n |> mfactor |> p -> imap(f, p) |> prod
 end
