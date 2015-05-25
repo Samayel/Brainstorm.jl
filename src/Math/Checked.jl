@@ -1,11 +1,12 @@
-function checkedadd{T<:Number}(x1::T, x2::T)
-  sum = x1 + x2
+checkedadd(a::Number, b::Number) = checkedadd(promote(a, b)...)
+checkedadd{T<:Number}(a::T, b::T) = begin
+  sum = a + b
 
-  isnegative = signbit(x1)
-  (isnegative $ signbit(x2)) && return sum
+  isnegative = signbit(a)
+  (isnegative $ signbit(b)) && return sum
 
-  (isnegative && (sum > min(x1, x2))) && throw(OverflowError())
-  (!isnegative && (sum < max(x1, x2))) && throw(OverflowError())
+  (isnegative && (sum > min(a, b))) && throw(OverflowError())
+  (!isnegative && (sum < max(a, b))) && throw(OverflowError())
 
   sum
 end
