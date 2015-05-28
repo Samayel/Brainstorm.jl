@@ -1,2 +1,2 @@
 
-export takewhile, takeuntil
+export takewhile

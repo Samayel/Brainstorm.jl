@@ -14,30 +14,27 @@ immutable TakeWhile{I}
   cond::Function
 end
 
-immutable TakeUntil{I}
-  xs::I
-  cond::Function
+takewhile(xs, cond) = TakeWhile(xs, cond)
+
+Base.start(it::TakeWhile) = begin
+  current_state = start(it.xs)
+  done(it.xs, current_state) && return true, nothing, nothing
+
+  current_value, next_state = next(it.xs, current_state)
+  false, current_value, next_state
 end
 
-takewhile(xs, cond) = TakeWhile(xs, cond)
-takeuntil(xs, cond) = TakeUntil(xs, cond)
+Base.next(it::TakeWhile, state) = begin
+  _, current_value, next_state = state
+  done(it.xs, next_state) && return current_value, (true, nothing, nothing)
 
-Base.start(it::TakeWhile) = start(it.xs)
-Base.start(it::TakeUntil) = start(it.xs), false
-
-Base.next(it::TakeWhile, state) = next(it.xs, state)
-Base.next(it::TakeUntil, state) = begin
-  i, s = next(it.xs, state[1])
-  i, (s, it.cond(i))
+  next_value, nextnext_state = next(it.xs, next_state)
+  current_value, (false, next_value, nextnext_state)
 end
 
 Base.done(it::TakeWhile, state) = begin
-  i, _ = next(it, state)
-  !it.cond(i) || done(it.xs, state)
-end
-Base.done(it::TakeUntil, state) = begin
-  s, iscond = state
-  iscond || done(it.xs, s)
+  current_done, current_value, _ = state
+  current_done || !it.cond(current_value)
 end
 
 #
