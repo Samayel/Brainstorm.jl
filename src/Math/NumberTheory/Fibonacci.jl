@@ -41,13 +41,15 @@ exactfibonacci(n::Int, x1::Integer, x2::Integer) =
 exactfibonacci{S<:Integer}(n::Int, x1::S, x2::S) =
   FibonacciCountIterator{Int,S}(n, x1, x2)
 
-Base.start{T<:FibonacciAbstractIterator}(it::T) = (it.x2 - it.x1, it.x1)
-Base.start(it::FibonacciCountIterator) = (it.x2 - it.x1, it.x1, one(it.n))
+Base.start{T<:FibonacciAbstractIterator}(it::T) =
+  (Base.checked_sub(it.x2, it.x1), it.x1)
+Base.start(it::FibonacciCountIterator) =
+  (Base.checked_sub(it.x2, it.x1), it.x1, one(it.n))
 
 Base.next{T<:FibonacciAbstractIterator}(it::T, state) =
-  (state[2], (state[2], checkedadd(state[1], state[2])))
+  (state[2], (state[2], Base.checked_add(state[1], state[2])))
 Base.next(it::FibonacciCountIterator, state) =
-  (state[2], (state[2], checkedadd(state[1], state[2]), state[3] + one(it.n)))
+  (state[2], (state[2], Base.checked_add(state[1], state[2]), state[3] + one(it.n)))
 
 Base.done(it::FibonacciInfiniteIterator, state) = false
 Base.done(it::FibonacciRangeIterator, state) = state[2] > it.xmax
