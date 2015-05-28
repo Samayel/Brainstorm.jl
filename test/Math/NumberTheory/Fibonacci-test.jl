@@ -3,7 +3,8 @@ function test_fibonacci_nthfibonacci()
   @test nthfibonacci(2) == 1
   @test nthfibonacci(10) == 55
 
-  @test nthfibonacci(92, Int64) == 7540113804746346429
+  @test nthfibonacci(91, Int64) == 4660046610375530309
+  # @test nthfibonacci(92, Int64) => v0.3 ok; v0.4 overflow
   @test_throws OverflowError nthfibonacci(93, Int64)
 
   @test nthfibonacci(184, Int128) == 127127879743834334146972278486287885163
