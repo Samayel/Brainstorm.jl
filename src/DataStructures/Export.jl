@@ -1,2 +1,2 @@
 
-export takewhile
+export takewhile, dropwhile
