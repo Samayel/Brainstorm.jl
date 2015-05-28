@@ -19,8 +19,8 @@ function test_fibonacci_nfibonacci()
 end
 
 function test_fibonacci_somefibonacci()
-  @test collect(somefibonacci(50)) == [1, 1, 2, 3, 5, 8, 13, 21, 34]
-  @test collect(somefibonacci(50, 13, -5)) == [13, -5, 8, 3, 11, 14, 25, 39]
+  @test collect(somefibonacci(34)) == [1, 1, 2, 3, 5, 8, 13, 21, 34]
+  @test collect(somefibonacci(39, 13, -5)) == [13, -5, 8, 3, 11, 14, 25, 39]
 end
 
 function test_fibonacci_exactfibonacci()
