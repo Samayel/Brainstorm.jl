@@ -12,18 +12,11 @@ end
 if useprimesieve
   println("Using PrimeSieve package for mfactor(), nprimes() and nthprime()")
   println("")
-  mfactor{T<:Integer}(n::T) = PrimeSieve.mfactor(n)
-  nprimes{T<:Integer}(n::T) = PrimeSieve.nprimes(n, 1)
-  nthprime{T<:Integer}(n::T) = PrimeSieve.nthprime(n)
-  fastprimes() = true
+  include("Primes-fast.jl")
 else
   println("Using native functions for mfactor(), nprimes() and nthprime()")
   println("")
-  mfactor{T<:Integer}(n::T) = factor(n)
-  nprimes{T<:Integer}(n::T) =
-    primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
-  nthprime{T<:Integer}(n::T) = nprimes(n)[n]
-  fastprimes() = false
+  include("Primes-native.jl")
 end
 
 # https://oeis.org/wiki/Divisor_function
