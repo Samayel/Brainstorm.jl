@@ -2,9 +2,11 @@ using Brainstorm.DataStructures
 
 mfactor(n::Integer) = n |> Base.factor
 
+genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)
 genprimes{T<:Integer}(a::T, b::T) = find((i, x) -> x && (i >= a), Base.primesmask(b))
 genprimes(b::Integer) = Base.primes(b)
 
+countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
 countprimes{T<:Integer}(a::T, b::T) = count((i, x) -> x && (i >= a), Base.primesmask(b))
 primepi(n::Integer) = countprimes(2, n)
 
@@ -31,6 +33,8 @@ prevprime(n::Integer) = begin
 end
 
 allprimes(n::Integer = 2) = n |> PrimeIterator
+
+someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
 someprimes{T<:Integer}(n1::T, n2::T) = n1 |> allprimes |> s -> takewhile(s, x -> x <= n2)
 someprimes(n2::Integer) = someprimes(2, n2)
 
