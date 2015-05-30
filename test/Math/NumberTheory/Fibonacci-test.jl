@@ -29,7 +29,7 @@ function test_fibonacci_exactfibonacci()
 end
 
 function test_fibonacci_all()
-  print("Math.NumberTheory.Fibonacci...")
+  print("Math.NumberTheory.Fibonacci... ")
 
   test_fibonacci_nthfibonacci()
   test_fibonacci_nfibonacci()

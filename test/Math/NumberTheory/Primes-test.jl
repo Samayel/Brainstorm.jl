@@ -55,7 +55,9 @@ function test_primes_least_number_with_d_divisors()
 end
 
 function test_primes_all()
-  print("Math.NumberTheory.Primes...")
+  print("Math.NumberTheory.Primes")
+  print(fastprimes() ? "[fast]" : "[native]")
+  print("... ")
 
   test_primes_mfactor()
   test_primes_nprimes()

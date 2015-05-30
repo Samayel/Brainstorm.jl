@@ -3,7 +3,7 @@ using Iterators.imap
 
 useprimesieve = false
 try
-  eval(Expr(:import,:PrimeSieve))
+  eval(Expr(:importall,:PrimeSieve))
   useprimesieve = true
 catch err
   @show err
@@ -12,7 +12,7 @@ end
 if useprimesieve
   println("Using PrimeSieve package for mfactor(), nprimes() and nthprime()")
   println("")
-  include("Primes-fast.jl")
+  fastprimes() = true
 else
   println("Using native functions for mfactor(), nprimes() and nthprime()")
   println("")
