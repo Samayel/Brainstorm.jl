@@ -8,6 +8,11 @@ genprimes(b::Integer) = genprimes(1, b)
 countprimes{T<:Integer}(a::T, b::T) = count((i, x) -> x && (i > a), Base.primesmask(b))
 primepi(n::Integer) = countprimes(1, n)
 
+nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
+nprimes(n::Integer, start::Integer) = start |> allprimes |> s -> take(s, n) |> collect
+nthprime(n::Integer) = nprimes(n)[n]
+
+
 nextprime(n::Integer) = begin
   p = n + one(n)
   while !isprime(p)
@@ -24,11 +29,6 @@ prevprime(n::Integer) = begin
   end
   p
 end
-
-nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
-nprimes(n::Integer, start::Integer) = start |> allprimes |> s -> take(s, n) |> collect
-nthprime(n::Integer) = nprimes(n)[n]
-
 
 allprimes(n::Integer = 2) = n |> PrimeIterator
 someprimes{T<:Integer}(n1::T, n2::T) = n1 |> allprimes |> s -> takewhile(s, x -> x <= n2)
