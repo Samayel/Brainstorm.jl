@@ -10,14 +10,12 @@ function test_primes_genprimes()
   @test genprimes(10) == [2, 3, 5, 7]
   @test genprimes(11) == [2, 3, 5, 7, 11]
   @test genprimes(10, 20) == [11, 13, 17, 19]
-  @test genprimes(11, 19) == [13, 17, 19]
+  @test genprimes(11, 19) == [11, 13, 17, 19]
 end
 
 function test_primes_countprimes()
   @test countprimes(10, 20) == 4
-  @test countprimes(11, 20) == 3
-  @test countprimes(10, 19) == 4
-  @test countprimes(11, 19) == 3
+  @test countprimes(11, 19) == 4
 end
 
 function test_primes_primepi()

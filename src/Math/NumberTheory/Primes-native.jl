@@ -2,11 +2,11 @@ using Brainstorm.DataStructures
 
 mfactor(n::Integer) = n |> Base.factor
 
-genprimes{T<:Integer}(a::T, b::T) = find((i, x) -> x && (i > a), Base.primesmask(b))
-genprimes(b::Integer) = genprimes(1, b)
+genprimes{T<:Integer}(a::T, b::T) = find((i, x) -> x && (i >= a), Base.primesmask(b))
+genprimes(b::Integer) = Base.primes(b)
 
-countprimes{T<:Integer}(a::T, b::T) = count((i, x) -> x && (i > a), Base.primesmask(b))
-primepi(n::Integer) = countprimes(1, n)
+countprimes{T<:Integer}(a::T, b::T) = count((i, x) -> x && (i >= a), Base.primesmask(b))
+primepi(n::Integer) = countprimes(2, n)
 
 nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
 nprimes(n::Integer, start::Integer) = start |> allprimes |> s -> take(s, n) |> collect

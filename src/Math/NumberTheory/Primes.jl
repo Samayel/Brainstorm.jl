@@ -3,7 +3,7 @@ using Iterators.imap
 
 useprimesieve = false
 try
-  eval(Expr(:importall,:PrimeSieve))
+  eval(Expr(:import,:PrimeSieve))
   useprimesieve = true
 catch err
   @show err
@@ -13,13 +13,11 @@ if useprimesieve
   println("Using PrimeSieve package for prime-related functions")
   println("")
   fastprimes() = true
-
-  nprimes(n::Integer) = PrimeSieve.nprimes(n, 1)
+  include("Primes-fast.jl")
 else
   println("Using native implementation for prime-related functions")
   println("")
   fastprimes() = false
-
   include("Primes-native.jl")
 end
 
