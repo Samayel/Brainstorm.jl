@@ -1,7 +1,11 @@
 
-export mfactor
-export nprimes, nthprime
 export fastprimes
+
+export mfactor
+export genprimes, countprimes, primepi
+export nextprime, prevprime
+export nprimes, nthprime
+export allprimes, someprimes
 
 export divisorsigma
 export factorsort, invfactor

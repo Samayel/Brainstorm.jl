@@ -10,12 +10,16 @@ catch err
 end
 
 if useprimesieve
-  println("Using PrimeSieve package for mfactor(), nprimes() and nthprime()")
+  println("Using PrimeSieve package for prime-related functions")
   println("")
   fastprimes() = true
+
+  nprimes(n::Integer) = PrimeSieve.nprimes(n, 1)
 else
-  println("Using native functions for mfactor(), nprimes() and nthprime()")
+  println("Using native implementation for prime-related functions")
   println("")
+  fastprimes() = false
+
   include("Primes-native.jl")
 end
 
