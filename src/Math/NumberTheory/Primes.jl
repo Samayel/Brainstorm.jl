@@ -35,18 +35,16 @@ divisorsigma{T<:Integer}(n::T, k = 1) = begin
     x -> x[2] + 1 :
     x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1)
 
-  n |> mfactor |> p -> imap(f, p) |> prod
+  @pipe mfactor(n) |> imap(f, _) |> prod
 end
 
-factorsort{T<:Integer}(n::T) = n |> mfactor |> SortedDict
-invfactor{T<:Integer}(x::Array{T,1}) =
-  [big(nthprime(i))^e for (i, e) = enumerate(x)] |> prod
+factorsort{T<:Integer}(n::T) = mfactor(n) |> SortedDict
+invfactor{T<:Integer}(x::Array{T,1}) = [big(nthprime(i))^e for (i, e) = enumerate(x)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors{T<:Integer}(d::T) =
-  d |>
-  least_number_with_d_divisors_exponents |>
-  e -> imap(invfactor, e) |>
+  @pipe least_number_with_d_divisors_exponents(d) |>
+  imap(invfactor, _) |>
   minimum
 
 function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)

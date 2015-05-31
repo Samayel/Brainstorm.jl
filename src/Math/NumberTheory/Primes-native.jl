@@ -5,18 +5,18 @@ export
   nprimes, nthprime,
   allprimes, someprimes
 
-mfactor(n::Integer) = n |> Base.factor
+mfactor(n::Integer) = Base.factor(n)
 
 genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)
-genprimes{T<:Integer}(a::T, b::T) = find((i, x) -> x && (i >= a), Base.primesmask(b))
+genprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> find((i, x) -> x && (i >= a), _)
 genprimes(b::Integer) = Base.primes(b)
 
 countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
-countprimes{T<:Integer}(a::T, b::T) = count((i, x) -> x && (i >= a), Base.primesmask(b))
+countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count((i, x) -> x && (i >= a), _)
 primepi(n::Integer) = countprimes(2, n)
 
 nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
-nprimes(n::Integer, start::Integer) = start |> allprimes |> s -> take(s, n) |> collect
+nprimes(n::Integer, start::Integer) = @pipe allprimes(start) |> take(_, n) |> collect
 nthprime(n::Integer) = nprimes(n)[n]
 
 
@@ -37,10 +37,10 @@ prevprime(n::Integer) = begin
   p
 end
 
-allprimes(n::Integer = 2) = n |> PrimeIterator
+allprimes(n::Integer = 2) = PrimeIterator(n)
 
 someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
-someprimes{T<:Integer}(n1::T, n2::T) = n1 |> allprimes |> s -> takewhile(s, x -> x <= n2)
+someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(_, x -> x <= n2)
 someprimes(n2::Integer) = someprimes(2, n2)
 
 type PrimeIterator
