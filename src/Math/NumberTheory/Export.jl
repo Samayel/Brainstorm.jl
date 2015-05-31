@@ -1,22 +1,24 @@
 # *** Combinatorics.jl ***
 
-export  bell,
-        catalan,
-        derangement,
-        doublefactorial,
-        fibonacci,
-        hyperfactorial,
-        jacobisymbol,
-        lassalle,
-        legendresymbol,
-        lucas,
-        multifactorial,
-        multinomial,
-        primorial,
-        stirlings1,
-        subfactorial
+if VERSION < v"0.4-"
+  export bell,
+  export catalan,
+  export derangement,
+  export doublefactorial,
+  export fibonacci,
+  export hyperfactorial,
+  export jacobisymbol,
+  export lassalle,
+  export legendresymbol,
+  export lucas,
+  export multifactorial,
+  export multinomial,
+  export primorial,
+  export stirlings1,
+  export subfactorial
 
-export cool_lex, integer_partitions, ncpartitions
+  export cool_lex, integer_partitions, ncpartitions
+end
 
 # *** Primes.jl ***
 

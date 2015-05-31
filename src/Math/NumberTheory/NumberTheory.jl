@@ -2,7 +2,9 @@ module NumberTheory
 
 using Brainstorm.Math
 
-include("Combinatorics.jl")
+if VERSION < v"0.4-"
+  include("Combinatorics.jl")
+end
 
 include("Primes.jl")
 include("Fibonacci.jl")
