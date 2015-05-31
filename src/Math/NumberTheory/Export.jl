@@ -1,4 +1,4 @@
-# *** Combinatorics.jl ***
+# ********* Combinatorics.jl *********
 
 if VERSION < v"0.4-"
   export bell
@@ -20,7 +20,7 @@ if VERSION < v"0.4-"
   export cool_lex, integer_partitions, ncpartitions
 end
 
-# *** Primes.jl ***
+# ********* Primes.jl *********
 
 export fastprimes
 
@@ -34,7 +34,7 @@ export divisorsigma
 export factorsort, invfactor
 export least_number_with_d_divisors
 
-# *** Fibonacci.jl ***
+# ********* Fibonacci.jl *********
 
 export nthfibonacci, nfibonacci
 export allfibonacci, somefibonacci, exactfibonacci

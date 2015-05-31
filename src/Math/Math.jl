@@ -10,6 +10,8 @@ checked_sub{T<:Number}(a::T, b::T) = Base.checked_sub(a, b)
 checked_sub(a::BigInt, b::BigInt) = a - b
 checked_sub(a::BigFloat, b::BigFloat) = a - b
 
+include("Intervals.jl")
+
 include("NumberTheory/NumberTheory.jl")
 
 include("Export.jl")
