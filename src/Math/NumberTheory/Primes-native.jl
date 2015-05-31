@@ -1,5 +1,3 @@
-using Brainstorm.DataStructures
-
 mfactor(n::Integer) = n |> Base.factor
 
 genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)

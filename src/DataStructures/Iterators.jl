@@ -1,4 +1,5 @@
-using Iterators
+export
+  takewhile, dropwhile
 
 #
 # BEGIN

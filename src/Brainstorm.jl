@@ -1,9 +1,9 @@
 module Brainstorm
 
+using Reexport.@reexport
+
 include("DataStructures/DataStructures.jl")
 include("Math/Math.jl")
-
-include("Export.jl")
 
 include("../test/Brainstorm-test.jl")
 

@@ -1,5 +1,15 @@
-using DataStructures.SortedDict
-using Iterators.imap
+export
+  fastprimes,
+  mfactor,
+  genprimes, countprimes, primepi,
+  nextprime, prevprime,
+  nprimes, nthprime,
+  allprimes, someprimes
+
+export
+  divisorsigma,
+  factorsort, invfactor,
+  least_number_with_d_divisors
 
 useprimesieve = false
 try

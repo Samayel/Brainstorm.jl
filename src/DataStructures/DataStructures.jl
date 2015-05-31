@@ -1,7 +1,5 @@
-module DataStructures
+@reexport module DataStructures
 
-include("Iterator.jl")
-
-include("Export.jl")
+include("Iterators.jl")
 
 end

@@ -1,13 +1,13 @@
 module DataStructures
 
-using Brainstorm
+using Brainstorm.DataStructures
 using Base.Test
 
-include("Iterator-test.jl")
+include("Iterators-test.jl")
 
 function test_all()
-  test_iterator_all()
   println("")
+  test_iterators_all()
 end
 
 end

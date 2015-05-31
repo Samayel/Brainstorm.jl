@@ -1,4 +1,9 @@
-module Math
+@reexport module Math
+
+using Reexport.@reexport
+
+export
+  checked_add, checked_sub
 
 checked_add(a::Number, b::Number) = checked_add(promote(a, b)...)
 checked_add{T<:Number}(a::T, b::T) = Base.checked_add(a, b)
@@ -11,9 +16,6 @@ checked_sub(a::BigInt, b::BigInt) = a - b
 checked_sub(a::BigFloat, b::BigFloat) = a - b
 
 include("Intervals.jl")
-
 include("NumberTheory/NumberTheory.jl")
-
-include("Export.jl")
 
 end

@@ -1,5 +1,6 @@
-using Brainstorm.DataStructures
-using Iterators: take, drop
+export
+  nthfibonacci, nfibonacci,
+  allfibonacci, somefibonacci, exactfibonacci
 
 immutable FibonacciIterator{T<:Integer}
   x1::T

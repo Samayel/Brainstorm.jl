@@ -1,16 +1,14 @@
 module Math
 
-using Brainstorm
+using Brainstorm.Math
 using Base.Test
 
 include("Intervals-test.jl")
-
 include("NumberTheory/NumberTheory-test.jl")
-using Brainstorm.Test.Math.NumberTheory
 
 function test_all()
+  println("")
   test_intervals_all()
-
   NumberTheory.test_all()
 end
 
