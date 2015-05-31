@@ -1,20 +1,20 @@
 # *** Combinatorics.jl ***
 
 if VERSION < v"0.4-"
-  export bell,
-  export catalan,
-  export derangement,
-  export doublefactorial,
-  export fibonacci,
-  export hyperfactorial,
-  export jacobisymbol,
-  export lassalle,
-  export legendresymbol,
-  export lucas,
-  export multifactorial,
-  export multinomial,
-  export primorial,
-  export stirlings1,
+  export bell
+  export catalan
+  export derangement
+  export doublefactorial
+  export fibonacci
+  export hyperfactorial
+  export jacobisymbol
+  export lassalle
+  export legendresymbol
+  export lucas
+  export multifactorial
+  export multinomial
+  export primorial
+  export stirlings1
   export subfactorial
 
   export cool_lex, integer_partitions, ncpartitions
