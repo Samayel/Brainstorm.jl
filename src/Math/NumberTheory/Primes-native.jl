@@ -1,3 +1,10 @@
+export
+  mfactor,
+  genprimes, countprimes, primepi,
+  nextprime, prevprime,
+  nprimes, nthprime,
+  allprimes, someprimes
+
 mfactor(n::Integer) = n |> Base.factor
 
 genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)

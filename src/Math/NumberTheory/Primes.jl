@@ -1,10 +1,5 @@
 export
-  fastprimes,
-  mfactor,
-  genprimes, countprimes, primepi,
-  nextprime, prevprime,
-  nprimes, nthprime,
-  allprimes, someprimes
+  fastprimes
 
 export
   divisorsigma,
@@ -23,7 +18,7 @@ if useprimesieve
   println("Using PrimeSieve package for prime-related functions")
   println("")
   fastprimes() = true
-  include("Primes-fast.jl")
+  @reexport using PrimeSieve
 else
   println("Using native implementation for prime-related functions")
   println("")

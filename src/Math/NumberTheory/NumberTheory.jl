@@ -4,9 +4,10 @@ using Brainstorm.DataStructures: takewhile
 using Brainstorm.Math: checked_add, checked_sub
 using DataStructures: SortedDict
 using Iterators: drop, imap, take
+using Reexport.@reexport
 
 if VERSION < v"0.4-"
-  include("Combinatorics.jl")
+  @reexport using Combinatorics
 end
 
 include("Primes.jl")
