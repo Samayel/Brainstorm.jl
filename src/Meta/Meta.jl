@@ -2,6 +2,7 @@
 
 using Reexport.@reexport
 
+@reexport using Match
 @reexport using Memoize
 @reexport using Pipe
 
