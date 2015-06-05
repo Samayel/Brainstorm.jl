@@ -42,7 +42,7 @@ Base.start(it::DropWhile) = begin
   true, nothing, nothing
 end
 
-Base.next{T<:WhileIterator}(it::T, state) = begin
+Base.next(it::WhileIterator, state) = begin
   _, current_value, next_state = state
   done(it.xs, next_state) && return current_value, (true, nothing, nothing)
 

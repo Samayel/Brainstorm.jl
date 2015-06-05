@@ -27,7 +27,7 @@ else
 end
 
 # https://oeis.org/wiki/Divisor_function
-divisorsigma{T<:Integer}(n::T, k = 1) = begin
+divisorsigma(n::Integer, k = 1) = begin
   ((k < 0) || (n <= 0)) && throw(DomainError())
   (n == 1) && return 1
 
@@ -38,11 +38,11 @@ divisorsigma{T<:Integer}(n::T, k = 1) = begin
   @pipe mfactor(n) |> imap(f, _) |> prod
 end
 
-factorsort{T<:Integer}(n::T) = mfactor(n) |> SortedDict
+factorsort(n::Integer) = mfactor(n) |> SortedDict
 invfactor{T<:Integer}(x::Array{T,1}) = [big(nthprime(i))^e for (i, e) = enumerate(x)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
-least_number_with_d_divisors{T<:Integer}(d::T) =
+least_number_with_d_divisors(d::Integer) =
   @pipe least_number_with_d_divisors_exponents(d) |>
   imap(invfactor, _) |>
   minimum

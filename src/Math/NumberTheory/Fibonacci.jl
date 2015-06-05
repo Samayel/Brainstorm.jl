@@ -7,13 +7,13 @@ immutable FibonacciIterator{T<:Integer}
   x2::T
 end
 
-nthfibonacci{T<:Integer}(n::T, S::Type = Int) = @pipe allfibonacci(S) |> drop(_, n - one(T)) |> first
-nfibonacci{T<:Integer}(n::T, S::Type = Int) = collect(exactfibonacci(n, S))
+nthfibonacci(n::Integer, S::Type = Int) = @pipe allfibonacci(S) |> drop(_, n - one(n)) |> first
+nfibonacci(n::Integer, S::Type = Int) = collect(exactfibonacci(n, S))
 
 allfibonacci(T::Type = Int) = allfibonacci(one(T), one(T))
 allfibonacci(x1::Integer, x2::Integer) = FibonacciIterator(promote(x1, x2)...)
 
-somefibonacci{T<:Integer}(xmax::T) = somefibonacci(xmax, one(T), one(T))
+somefibonacci(xmax::Integer) = somefibonacci(xmax, one(xmax), one(xmax))
 somefibonacci(xmax::Integer, x1::Integer, x2::Integer) = somefibonacci(promote(xmax, x1, x2)...)
 somefibonacci{T<:Integer}(xmax::T, x1::T, x2::T) = @pipe allfibonacci(x1, x2) |> takewhile(_, x -> x <= xmax)
 
