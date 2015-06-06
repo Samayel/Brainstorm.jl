@@ -7,9 +7,7 @@ using Iterators: drop, imap, take
 using Pipe.@pipe
 using Reexport.@reexport
 
-if VERSION < v"0.4-"
-  @reexport using Combinatorics
-end
+VERSION < v"0.4-" && @reexport using Combinatorics
 
 include("Primes.jl")
 include("Fibonacci.jl")

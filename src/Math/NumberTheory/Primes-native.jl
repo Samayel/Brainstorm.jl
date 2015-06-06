@@ -28,7 +28,7 @@ nextprime(n::Integer) = begin
   p
 end
 prevprime(n::Integer) = begin
-  (n <= 2) && throw(DomainError())
+  n <= 2 && throw(DomainError())
 
   p = n - one(n)
   while !isprime(p)

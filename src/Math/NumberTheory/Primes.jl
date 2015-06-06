@@ -29,9 +29,9 @@ end
 # https://oeis.org/wiki/Divisor_function
 divisorsigma(n::Integer, k = 1) = begin
   ((k < 0) || (n <= 0)) && throw(DomainError())
-  (n == 1) && return 1
+  n == 1 && return 1
 
-  f = (k == 0) ?
+  f = k == 0 ?
     x -> x[2] + 1 :
     x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1)
 
@@ -48,7 +48,7 @@ least_number_with_d_divisors(d::Integer) =
   minimum
 
 function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)
-  (d <= 1) && return Any[Integer[]]
+  d <= 1 && return Any[Integer[]]
 
   f = factorsort(d)
   pmax = last(f)[1]
@@ -63,10 +63,10 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
     !(b in keys(f)) && continue
 
     for a = b:m
-      (a*b <= pmax) && continue
-      (d % (a*b) != 0) && continue
-      (first(factorsort(a))[1] < b) && continue
-      ((i > 1) && (a*b > prevn)) && continue
+      a*b <= pmax && continue
+      d % (a*b) != 0 && continue
+      first(factorsort(a))[1] < b && continue
+      i > 1 && a*b > prevn && continue
 
       push!(c, a*b)
     end
@@ -80,5 +80,5 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
     end
   end
 
-  return (i == 1) ? [reverse(x) for x in ans] : ans
+  return i == 1 ? [reverse(x) for x in ans] : ans
 end
