@@ -8,6 +8,7 @@ Lazy
 LightGraphs
 Match
 Memoize
+MinimalPerfectHashes
 NamedTuples
 Pipe
 ProgressMeter
