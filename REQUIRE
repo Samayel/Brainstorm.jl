@@ -1,3 +1,4 @@
+julia 0.3
 Combinatorics
 DataStructures
 Graphs
@@ -11,6 +12,7 @@ NamedTuples
 Pipe
 ProgressMeter
 Reexport
+SortingAlgorithms
 SparseVectors
 ValidatedNumerics
 ValueDispatch
