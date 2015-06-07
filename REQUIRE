@@ -4,6 +4,7 @@ Iterators
 Match
 Memoize
 Pipe
+ProgressMeter
 Reexport
 ValidatedNumerics
 ValueDispatch
