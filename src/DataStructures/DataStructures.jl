@@ -3,7 +3,8 @@
 using Reexport.@reexport
 
 @reexport using DataStructures
-#@reexport using Graphs             # conflicts with LightGraphs
+@reexport using FunctionalCollections
+#@reexport using Graphs                         # conflicts with LightGraphs
 @reexport using Iterators
 VERSION < v"0.4-" && @reexport using Lazy
 @reexport using LightGraphs

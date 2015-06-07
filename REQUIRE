@@ -1,6 +1,7 @@
 julia 0.3
 Combinatorics
 DataStructures
+FunctionalCollections
 Graphs
 IterationManagers
 Iterators
