@@ -2,6 +2,7 @@
 
 using Reexport.@reexport
 
+@reexport using DataStructures
 #@reexport using Graphs      # conflicts with LightGraphs
 @reexport using Iterators
 @reexport using Lazy
