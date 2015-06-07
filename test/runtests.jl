@@ -1,3 +1,26 @@
 using Brainstorm
 
 Brainstorm.Test.test_all()
+
+println("")
+
+Pkg.test("Combinatorics")
+Pkg.test("DataStructures")
+Pkg.test("FastAnonymous")
+Pkg.test("FunctionalCollections")
+Pkg.test("Graphs")
+Pkg.test("IterationManagers")
+Pkg.test("Iterators")
+# Pkg.test("Lazy")
+Pkg.test("LightGraphs")
+Pkg.test("Match")
+# Pkg.test("Memoize")
+# Pkg.test("MinimalPerfectHashes")
+Pkg.test("NamedTuples")
+Pkg.test("Pipe")
+Pkg.test("ProgressMeter")
+Pkg.test("Reexport")
+Pkg.test("SortingAlgorithms")
+Pkg.test("SparseVectors")
+Pkg.test("ValidatedNumerics")
+# Pkg.test("ValueDispatch")
