@@ -5,7 +5,7 @@ using Reexport.@reexport
 @reexport using DataStructures
 #@reexport using Graphs             # conflicts with LightGraphs
 @reexport using Iterators
-@reexport using Lazy
+VERSION < v"0.4-" && @reexport using Lazy
 @reexport using LightGraphs
 @reexport using NamedTuples
 @reexport using SparseVectors
