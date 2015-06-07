@@ -10,5 +10,6 @@ NamedTuples
 Pipe
 ProgressMeter
 Reexport
+SparseVectors
 ValidatedNumerics
 ValueDispatch
