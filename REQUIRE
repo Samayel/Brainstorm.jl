@@ -3,6 +3,7 @@ DataStructures
 Iterators
 Match
 Memoize
+NamedTuples
 Pipe
 ProgressMeter
 Reexport
