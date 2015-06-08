@@ -5,6 +5,7 @@ Brainstorm.Test.test_all()
 println("")
 
 VERSION < v"0.4-" && Pkg.test("Combinatorics")
+Pkg.test("ContinuedFractions")
 Pkg.test("DataStructures")
 Pkg.test("FastAnonymous")
 Pkg.test("FunctionalCollections")
