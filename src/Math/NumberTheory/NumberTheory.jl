@@ -9,6 +9,7 @@ using Reexport.@reexport
 
 VERSION < v"0.4-" && @reexport using Combinatorics
 @reexport using ContinuedFractions
+@reexport using Digits
 
 include("Primes.jl")
 include("Fibonacci.jl")
