@@ -8,6 +8,7 @@ FastAnonymous
 FixedPointNumbers
 FunctionalCollections
 Graphs
+IntModN
 IterationManagers
 Iterators
 Lazy

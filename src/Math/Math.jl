@@ -17,6 +17,7 @@ checked_sub(a::BigFloat, b::BigFloat) = a - b
 
 @reexport using DualNumbers
 @reexport using FixedPointNumbers
+@reexport using IntModN
 @reexport using ValidatedNumerics
 
 include("NumberTheory/NumberTheory.jl")
