@@ -5,6 +5,7 @@ using Reexport.@reexport
 @reexport using DualNumbers
 @reexport using FixedPointNumbers
 @reexport using IntModN
+@reexport using MATLAB
 @reexport using ValidatedNumerics
 
 export
