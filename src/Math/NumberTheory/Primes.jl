@@ -19,6 +19,7 @@ if useprimesieve
   println("")
   fastprimes() = true
   @reexport using PrimeSieve
+  include("Primes-fast.jl")
 else
   println("Using native implementation for prime-related functions")
   println("")

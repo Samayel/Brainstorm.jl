@@ -56,6 +56,11 @@ Base.done(it::TakeWhile, state) = begin
 end
 Base.done(it::DropWhile, state) = state[1]
 
+Base.eltype(it::TakeWhile) = Base.eltype(typeof(it))
+Base.eltype(it::DropWhile) = Base.eltype(typeof(it))
+Base.eltype{I}(::Type{TakeWhile{I}}) = Base.eltype(I)
+Base.eltype{I}(::Type{DropWhile{I}}) = Base.eltype(I)
+
 #
 # END
 # http://slendermeans.org/julia-iterators.html

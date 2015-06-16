@@ -9,6 +9,8 @@ function test_primes_genprimes()
   @test genprimes(11) == [2, 3, 5, 7, 11]
   @test genprimes(10, 20) == [11, 13, 17, 19]
   @test genprimes(11, 19) == [11, 13, 17, 19]
+  @test eltype(genprimes(10)) == typeof(2)
+  @test eltype(genprimes(10, 20)) == typeof(11)
 end
 
 function test_primes_countprimes()
@@ -45,6 +47,8 @@ end
 function test_primes_nprimes()
   @test nprimes(10) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
   @test nprimes(10, 100) == [101, 103, 107, 109, 113, 127, 131, 137, 139, 149]
+  @test eltype(nprimes(10)) == typeof(2)
+  @test eltype(nprimes(10, 100)) == typeof(101)
 end
 
 function test_primes_nthprime()
@@ -56,6 +60,8 @@ function test_primes_someprimes()
   @test collect(someprimes(11)) == [2, 3, 5, 7, 11]
   @test collect(someprimes(10, 20)) == [11, 13, 17, 19]
   @test collect(someprimes(11, 19)) == [11, 13, 17, 19]
+  @test eltype(someprimes(10)) == typeof(2)
+  @test eltype(someprimes(10, 20)) == typeof(11)
 end
 
 function test_primes_divisorsigma()

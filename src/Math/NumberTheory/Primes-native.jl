@@ -43,14 +43,15 @@ someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
 someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(_, x -> x <= n2)
 someprimes(n2::Integer) = someprimes(2, n2)
 
-type PrimeIterator
-  n::Integer
+type PrimeIterator{T<:Integer}
+  n::T
 end
 
 Base.start(it::PrimeIterator) = nextprime(it.n - one(it.n))
 Base.next(it::PrimeIterator, state) = state, nextprime(state)
 Base.done(::PrimeIterator, state) = false
-
+Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
+Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 
 function find(testf::Function, A::AbstractArray)
   # use a dynamic-length array to store the indexes, then copy to a non-padded

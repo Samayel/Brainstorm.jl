@@ -16,16 +16,21 @@ end
 
 function test_fibonacci_nfibonacci()
   @test nfibonacci(10) == [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+  @test eltype(nfibonacci(10)) == typeof(1)
 end
 
 function test_fibonacci_somefibonacci()
   @test collect(somefibonacci(34)) == [1, 1, 2, 3, 5, 8, 13, 21, 34]
   @test collect(somefibonacci(39, 13, -5)) == [13, -5, 8, 3, 11, 14, 25, 39]
+  @test eltype(somefibonacci(34)) == typeof(1)
+  @test eltype(somefibonacci(39, 13, -5)) == typeof(13)
 end
 
 function test_fibonacci_exactfibonacci()
   @test collect(exactfibonacci(5)) == [1, 1, 2, 3, 5]
   @test collect(exactfibonacci(5, 13, -5)) == [13, -5, 8, 3, 11]
+  @test eltype(exactfibonacci(5)) == typeof(1)
+  @test eltype(exactfibonacci(5, 13, -5)) == typeof(13)
 end
 
 function test_fibonacci_all()
