@@ -13,6 +13,7 @@ function test_internal()
 end
 
 function test_external()
+  Pkg.test("AutoHashEquals")
   VERSION < v"0.4-" && Pkg.test("Combinatorics")
   # Pkg.test("ContinuedFractions")
   Pkg.test("DataStructures")

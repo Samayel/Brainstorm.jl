@@ -2,6 +2,7 @@
 
 using Reexport.@reexport
 
+@reexport using AutoHashEquals
 @reexport using DataStructures
 @reexport using FunctionalCollections
 #@reexport using Graphs                         # conflicts with LightGraphs
