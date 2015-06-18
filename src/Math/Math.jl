@@ -2,6 +2,7 @@
 
 using Reexport.@reexport
 
+# @reexport using DecFP
 @reexport using DualNumbers
 @reexport using FixedPointNumbers
 @reexport using IntModN
