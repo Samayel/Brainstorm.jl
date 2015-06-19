@@ -2,6 +2,7 @@ module Brainstorm
 
 using Reexport.@reexport
 
+@reexport using Formatting
 @reexport using Redis
 
 include("Meta/Meta.jl")
