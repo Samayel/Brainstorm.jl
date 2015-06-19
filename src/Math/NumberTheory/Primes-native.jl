@@ -1,9 +1,9 @@
 export
-  mfactor,
-  genprimes, countprimes, primepi,
-  nextprime, prevprime,
-  nprimes, nthprime,
-  allprimes, someprimes
+    mfactor,
+    genprimes, countprimes, primepi,
+    nextprime, prevprime,
+    nprimes, nthprime,
+    allprimes, someprimes
 
 mfactor(n::Integer) = Base.factor(n)
 
@@ -21,20 +21,20 @@ nthprime(n::Integer) = nprimes(n)[n]
 
 
 nextprime(n::Integer) = begin
-  p = n + one(n)
-  while !isprime(p)
-    p += one(n)
-  end
-  p
+    p = n + one(n)
+    while !isprime(p)
+        p += one(n)
+    end
+    p
 end
 prevprime(n::Integer) = begin
-  n <= 2 && throw(DomainError())
+    n <= 2 && throw(DomainError())
 
-  p = n - one(n)
-  while !isprime(p)
-    p -= one(n)
-  end
-  p
+    p = n - one(n)
+    while !isprime(p)
+        p -= one(n)
+    end
+    p
 end
 
 allprimes(n::Integer = 2) = PrimeIterator(n)
@@ -44,7 +44,7 @@ someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(_, x -> 
 someprimes(n2::Integer) = someprimes(2, n2)
 
 type PrimeIterator{T<:Integer}
-  n::T
+    n::T
 end
 
 Base.start(it::PrimeIterator) = nextprime(it.n - one(it.n))
@@ -54,25 +54,25 @@ Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 
 function find(testf::Function, A::AbstractArray)
-  # use a dynamic-length array to store the indexes, then copy to a non-padded
-  # array for the return
-  tmpI = Array(Int, 0)
-  for i = 1:length(A)
-    if testf(i, A[i])
-      push!(tmpI, i)
+    # use a dynamic-length array to store the indexes,
+    # then copy to a non-padded array for the return
+    tmpI = Array(Int, 0)
+    for i = 1:length(A)
+        if testf(i, A[i])
+            push!(tmpI, i)
+        end
     end
-  end
-  I = Array(Int, length(tmpI))
-  copy!(I, tmpI)
-  I
+    I = Array(Int, length(tmpI))
+    copy!(I, tmpI)
+    I
 end
 
 function count(testf::Function, A::AbstractArray)
-  c = 0
-  for i = 1:length(A)
-    if testf(i, A[i])
-      c += 1
+    c = 0
+    for i = 1:length(A)
+        if testf(i, A[i])
+            c += 1
+        end
     end
-  end
-  c
+    c
 end

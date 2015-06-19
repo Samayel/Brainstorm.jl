@@ -9,9 +9,9 @@ using Reexport.@reexport
 @reexport using ValidatedNumerics
 
 export
-  checked_add, checked_sub,
-  @activate_mathematica,
-  @activate_matlab
+    checked_add, checked_sub,
+    @activate_mathematica,
+    @activate_matlab
 
 checked_add(a::Number, b::Number) = checked_add(promote(a, b)...)
 checked_add{T<:Number}(a::T, b::T) = Base.checked_add(a, b)

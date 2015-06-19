@@ -4,11 +4,11 @@ using Brainstorm.Algorithms
 using Base.Test
 
 function test_all()
-  println("")
-  print("Algorithms")
-  print("... ")
+    println("")
+    print("Algorithms")
+    print("... ")
 
-  println("PASS")
+    println("PASS")
 end
 
 end

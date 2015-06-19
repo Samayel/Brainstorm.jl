@@ -1,10 +1,10 @@
 export
-  nthfibonacci, nfibonacci,
-  allfibonacci, somefibonacci, exactfibonacci
+    nthfibonacci, nfibonacci,
+    allfibonacci, somefibonacci, exactfibonacci
 
 immutable FibonacciIterator{T<:Integer}
-  x1::T
-  x2::T
+    x1::T
+    x2::T
 end
 
 nthfibonacci(n::Integer, S::Type = Int) = @pipe allfibonacci(S) |> drop(_, n - one(n)) |> first
