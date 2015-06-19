@@ -2,7 +2,7 @@ module Brainstorm
 
 using Reexport.@reexport
 
-@reexport using Formatting
+VERSION < v"0.4-" && @reexport using Formatting
 @reexport using Redis
 
 include("Meta/Meta.jl")
