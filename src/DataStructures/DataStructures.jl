@@ -5,6 +5,7 @@ using Reexport.@reexport
 @reexport using AutoHashEquals
 @reexport using BloomFilters
 @reexport using DataStructures
+@reexport using DeepConvert
 @reexport using FunctionalCollections
 #@reexport using Graphs                         # conflicts with LightGraphs
 @reexport using ImmutableArrays
