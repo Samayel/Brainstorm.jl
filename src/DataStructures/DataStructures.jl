@@ -12,7 +12,7 @@ using Reexport.@reexport
 @reexport using Iterators
 VERSION < v"0.4-" && @reexport using Lazy
 @reexport using LightGraphs
-@reexport using NamedArrays
+VERSION < v"0.4-" && @reexport using NamedArrays
 @reexport using NamedTuples
 @reexport using ShowSet
 @reexport using SparseVectors

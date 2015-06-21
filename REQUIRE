@@ -17,7 +17,6 @@ IndexedArrays
 IntModN
 IterationManagers
 Iterators
-JellyFish
 Lazy
 LightGraphs
 Lint
@@ -33,7 +32,6 @@ Pipe
 ProgressMeter
 Redis
 Reexport
-# RomanNumerals - conflicts with IntModN
 ShowSet
 SortingAlgorithms
 SparseVectors
