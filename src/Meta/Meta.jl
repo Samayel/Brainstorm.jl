@@ -6,6 +6,7 @@ using Reexport.@reexport
 @reexport using Memoize
 @reexport using Pipe
 @reexport using ProgressMeter
+@reexport using Requires
 
 # fix ambiguous definition
 Base.map(f::Base.Callable, ex::Expr) =
