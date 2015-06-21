@@ -6,6 +6,7 @@ end
 @lintpragma("Ignore undefined module Iterators.imap")
 @lintpragma("Ignore undefined module Iterators.take")
 @lintpragma("Ignore undefined module Lint.lintpkg")
+@lintpragma("Ignore undefined module NamedArrays")
 @lintpragma("Ignore undefined module Pipe.@pipe")
 @lintpragma("Ignore undefined module Reexport.@reexport")
 
