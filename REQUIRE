@@ -16,6 +16,7 @@ IterationManagers
 Iterators
 Lazy
 LightGraphs
+Lint
 Match
 # MathLink
 Mathematica

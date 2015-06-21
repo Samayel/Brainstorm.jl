@@ -23,7 +23,7 @@ exactfibonacci{S<:Integer}(n::Int, x1::S, x2::S) = @pipe allfibonacci(x1, x2) |>
 
 Base.start(it::FibonacciIterator) = (checked_sub(it.x2, it.x1), it.x1)
 Base.next(::FibonacciIterator, state) = (state[2], (state[2], checked_add(state[1], state[2])))
-Base.done(::FibonacciIterator, state) = false
+Base.done(::FibonacciIterator, _) = false
 
 Base.eltype(it::FibonacciIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{FibonacciIterator{T}}) = T

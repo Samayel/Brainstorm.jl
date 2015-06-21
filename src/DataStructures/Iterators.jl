@@ -54,7 +54,7 @@ Base.done(it::TakeWhile, state) = begin
     current_done, current_value, _ = state
     current_done || !it.cond(current_value)
 end
-Base.done(it::DropWhile, state) = state[1]
+Base.done(::DropWhile, state) = state[1]
 
 Base.eltype(it::TakeWhile) = Base.eltype(typeof(it))
 Base.eltype(it::DropWhile) = Base.eltype(typeof(it))

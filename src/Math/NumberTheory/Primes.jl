@@ -40,7 +40,8 @@ divisorsigma(n::Integer, k = 1) = begin
 end
 
 factorsort(n::Integer) = mfactor(n) |> SortedDict
-invfactor{T<:Integer}(x::Array{T,1}) = [big(nthprime(i))^e for (i, e) = enumerate(x)] |> prod
+invfactor{T<:Integer}(x::Array{T,1}) =
+    [big(nthprime(i))^ex for (i, ex) = enumerate(x)] |> prod
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors(d::Integer) =
@@ -56,8 +57,8 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
     k = sum(values(f))
 
     p = nthprime(k+i-1)
-    pi = nthprime(i)
-    m = floor(Integer, log(p) / log(pi))
+    p_i = nthprime(i)
+    m = floor(Integer, log(p) / log(p_i))
 
     c = [pmax]
     for b = 2:m

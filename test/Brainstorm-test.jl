@@ -1,5 +1,8 @@
 module Test
 
+using Base.Test
+using Lint.lintpkg
+
 include("Algorithms/Algorithms-test.jl")
 include("DataStructures/DataStructures-test.jl")
 include("Math/Math-test.jl")
@@ -10,6 +13,8 @@ function test_internal()
     DataStructures.test_all()
     Math.test_all()
     Meta.test_all()
+    println("")
+    @test isempty(lintpkg("Brainstorm", returnMsgs=true))
 end
 
 function test_external()
@@ -30,6 +35,7 @@ function test_external()
     Pkg.test("Iterators")
     # Pkg.test("Lazy")
     Pkg.test("LightGraphs")
+    Pkg.test("Lint")
     Pkg.test("Match")
     Pkg.test("MATLAB")
     # Pkg.test("Memoize")

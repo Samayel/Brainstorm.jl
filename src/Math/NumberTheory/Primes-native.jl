@@ -48,8 +48,8 @@ type PrimeIterator{T<:Integer}
 end
 
 Base.start(it::PrimeIterator) = nextprime(it.n - one(it.n))
-Base.next(it::PrimeIterator, state) = state, nextprime(state)
-Base.done(::PrimeIterator, state) = false
+Base.next(::PrimeIterator, state) = state, nextprime(state)
+Base.done(::PrimeIterator, _) = false
 Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 
@@ -62,9 +62,9 @@ function find(testf::Function, A::AbstractArray)
             push!(tmpI, i)
         end
     end
-    I = Array(Int, length(tmpI))
-    copy!(I, tmpI)
-    I
+    ansI = Array(Int, length(tmpI))
+    copy!(ansI, tmpI)
+    ansI
 end
 
 function count(testf::Function, A::AbstractArray)

@@ -9,7 +9,7 @@ using Reexport.@reexport
 
 # fix ambiguous definition
 Base.map(f::Base.Callable, ex::Expr) =
-    Expr(ex.head, [isa(e, Expr) ? map(f, e) : f(e) for e in ex.args]...)
+    Expr(ex.head, [isa(arg, Expr) ? map(f, arg) : f(arg) for arg in ex.args]...)
 @reexport using ValueDispatch
 
 export

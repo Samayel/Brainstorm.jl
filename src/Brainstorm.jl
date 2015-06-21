@@ -1,5 +1,7 @@
 module Brainstorm
 
+include("Lint.jl")
+
 using Reexport.@reexport
 
 VERSION < v"0.4-" && @reexport using Formatting
