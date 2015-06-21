@@ -1,5 +1,6 @@
 julia 0.3
 AutoHashEquals
+BloomFilters
 Combinatorics
 ContinuedFractions
 DataStructures
@@ -11,9 +12,12 @@ FixedPointNumbers
 Formatting
 FunctionalCollections
 Graphs
+ImmutableArrays
+IndexedArrays
 IntModN
 IterationManagers
 Iterators
+JellyFish
 Lazy
 LightGraphs
 Lint
@@ -23,11 +27,14 @@ Mathematica
 MATLAB
 Memoize
 MinimalPerfectHashes
+NamedArrays
 NamedTuples
 Pipe
 ProgressMeter
 Redis
 Reexport
+# RomanNumerals - conflicts with IntModN
+ShowSet
 SortingAlgorithms
 SparseVectors
 ValidatedNumerics
