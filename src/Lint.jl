@@ -6,7 +6,6 @@ end
 @lintpragma("Ignore undefined module Iterators.imap")
 @lintpragma("Ignore undefined module Iterators.take")
 @lintpragma("Ignore undefined module Lint.lintpkg")
-@lintpragma("Ignore undefined module NamedArrays")
 @lintpragma("Ignore undefined module Pipe.@pipe")
 @lintpragma("Ignore undefined module Reexport.@reexport")
 
@@ -20,6 +19,7 @@ if VERSION >= v"0.4-"
     @lintpragma("Ignore undefined module Combinatorics")
     @lintpragma("Ignore undefined module Formatting")
     @lintpragma("Ignore undefined module Lazy")
+    @lintpragma("Ignore undefined module NamedArrays")
 
     @lintpragma("Ignore use of undeclared variable nothing")
 end
