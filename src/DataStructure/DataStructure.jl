@@ -1,4 +1,4 @@
-@reexport module DataStructures
+@reexport module DataStructure
 
 using Reexport.@reexport
 

@@ -2,3 +2,6 @@
 *.jl.mem
 *~
 msieve.dat
+
+*.sage-chat
+*.sage-history

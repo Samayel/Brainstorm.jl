@@ -1,6 +1,6 @@
-module DataStructures
+module DataStructure
 
-using Brainstorm.DataStructures
+using Brainstorm.DataStructure
 using Base.Test
 
 include("Iterators-test.jl")

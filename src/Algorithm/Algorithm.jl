@@ -1,4 +1,4 @@
-@reexport module Algorithms
+@reexport module Algorithm
 
 using Reexport.@reexport
 

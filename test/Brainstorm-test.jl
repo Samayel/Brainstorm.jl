@@ -3,14 +3,14 @@ module Test
 using Base.Test
 using Lint.lintpkg
 
-include("Algorithms/Algorithms-test.jl")
-include("DataStructures/DataStructures-test.jl")
+include("Algorithm/Algorithm-test.jl")
+include("DataStructure/DataStructure-test.jl")
 include("Math/Math-test.jl")
 include("Meta/Meta-test.jl")
 
 function test_internal()
-    Algorithms.test_all()
-    DataStructures.test_all()
+    Algorithm.test_all()
+    DataStructure.test_all()
     Math.test_all()
     Meta.test_all()
     println("")

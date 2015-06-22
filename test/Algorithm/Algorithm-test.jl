@@ -1,11 +1,11 @@
-module Algorithms
+module Algorithm
 
-using Brainstorm.Algorithms
+using Brainstorm.Algorithm
 using Base.Test
 
 function test_all()
     println("")
-    print("Algorithms")
+    print("Algorithm")
     print("... ")
 
     println("PASS")

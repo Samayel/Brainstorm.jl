@@ -1,6 +1,6 @@
 @reexport module NumberTheory
 
-using Brainstorm.DataStructures: takewhile
+using Brainstorm.DataStructure: takewhile
 using Brainstorm.Math: checked_add, checked_sub
 using DataStructures: SortedDict
 using Iterators: drop, imap, take

@@ -9,7 +9,7 @@ end
 @lintpragma("Ignore undefined module Pipe.@pipe")
 @lintpragma("Ignore undefined module Reexport.@reexport")
 
-@lintpragma("Ignore undefined module Brainstorm.DataStructures.takewhile")
+@lintpragma("Ignore undefined module Brainstorm.DataStructure.takewhile")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_add")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_sub")
 

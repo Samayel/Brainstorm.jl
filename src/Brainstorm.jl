@@ -8,8 +8,8 @@ VERSION < v"0.4-" && @reexport using Formatting
 @reexport using Redis
 
 include("Meta/Meta.jl")
-include("DataStructures/DataStructures.jl")
-include("Algorithms/Algorithms.jl")
+include("DataStructure/DataStructure.jl")
+include("Algorithm/Algorithm.jl")
 include("Math/Math.jl")
 
 include("../test/Brainstorm-test.jl")
