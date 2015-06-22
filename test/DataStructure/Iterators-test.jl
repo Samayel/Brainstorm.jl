@@ -13,7 +13,7 @@ function test_iterators_dropwhile()
 end
 
 function test_iterators_all()
-    print("DataStructures.Iterators... ")
+    print("DataStructure.Iterators... ")
 
     test_iterators_takewhile()
     test_iterators_dropwhile()
