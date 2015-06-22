@@ -22,4 +22,5 @@ if VERSION >= v"0.4-"
     @lintpragma("Ignore undefined module NamedArrays")
 
     @lintpragma("Ignore use of undeclared variable nothing")
+    @lintpragma("Ignore use of undeclared variable :")
 end
