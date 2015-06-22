@@ -20,11 +20,12 @@ if useprimesieve
     fastprimes() = true
     @reexport using PrimeSieve
     include("Primes-fast.jl")
+    include("Primes-native-module.jl")
 else
     println("Using native implementation for prime-related functions")
     println("")
     fastprimes() = false
-    include("Primes-native.jl")
+    include("Primes-native-reexport.jl")
 end
 
 # https://oeis.org/wiki/Divisor_function
