@@ -1,8 +1,7 @@
 export
-    fastprimes
-
-export
-    divisorsigma,
+    fastprimes,
+    yfactor,
+    divisorcount, divisorsigma,
     factorsort, invfactor,
     least_number_with_d_divisors
 
@@ -29,18 +28,28 @@ else
 end
 
 # https://oeis.org/wiki/Divisor_function
+divisorcount(n::Integer) = begin
+    n <= 0 && throw(DomainError())
+
+    c = 1
+    for ex in values(yfactor(n))
+        c *= ex + 1
+    end
+    c
+end
 divisorsigma(n::Integer, k = 1) = begin
     ((k < 0) || (n <= 0)) && throw(DomainError())
     n == 1 && return 1
+    k == 0 && return divisorcount(n)
 
-    f = k == 0 ?
-        x -> x[2] + 1 :
-        x -> div(x[1]^((x[2] + 1) * k) - 1, x[1]^k - 1)
-
-    @pipe mfactor(n) |> imap(f, _) |> prod
+    σ = 1
+    for (p, ex) in yfactor(n)
+        σ *= div(p^((ex + 1) * k) - 1, p^k - 1)
+    end
+    σ
 end
 
-factorsort(n::Integer) = mfactor(n) |> SortedDict
+factorsort(n::Integer) = yfactor(n) |> SortedDict
 invfactor{T<:Integer}(x::Array{T,1}) =
     [big(nthprime(i))^ex for (i, ex) = enumerate(x)] |> prod
 

@@ -31,8 +31,8 @@ macro testtimed(label, func, tests)
         $(esc(tests))
 
         local lsolution = lstats1[1]
-        local lduration1 = @sprintf("%11.6f", lstats1[2])
-        local lduration2 = @sprintf("%11.6f", lstats2[2])
+        local lduration1 = @sprintf("%8.3f", lstats1[2])
+        local lduration2 = @sprintf("%8.3f", lstats2[2])
         println("PASS   [$(lduration1)s / $(lduration2)s]   $lsolution")
     end
 end

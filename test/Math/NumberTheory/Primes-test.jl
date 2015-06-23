@@ -1,9 +1,9 @@
-function test_primes_mfactor()
-    @test mfactor(147573952589676412927) ==
+function test_primes_yfactor()
+    @test yfactor(147573952589676412927) ==
         @compat Dict{Int, Int}(193707721 => 1, 761838257287 => 1)
-    @test mfactor((big(2)^31-1)*(big(2)^17-1)) ==
+    @test yfactor((big(2)^31-1)*(big(2)^17-1)) ==
         @compat Dict(big(2^31-1) => 1, big(2^17-1) => 1)
-    fastprimes() && @test mfactor((big(2)^31-1)^2) ==
+    fastprimes() && @test yfactor((big(2)^31-1)^2) ==
         @compat Dict(big(2^31-1) => 2)
 end
 
@@ -67,6 +67,15 @@ function test_primes_someprimes()
     @test eltype(someprimes(10, 20)) == typeof(11)
 end
 
+function test_primes_divisorcount()
+    @test divisorcount(1) == 1
+    @test divisorcount(2) == 2
+    @test divisorcount(7) == 2
+    @test divisorcount(20) == 6
+    @test divisorcount(99) == 6
+    @test divisorcount(100) == 9
+end
+
 function test_primes_divisorsigma()
     @test divisorsigma(1) == 1
     @test divisorsigma(2) == 3
@@ -112,7 +121,7 @@ function test_primes_all()
     print(fastprimes() ? "[fast]" : "[native]")
     print("... ")
 
-    test_primes_mfactor()
+    test_primes_yfactor()
     test_primes_genprimes()
     test_primes_countprimes()
     test_primes_primepi()
@@ -122,6 +131,7 @@ function test_primes_all()
     test_primes_nthprime()
     test_primes_someprimes()
 
+    test_primes_divisorcount()
     test_primes_divisorsigma()
     test_primes_least_number_with_d_divisors()
 
