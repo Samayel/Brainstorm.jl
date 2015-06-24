@@ -5,7 +5,8 @@ using Reexport.@reexport
 @reexport using AutoHashEquals
 @reexport using BloomFilters
 @reexport using DataStructures
-@reexport using Dates
+VERSION < v"0.4-" && @reexport using Dates
+VERSION >= v"0.4-" && @reexport using Base.Dates
 @reexport using DeepConvert
 @reexport using FunctionalCollections
 #@reexport using Graphs                         # conflicts with LightGraphs

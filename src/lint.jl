@@ -1,6 +1,7 @@
 macro lintpragma(s)
 end
 
+@lintpragma("Ignore undefined module Base.Dates")
 @lintpragma("Ignore undefined module DataStructures.SortedDict")
 @lintpragma("Ignore undefined module Iterators.drop")
 @lintpragma("Ignore undefined module Iterators.imap")
