@@ -1,7 +1,6 @@
 macro lintpragma(s)
 end
 
-@lintpragma("Ignore undefined module Base.Dates")
 @lintpragma("Ignore undefined module DataStructures.SortedDict")
 @lintpragma("Ignore undefined module Iterators.drop")
 @lintpragma("Ignore undefined module Iterators.imap")
@@ -16,7 +15,9 @@ end
 
 @lintpragma("Ignore use of undeclared variable _")
 
-if VERSION >= v"0.4-"
+if VERSION < v"0.4-"
+    @lintpragma("Ignore undefined module Base.Dates")
+else
     @lintpragma("Ignore undefined module Combinatorics")
     @lintpragma("Ignore undefined module Formatting")
     @lintpragma("Ignore undefined module Lazy")
