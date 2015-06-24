@@ -12,6 +12,6 @@ include("DataStructure/datastructure.jl")
 include("Algorithm/algorithm.jl")
 include("Math/math.jl")
 
-include("../test/Brainstorm.jl")
+include("../test/test.jl")
 
 end # module
