@@ -1,5 +1,6 @@
 export
     divisorcount, divisorsigma,
+    isperfect, isdeficient, isabundant,
     factorsort, invfactor,
     least_number_with_d_divisors
 
@@ -24,6 +25,10 @@ divisorsigma(n::Integer, k = 1) = begin
     end
     σ
 end
+
+isperfect(n::Integer) = divisorsigma(n, 1) - n == n
+isdeficient(n::Integer) = divisorsigma(n, 1) - n < n
+isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
 factorsort(n::Integer) = yfactor(n) |> SortedDict
 invfactor{T<:Integer}(x::Array{T,1}) =

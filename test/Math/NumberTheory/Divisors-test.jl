@@ -39,6 +39,18 @@ function test_divisors_divisorsigma()
     @test divisorsigma(100, 2) == 13671
 end
 
+function test_divisors_isperfect()
+    @test find([isperfect(i) for i = 1:30]) == [6, 28]
+end
+
+function test_divisors_isdeficient()
+    @test find([isdeficient(i) for i = 1:30]) == [1:5;7:11;13:17;19;21:23;25:27;29]
+end
+
+function test_divisors_isabundant()
+    @test find([isabundant(i) for i = 1:30]) == [12, 18, 20, 24, 30]
+end
+
 function test_divisors_least_number_with_d_divisors()
     @test least_number_with_d_divisors(16) == 120
     @test least_number_with_d_divisors(240) == 720720
@@ -53,6 +65,9 @@ function test_divisors_all()
 
     test_divisors_divisorcount()
     test_divisors_divisorsigma()
+    test_divisors_isperfect()
+    test_divisors_isdeficient()
+    test_divisors_isabundant()
     test_divisors_least_number_with_d_divisors()
 
     println("PASS")
