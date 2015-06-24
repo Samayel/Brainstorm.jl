@@ -26,6 +26,6 @@ checked_sub(a::BigFloat, b::BigFloat) = a - b
 macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
 
-include("NumberTheory/NumberTheory.jl")
+include("NumberTheory/numbertheory.jl")
 
 end

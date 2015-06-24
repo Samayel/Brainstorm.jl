@@ -11,9 +11,9 @@ VERSION < v"0.4-" && @reexport using Combinatorics
 @reexport using ContinuedFractions
 @reexport using Digits
 
-include("Primes.jl")
-include("Divisors.jl")
-include("Fibonacci.jl")
-include("Hailstone.jl")
+include("primes.jl")
+include("divisor.jl")
+include("fibonacci.jl")
+include("hailstone.jl")
 
 end

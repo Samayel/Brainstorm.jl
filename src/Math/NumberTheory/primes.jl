@@ -10,15 +10,15 @@ catch err
 end
 
 if useprimesieve
-    println("Using PrimeSieve package for prime-related functions")
+    println("Using PrimeSieve package for primes functions")
     println("")
     fastprimes() = true
     @reexport using PrimeSieve
-    include("Primes-fast.jl")
-    include("Primes-native-module.jl")
+    include("Primes/fast.jl")
+    include("Primes/nativemodule.jl")
 else
-    println("Using native implementation for prime-related functions")
+    println("Using native implementation for primes functions")
     println("")
     fastprimes() = false
-    include("Primes-native-reexport.jl")
+    include("Primes/nativereexport.jl")
 end

@@ -1,17 +1,17 @@
 module Brainstorm
 
-include("Lint.jl")
+include("lint.jl")
 
 using Reexport.@reexport
 
 VERSION < v"0.4-" && @reexport using Formatting
 @reexport using Redis
 
-include("Meta/Meta.jl")
-include("DataStructure/DataStructure.jl")
-include("Algorithm/Algorithm.jl")
-include("Math/Math.jl")
+include("Meta/meta.jl")
+include("DataStructure/datastructure.jl")
+include("Algorithm/algorithm.jl")
+include("Math/math.jl")
 
-include("../test/Brainstorm-test.jl")
+include("../test/Brainstorm.jl")
 
 end # module

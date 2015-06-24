@@ -19,7 +19,7 @@ VERSION < v"0.4-" && @reexport using NamedArrays
 @reexport using ShowSet
 @reexport using SparseVectors
 
-include("Iterators.jl")
-include("Matrix.jl")
+include("iterator.jl")
+include("matrix.jl")
 
 end

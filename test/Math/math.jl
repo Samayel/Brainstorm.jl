@@ -3,7 +3,7 @@ module Math
 using Brainstorm.Math
 using Base.Test
 
-include("NumberTheory/NumberTheory-test.jl")
+include("NumberTheory/numbertheory.jl")
 
 function test_all()
     println("")
