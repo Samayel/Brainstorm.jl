@@ -22,8 +22,8 @@ immutable DropWhile{I} <: WhileIterator
     cond::Function
 end
 
-takewhile(xs, cond) = TakeWhile(xs, cond)
-dropwhile(xs, cond) = DropWhile(xs, cond)
+takewhile(cond, xs) = TakeWhile(xs, cond)
+dropwhile(cond, xs) = DropWhile(xs, cond)
 
 Base.start(it::TakeWhile) = begin
     current_state = start(it.xs)

@@ -43,7 +43,7 @@ end
 allprimes(n::Integer = 2) = PrimeIterator(n)
 
 someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
-someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(_, x -> x <= n2)
+someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(x -> x <= n2, _)
 someprimes(n2::Integer) = someprimes(2, n2)
 
 type PrimeIterator{T<:Integer}

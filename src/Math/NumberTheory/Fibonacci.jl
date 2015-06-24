@@ -15,7 +15,7 @@ allfibonacci(x1::Integer, x2::Integer) = FibonacciIterator(promote(x1, x2)...)
 
 somefibonacci(xmax::Integer) = somefibonacci(xmax, one(xmax), one(xmax))
 somefibonacci(xmax::Integer, x1::Integer, x2::Integer) = somefibonacci(promote(xmax, x1, x2)...)
-somefibonacci{T<:Integer}(xmax::T, x1::T, x2::T) = @pipe allfibonacci(x1, x2) |> takewhile(_, x -> x <= xmax)
+somefibonacci{T<:Integer}(xmax::T, x1::T, x2::T) = @pipe allfibonacci(x1, x2) |> takewhile(x -> x <= xmax, _)
 
 exactfibonacci(n::Int, S::Type = Int) = exactfibonacci(n, one(S), one(S))
 exactfibonacci(n::Int, x1::Integer, x2::Integer) = exactfibonacci(n, promote(x1, x2)...)
