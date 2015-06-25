@@ -1,8 +1,8 @@
 export
     divisorcount, divisorsigma,
     isperfect, isdeficient, isabundant,
-    primefactors, primefactors_sorted,
     factorization_sorted,
+    primefactors, factors,
     least_number_with_d_divisors
 
 # https://oeis.org/wiki/Divisor_function
@@ -31,10 +31,19 @@ isperfect(n::Integer) = divisorsigma(n, 1) - n == n
 isdeficient(n::Integer) = divisorsigma(n, 1) - n < n
 isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
-primefactors(n::Integer) = factorization(n) |> keys |> collect
-primefactors_sorted(n::Integer) = primefactors(n) |> sort
-
 factorization_sorted(n::Integer) = factorization(n) |> SortedDict
+
+primefactors(n::Integer) = factorization(n) |> keys |> collect |> sort!
+
+# http://rosettacode.org/wiki/Factors_of_an_integer
+factors(n::Integer) = begin
+    n <= 0 && throw(DomainError())
+    f = [one(n)]
+    for (p, k) in factorization(n)
+        f = reduce(vcat, f, [f * p^j for j in 1:k])
+    end
+    length(f) == 1 ? [one(n), n] : sort!(f)
+end
 
 function indexfactorization2number{T<:Integer}(x::Array{T,1})
     [big(nthprime(i))^k for (i, k) = enumerate(x)] |> prod
@@ -64,7 +73,7 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
         for a = b:m
             a*b <= pmax && continue
             d % (a*b) != 0 && continue
-            first(primefactors_sorted(a)) < b && continue
+            first(primefactors(a)) < b && continue
             i > 1 && a*b > prevn && continue
 
             push!(c, a*b)

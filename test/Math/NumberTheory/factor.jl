@@ -51,6 +51,14 @@ function test_factor_isabundant()
     @test find([isabundant(i) for i = 1:30]) == [12, 18, 20, 24, 30]
 end
 
+function test_factor_primefactors()
+    @test primefactors(24) == [2, 3]
+end
+
+function test_factor_factors()
+    @test factors(24) == [1, 2, 3, 4, 6, 8, 12, 24]
+end
+
 function test_factor_least_number_with_d_divisors()
     @test least_number_with_d_divisors(16) == 120
     @test least_number_with_d_divisors(240) == 720720
@@ -68,6 +76,8 @@ function test_factor_all()
     test_factor_isperfect()
     test_factor_isdeficient()
     test_factor_isabundant()
+    test_factor_primefactors()
+    test_factor_factors()
     test_factor_least_number_with_d_divisors()
 
     println("PASS")
