@@ -1,9 +1,9 @@
-function test_primes_yfactor()
-    @test yfactor(147573952589676412927) ==
+function test_primes_factorization()
+    @test factorization(147573952589676412927) ==
         @compat Dict{Int, Int}(193707721 => 1, 761838257287 => 1)
-    @test yfactor((big(2)^31-1)*(big(2)^17-1)) ==
+    @test factorization((big(2)^31-1)*(big(2)^17-1)) ==
         @compat Dict(big(2^31-1) => 1, big(2^17-1) => 1)
-    fastprimes() && @test yfactor((big(2)^31-1)^2) ==
+    fastprimes() && @test factorization((big(2)^31-1)^2) ==
         @compat Dict(big(2^31-1) => 2)
 end
 
@@ -72,7 +72,7 @@ function test_primes_all()
     print(fastprimes() ? "[fast]" : "[native]")
     print("... ")
 
-    test_primes_yfactor()
+    test_primes_factorization()
     test_primes_genprimes()
     test_primes_countprimes()
     test_primes_primepi()

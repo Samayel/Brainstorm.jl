@@ -1,4 +1,4 @@
-function test_divisor_divisorcount()
+function test_factor_divisorcount()
     @test divisorcount(1) == 1
     @test divisorcount(2) == 2
     @test divisorcount(7) == 2
@@ -7,7 +7,7 @@ function test_divisor_divisorcount()
     @test divisorcount(100) == 9
 end
 
-function test_divisor_divisorsigma()
+function test_factor_divisorsigma()
     @test divisorsigma(1) == 1
     @test divisorsigma(2) == 3
     @test divisorsigma(7) == 8
@@ -39,19 +39,19 @@ function test_divisor_divisorsigma()
     @test divisorsigma(100, 2) == 13671
 end
 
-function test_divisor_isperfect()
+function test_factor_isperfect()
     @test find([isperfect(i) for i = 1:30]) == [6, 28]
 end
 
-function test_divisor_isdeficient()
+function test_factor_isdeficient()
     @test find([isdeficient(i) for i = 1:30]) == [1:5;7:11;13:17;19;21:23;25:27;29]
 end
 
-function test_divisor_isabundant()
+function test_factor_isabundant()
     @test find([isabundant(i) for i = 1:30]) == [12, 18, 20, 24, 30]
 end
 
-function test_divisor_least_number_with_d_divisors()
+function test_factor_least_number_with_d_divisors()
     @test least_number_with_d_divisors(16) == 120
     @test least_number_with_d_divisors(240) == 720720
     @test least_number_with_d_divisors(4000) == 261891630000
@@ -59,16 +59,16 @@ function test_divisor_least_number_with_d_divisors()
     @test least_number_with_d_divisors(4002) == 1474163083033391923200
 end
 
-function test_divisor_all()
-    print("Math.NumberTheory.Divisor")
+function test_factor_all()
+    print("Math.NumberTheory.Factor")
     print("... ")
 
-    test_divisor_divisorcount()
-    test_divisor_divisorsigma()
-    test_divisor_isperfect()
-    test_divisor_isdeficient()
-    test_divisor_isabundant()
-    test_divisor_least_number_with_d_divisors()
+    test_factor_divisorcount()
+    test_factor_divisorsigma()
+    test_factor_isperfect()
+    test_factor_isdeficient()
+    test_factor_isabundant()
+    test_factor_least_number_with_d_divisors()
 
     println("PASS")
 end

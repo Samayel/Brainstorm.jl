@@ -1,5 +1,5 @@
 export
-    fastprimes, yfactor
+    fastprimes, factorization
 
 useprimesieve = false
 try

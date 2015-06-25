@@ -2,13 +2,13 @@ using Brainstorm.DataStructure: takewhile
 using Pipe.@pipe
 
 export
-    yfactor,
+    factorization,
     genprimes, countprimes, primepi,
     nextprime, prevprime,
     nprimes, nthprime,
     allprimes, someprimes
 
-yfactor(n::Integer) = Base.factor(n)
+factorization(n::Integer) = Base.factor(n)
 
 genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)
 genprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> find((i, x) -> x && (i >= a), _)

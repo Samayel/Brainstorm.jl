@@ -12,7 +12,7 @@ VERSION < v"0.4-" && @reexport using Combinatorics
 @reexport using Digits
 
 include("primes.jl")
-include("divisor.jl")
+include("factor.jl")
 include("fibonacci.jl")
 include("hailstone.jl")
 
