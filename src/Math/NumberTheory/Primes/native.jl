@@ -1,4 +1,4 @@
-using Brainstorm.DataStructure: takewhile
+using Brainstorm: takewhile, @anon
 using Pipe.@pipe
 
 export
@@ -22,20 +22,56 @@ nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1
 nprimes(n::Integer, start::Integer) = @pipe allprimes(start) |> take(_, n) |> collect
 nthprime(n::Integer) = nprimes(n)[n]
 
-
+# https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 nextprime(n::Integer) = begin
-    p = n + one(n)
+    n <= 1 && return 2
+    n == 2 && return 3
+
+    n += iseven(n) ? 1 : 2
+    isprime(n) && return n
+
+    m = mod(n, 3)
+    if m == 1
+        a = 4; b = 2
+    elseif m == 2
+        a = 2; b = 4
+    else
+        n += 2
+        a = 2; b = 4
+    end
+
+    p = n
     while !isprime(p)
-        p += one(n)
+        p += a
+        isprime(p) && break
+        p += b
     end
     p
 end
+
+# https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 prevprime(n::Integer) = begin
     n <= 2 && throw(DomainError())
+    n == 3 && return 2
 
-    p = n - one(n)
+    n -= iseven(n) ? 1 : 2
+    isprime(n) && return n
+
+    m = mod(n, 3)
+    if m == 1
+        a = 2; b = 4
+    elseif m == 2
+        a = 4; b = 2
+    else
+        n -= 2
+        a = 2; b = 4
+    end
+
+    p = n
     while !isprime(p)
-        p -= one(n)
+        p -= a
+        isprime(p) && break
+        p -= b
     end
     p
 end
@@ -43,7 +79,7 @@ end
 allprimes(n::Integer = 2) = PrimeIterator(n)
 
 someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
-someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(x -> x <= n2, _)
+someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(@anon(x -> x <= n2), _)
 someprimes(n2::Integer) = someprimes(2, n2)
 
 type PrimeIterator{T<:Integer}

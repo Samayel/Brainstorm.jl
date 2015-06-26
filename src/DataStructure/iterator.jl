@@ -12,14 +12,14 @@ export
 
 abstract WhileIterator
 
-immutable TakeWhile{I} <: WhileIterator
+immutable TakeWhile{I, F} <: WhileIterator
     xs::I
-    cond::Function
+    cond::F
 end
 
-immutable DropWhile{I} <: WhileIterator
+immutable DropWhile{I, F} <: WhileIterator
     xs::I
-    cond::Function
+    cond::F
 end
 
 takewhile(cond, xs) = TakeWhile(xs, cond)
@@ -58,8 +58,8 @@ Base.done(::DropWhile, state) = state[1]
 
 Base.eltype(it::TakeWhile) = Base.eltype(typeof(it))
 Base.eltype(it::DropWhile) = Base.eltype(typeof(it))
-Base.eltype{I}(::Type{TakeWhile{I}}) = Base.eltype(I)
-Base.eltype{I}(::Type{DropWhile{I}}) = Base.eltype(I)
+Base.eltype{I,F}(::Type{TakeWhile{I,F}}) = Base.eltype(I)
+Base.eltype{I,F}(::Type{DropWhile{I,F}}) = Base.eltype(I)
 
 #
 # END

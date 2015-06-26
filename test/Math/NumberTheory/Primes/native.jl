@@ -1,6 +1,7 @@
 module Primes
 
 using Brainstorm.Math.NumberTheory.Primes
+using Brainstorm: dropwhile
 using Base.Test
 using Compat
 
@@ -32,13 +33,8 @@ function test_primepi()
 end
 
 function test_nextprime()
-    @test nextprime(-1) == 2
-    @test nextprime(0) == 2
-    @test nextprime(1) == 2
-    @test nextprime(2) == 3
-    @test nextprime(3) == 5
-    @test nextprime(5) == 7
-    @test nextprime(1000) == 1009
+    @test [nextprime(i) for i = -1:100] ==
+        [first(dropwhile(p -> p <= i, Base.PRIMES)) for i = -1:100]
 end
 
 function test_prevprime()
@@ -46,9 +42,8 @@ function test_prevprime()
     @test_throws DomainError prevprime(0)
     @test_throws DomainError prevprime(1)
     @test_throws DomainError prevprime(2)
-    @test prevprime(3) == 2
-    @test prevprime(5) == 3
-    @test prevprime(1000) == 997
+    @test [prevprime(i) for i = 3:100] ==
+        [first(dropwhile(p -> p >= i, reverse(Base.PRIMES))) for i = 3:100]
 end
 
 function test_nprimes()
