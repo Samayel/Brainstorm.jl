@@ -46,7 +46,7 @@ end
 ##  Euler's Phi (or: totient) function
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 eulerphi(n::Integer) = begin
-    n <= 0 && throw(DomainError())
+    n > 0 || error("Argument 'n' must be an integer greater 0")
 
     Φ = n
     for p in primefactors(n)    # must be unique

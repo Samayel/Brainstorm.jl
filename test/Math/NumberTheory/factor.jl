@@ -15,7 +15,7 @@ function test_factor_divisorsigma()
     @test divisorsigma(99) == 156
     @test divisorsigma(100) == 217
 
-    @test_throws DomainError divisorsigma(1, -1)
+    @test_throws ErrorException divisorsigma(1, -1)
 
     @test divisorsigma(1, 0) == 1
     @test divisorsigma(2, 0) == 2

@@ -7,7 +7,7 @@ export
 
 # https://oeis.org/wiki/Divisor_function
 divisorcount(n::Integer) = begin
-    n <= 0 && throw(DomainError())
+    n > 0 || error("Argument 'n' must be an integer greater 0")
 
     c = 1
     for k in values(factorization(n))
@@ -16,7 +16,9 @@ divisorcount(n::Integer) = begin
     c
 end
 divisorsigma(n::Integer, s = 1) = begin
-    ((s < 0) || (n <= 0)) && throw(DomainError())
+    s >= 0 || error("Argument 's' must be an integer greater or equal 0")
+    n >  0 || error("Argument 'n' must be an integer greater 0")
+
     n == 1 && return 1
     s == 0 && return divisorcount(n)
 
@@ -37,7 +39,8 @@ primefactors(n::Integer) = factorization(n) |> keys |> collect |> sort!
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
 factors(n::Integer) = begin
-    n <= 0 && throw(DomainError())
+    n > 0 || error("Argument 'n' must be an integer greater 0")
+
     f = [one(n)]
     for (p, k) in factorization(n)
         f = reduce(vcat, f, [f * p^j for j in 1:k])
@@ -88,5 +91,5 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
         end
     end
 
-    return i == 1 ? [reverse(x) for x in ans] : ans
+    i == 1 ? [reverse(x) for x in ans] : ans
 end
