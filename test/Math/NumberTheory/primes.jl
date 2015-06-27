@@ -10,6 +10,8 @@ end
 function test_primes_genprimes()
     @test genprimes(10) == [2, 3, 5, 7]
     @test genprimes(11) == [2, 3, 5, 7, 11]
+    @test genprimes(1, 1) == Int[]
+    @test genprimes(10, 10) == Int[]
     @test genprimes(10, 20) == [11, 13, 17, 19]
     @test genprimes(11, 19) == [11, 13, 17, 19]
     @test genprimes(1000, 1100) == [1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097]
@@ -69,6 +71,25 @@ function test_primes_someprimes()
     @test eltype(someprimes(10, 20)) == typeof(11)
 end
 
+function test_primes_twinprimes()
+    @test twinprimes(1000, 1050) == [1019 1021; 1031 1033]
+    @test length(twinprimes(20, 30)) == 0
+end
+
+function test_primes_coprime()
+    @test coprime(1, 3) == true
+    @test coprime(2, 3) == true
+    @test coprime(11*13*17, 13*17*19) == false
+    @test coprime(2*3, 5*7) == true
+end
+
+function test_primes_eulerphi()
+    @test eulerphi(1) == 1
+    @test eulerphi(2) == 1
+    @test eulerphi(3) == 2
+    @test eulerphi(9) == 6
+end
+
 function test_primes_all()
     label = "Math.NumberTheory.Primes" * (fastprimes() ? "[fast]" : "[native]") * "..."
     print(rpad(label, 50, ' '))
@@ -82,6 +103,10 @@ function test_primes_all()
     test_primes_nprimes()
     test_primes_nthprime()
     test_primes_someprimes()
+
+    test_primes_twinprimes()
+    test_primes_coprime()
+    test_primes_eulerphi()
 
     println("PASS")
 end

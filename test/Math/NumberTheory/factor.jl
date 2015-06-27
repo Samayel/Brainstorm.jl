@@ -52,7 +52,11 @@ function test_factor_isabundant()
 end
 
 function test_factor_primefactors()
+    @test primefactors(1) == []
+    @test primefactors(2^4)  == [2]
     @test primefactors(24) == [2, 3]
+    @test primefactors(1001) == [7, 11, 13]
+    @test primefactors(1013) == [1013]
 end
 
 function test_factor_factors()

@@ -1,6 +1,8 @@
 export
     fastprimes, factorization,
-    PRIMES
+    PRIMES,
+    twinprimes,
+    coprime, eulerphi
 
 useprimesieve = false
 try
@@ -25,3 +27,30 @@ else
 end
 
 const PRIMES = Base.PRIMES
+
+##  Find all twin primes
+# https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
+twinprimes(n::Integer, m::Integer) = begin
+    P = genprimes(n, m)
+    inds = find(diff(P) .== 2)
+    hcat(P[inds], P[inds+1])
+end
+
+##  Coprimality
+# https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
+coprime(n::Integer, m::Integer) = begin
+    n == 0 && m == 0 && return false
+    gcd(n, m) == 1
+end
+
+##  Euler's Phi (or: totient) function
+# https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
+eulerphi(n::Integer) = begin
+    n <= 0 && throw(DomainError())
+
+    Φ = n
+    for p in primefactors(n)    # must be unique
+        Φ -= div(Φ, p)          # Φ = Φ * (1 - 1/p)
+    end
+    Φ
+end

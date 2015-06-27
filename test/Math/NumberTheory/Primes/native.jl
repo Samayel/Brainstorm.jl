@@ -15,6 +15,8 @@ end
 function test_genprimes()
     @test genprimes(10) == [2, 3, 5, 7]
     @test genprimes(11) == [2, 3, 5, 7, 11]
+    @test genprimes(1, 1) == Int[]
+    @test genprimes(10, 10) == Int[]
     @test genprimes(10, 20) == [11, 13, 17, 19]
     @test genprimes(11, 19) == [11, 13, 17, 19]
     @test genprimes(1000, 1100) == [1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097]
