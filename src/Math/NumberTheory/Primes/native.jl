@@ -3,7 +3,6 @@ using Pipe.@pipe
 
 export
     factorization,
-    primesieve,
     genprimes, countprimes, primepi,
     nextprime, prevprime,
     nprimes, nthprime,
