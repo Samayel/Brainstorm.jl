@@ -1,5 +1,6 @@
 export
-    fastprimes, factorization
+    fastprimes, factorization,
+    PRIMES
 
 useprimesieve = false
 try
@@ -22,3 +23,5 @@ else
     fastprimes() = false
     include("Primes/nativereexport.jl")
 end
+
+const PRIMES = Base.PRIMES
