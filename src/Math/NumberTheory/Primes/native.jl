@@ -15,7 +15,7 @@ factorization(n::Integer) = Base.factor(n)
 primesieve(n::Integer) = begin
     n <= 1 && return typeof(n)[]
 
-    p = [one(n):oftype(n, 2):n]
+    p = collect(one(n):oftype(n, 2):n)
     q = length(p)
     p[1] = oftype(n, 2)
 
@@ -44,7 +44,7 @@ primesieve{T<:Integer}(n::T, m::T) = begin
     end
 
     myPrimes = primesieve(isqrt(m))
-    N = [n:m]
+    N = collect(n:m)
     l = length(N)  # m-n+1
     A = zeros(Int8, l)
     if n == 1
