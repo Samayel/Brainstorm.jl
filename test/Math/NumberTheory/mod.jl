@@ -5,8 +5,7 @@ function test_mod_multiplicativeorder()
 end
 
 function test_mod_all()
-    print("Math.NumberTheory.Mod")
-    print("... ")
+    print(rpad("Math.NumberTheory.Mod...", 50, ' '))
 
     test_mod_multiplicativeorder()
 

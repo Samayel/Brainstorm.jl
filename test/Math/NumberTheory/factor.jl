@@ -68,8 +68,7 @@ function test_factor_least_number_with_d_divisors()
 end
 
 function test_factor_all()
-    print("Math.NumberTheory.Factor")
-    print("... ")
+    print(rpad("Math.NumberTheory.Factor...", 50, ' '))
 
     test_factor_divisorcount()
     test_factor_divisorsigma()

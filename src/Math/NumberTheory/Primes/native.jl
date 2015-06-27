@@ -11,11 +11,11 @@ export
 factorization(n::Integer) = Base.factor(n)
 
 genprimes(a::Integer, b::Integer) = genprimes(promote(a, b)...)
-genprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> find((i, x) -> x && (i >= a), _)
+genprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> find(@anon((i, x) -> x && (i >= a)), _)
 genprimes(b::Integer) = Base.primes(b)
 
 countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
-countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count((i, x) -> x && (i >= a), _)
+countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count(@anon((i, x) -> x && (i >= a)), _)
 primepi(n::Integer) = countprimes(2, n)
 
 nprimes(n::Integer) = Base.primes(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
@@ -92,7 +92,8 @@ Base.done(::PrimeIterator, _) = false
 Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 
-function find(testf::Function, A::AbstractArray)
+# testf is not a function and uses two parameters
+function find(testf, A::AbstractArray)
     # use a dynamic-length array to store the indexes,
     # then copy to a non-padded array for the return
     tmpI = Array(Int, 0)
@@ -106,7 +107,8 @@ function find(testf::Function, A::AbstractArray)
     ansI
 end
 
-function count(testf::Function, A::AbstractArray)
+# testf is not a function and uses two parameters
+function count(testf, A::AbstractArray)
     c = 0
     for i = 1:length(A)
         if testf(i, A[i])

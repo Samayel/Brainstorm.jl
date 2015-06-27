@@ -68,9 +68,8 @@ function test_primes_someprimes()
 end
 
 function test_primes_all()
-    print("Math.NumberTheory.Primes")
-    print(fastprimes() ? "[fast]" : "[native]")
-    print("... ")
+    label = "Math.NumberTheory.Primes" * (fastprimes() ? "[fast]" : "[native]") * "..."
+    print(rpad(label, 50, ' '))
 
     test_primes_factorization()
     test_primes_genprimes()

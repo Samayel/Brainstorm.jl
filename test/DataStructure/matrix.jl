@@ -15,7 +15,7 @@ function test_matrix_antidiags()
 end
 
 function test_matrix_all()
-    print("DataStructure.Matrix... ")
+    print(rpad("DataStructure.Matrix...", 50, ' '))
 
     test_matrix_rows()
     test_matrix_cols()

@@ -3,8 +3,7 @@ function test_decimal_decimalperiod()
 end
 
 function test_decimal_all()
-    print("Math.NumberTheory.Decimal")
-    print("... ")
+    print(rpad("Math.NumberTheory.Decimal...", 50, ' '))
 
     test_decimal_decimalperiod()
 

@@ -5,8 +5,7 @@ using Base.Test
 
 function test_all()
     println("")
-    print("Algorithm")
-    print("... ")
+    print(rpad("Algorithm...", 50, ' '))
 
     println("PASS")
 end

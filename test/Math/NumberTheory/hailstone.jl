@@ -19,7 +19,7 @@ function test_hailstone_allhailstone()
 end
 
 function test_hailstone_all()
-    print("Math.NumberTheory.Hailstone... ")
+    print(rpad("Math.NumberTheory.Hailstone...", 50, ' '))
 
     test_hailstone_nexthailstone()
     test_hailstone_hailstonelength()

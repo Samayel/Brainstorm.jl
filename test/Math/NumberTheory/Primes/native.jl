@@ -67,8 +67,7 @@ function test_someprimes()
 end
 
 function test_all()
-    print("Math.NumberTheory.Primes")
-    print("... ")
+    print(rpad("Math.NumberTheory.Primes...", 50, ' '))
 
     test_factorization()
     test_genprimes()

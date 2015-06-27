@@ -17,7 +17,7 @@ function test_iterator_dropwhile()
 end
 
 function test_iterator_all()
-    print("DataStructure.Iterator... ")
+    print(rpad("DataStructure.Iterator...", 50, ' '))
 
     test_iterator_takewhile()
     test_iterator_dropwhile()

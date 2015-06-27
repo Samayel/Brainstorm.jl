@@ -34,7 +34,7 @@ function test_fibonacci_exactfibonacci()
 end
 
 function test_fibonacci_all()
-    print("Math.NumberTheory.Fibonacci... ")
+    print(rpad("Math.NumberTheory.Fibonacci...", 50, ' '))
 
     test_fibonacci_nthfibonacci()
     test_fibonacci_nfibonacci()
