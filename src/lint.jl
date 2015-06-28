@@ -6,6 +6,9 @@ end
 @lintpragma("Ignore undefined module Iterators.imap")
 @lintpragma("Ignore undefined module Iterators.take")
 @lintpragma("Ignore undefined module Lint.lintpkg")
+@lintpragma("Ignore undefined module TaylorSeries.Taylor1")
+@lintpragma("Ignore undefined module TaylorSeries.get_coeff")
+@lintpragma("Ignore undefined module TaylorSeries.taylor1_variable")
 @lintpragma("Ignore undefined module Pipe.@pipe")
 @lintpragma("Ignore undefined module Reexport.@reexport")
 
