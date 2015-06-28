@@ -4,6 +4,7 @@ using Brainstorm: takewhile, @anon
 using Brainstorm.Math: checked_add, checked_sub
 using DataStructures: SortedDict
 using Iterators: drop, imap, take
+using TaylorSeries: Taylor1, taylor1_variable, get_coeff
 using Pipe.@pipe
 using Reexport.@reexport
 
@@ -17,5 +18,6 @@ include("mod.jl")
 include("decimal.jl")
 include("fibonacci.jl")
 include("hailstone.jl")
+include("genfunc.jl")
 
 end

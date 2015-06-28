@@ -6,6 +6,7 @@ using Reexport.@reexport
 @reexport using DualNumbers
 @reexport using FixedPointNumbers
 @reexport using IntModN
+@reexport using TaylorSeries
 @reexport using ValidatedNumerics
 
 export

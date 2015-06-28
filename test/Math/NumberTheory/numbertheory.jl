@@ -3,6 +3,7 @@ module NumberTheory
 using Brainstorm.Math.NumberTheory
 using Base.Test
 using Compat
+using TaylorSeries: Taylor1
 
 include("primes.jl")
 include("Primes/native.jl")
@@ -11,6 +12,7 @@ include("mod.jl")
 include("decimal.jl")
 include("fibonacci.jl")
 include("hailstone.jl")
+include("genfunc.jl")
 
 function test_all()
     test_primes_all()
@@ -20,6 +22,7 @@ function test_all()
     test_decimal_all()
     test_fibonacci_all()
     test_hailstone_all()
+    test_genfunc_all()
 end
 
 end
