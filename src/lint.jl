@@ -25,7 +25,6 @@ if VERSION < v"0.4-"
 else
     @lintpragma("Ignore undefined module Combinatorics")
     @lintpragma("Ignore undefined module Formatting")
-    @lintpragma("Ignore undefined module IterationManagers")
     @lintpragma("Ignore undefined module Lazy")
     @lintpragma("Ignore undefined module NamedArrays")
 
