@@ -1,5 +1,6 @@
 export
-    decimalperiod
+    decimalperiod,
+    ispandigital
 
 #=
 http://mathworld.wolfram.com/DecimalExpansion.html
@@ -16,4 +17,15 @@ decimalperiod(_, n) = begin
         n0 *= p^k
     end
     n0 == 1 ? zero(n) : multiplicativeorder(10, n0)
+end
+
+ispandigital(n::Integer) = digits(n) |> ispandigital
+ispandigital{T<:Number}(digits::Array{T,1}) = begin
+    r = 0
+    l = length(digits)
+    for d in digits
+        1 <= d <= l || return false
+        r |= 1 << (d - 1)
+    end
+    r == 2^l - 1
 end
