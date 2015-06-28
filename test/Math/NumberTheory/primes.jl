@@ -72,7 +72,7 @@ function test_primes_someprimes()
 end
 
 function test_primes_twinprimes()
-    @test twinprimes(1000, 1050) == [1019, 1021, 1031, 1033]
+    @test twinprimes(1000, 1050) == [1019 1021; 1031 1033]
     @test length(twinprimes(20, 30)) == 0
 end
 
