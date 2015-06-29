@@ -1,6 +1,7 @@
 export
-    fastprimes, factorization,
+    fastprimes,
     PRIMES,
+    maskprimes,
     twinprimes,
     coprime, eulerphi
 
@@ -27,6 +28,8 @@ else
 end
 
 const PRIMES = Base.PRIMES
+
+maskprimes(n::Integer) = Base.primesmask(n)
 
 ##  Find all twin primes
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl

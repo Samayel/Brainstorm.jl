@@ -7,6 +7,10 @@ function test_primes_factorization()
         @compat Dict(big(2^31-1) => 2)
 end
 
+function test_primes_maskprimes()
+    @test maskprimes(100000) == [isprime(i) for i = 1:100000]
+end
+
 function test_primes_genprimes()
     @test genprimes(10) == [2, 3, 5, 7]
     @test genprimes(11) == [2, 3, 5, 7, 11]
@@ -95,6 +99,7 @@ function test_primes_all()
     print(rpad(label, 50, ' '))
 
     test_primes_factorization()
+    test_primes_maskprimes()
     test_primes_genprimes()
     test_primes_countprimes()
     test_primes_primepi()

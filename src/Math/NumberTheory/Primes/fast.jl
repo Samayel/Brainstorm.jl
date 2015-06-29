@@ -1,3 +1,6 @@
+export
+    factorization
+
 const FACTORIZATION_THRESHOLD = typemax(Int32)
 
 factorization(n::Integer) = n < FACTORIZATION_THRESHOLD ?
