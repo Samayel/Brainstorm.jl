@@ -13,7 +13,7 @@ VERSION >= v"0.4-" && @reexport using Base.Dates
 @reexport using ImmutableArrays
 @reexport using IndexedArrays
 @reexport using Iterators
-VERSION < v"0.4-" && @reexport using Lazy
+#VERSION < v"0.4-" && @reexport using Lazy      # conflicts with Iterators.drop
 @reexport using LightGraphs
 VERSION < v"0.4-" && @reexport using NamedArrays
 @reexport using NamedTuples
