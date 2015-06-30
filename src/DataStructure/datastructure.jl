@@ -21,6 +21,7 @@ VERSION < v"0.4-" && @reexport using NamedArrays
 @reexport using SparseVectors
 
 include("iterator.jl")
+include("vector.jl")
 include("matrix.jl")
 
 end
