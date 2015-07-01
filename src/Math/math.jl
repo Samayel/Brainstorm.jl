@@ -28,5 +28,6 @@ macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
 
 include("NumberTheory/numbertheory.jl")
+include("combinatorics.jl")
 
 end

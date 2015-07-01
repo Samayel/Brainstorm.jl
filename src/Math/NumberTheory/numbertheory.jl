@@ -8,10 +8,8 @@ using TaylorSeries: Taylor1, taylor1_variable, get_coeff
 using Pipe.@pipe
 using Reexport.@reexport
 
-VERSION < v"0.4-" && @reexport using Combinatorics
 @reexport using ContinuedFractions
 @reexport using Digits
-@reexport using Multicombinations
 
 include("primes.jl")
 include("factor.jl")
