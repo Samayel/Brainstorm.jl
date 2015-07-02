@@ -12,7 +12,6 @@ function test_combinatorics_permutations()
 end
 
 function test_combinatorics_permutations_with_repetitions()
-#=
     @test collect(permutations_with_repetitions(["a", "b", "c"])) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
@@ -44,7 +43,6 @@ function test_combinatorics_permutations_with_repetitions()
     ]
     @test length(permutations_with_repetitions(["a", "b", "c"])) == 27
     @test eltype(permutations_with_repetitions(["a", "b", "c"])) == Array{ASCIIString,1}
-=#
 end
 
 function test_combinatorics_variations()
@@ -69,7 +67,6 @@ function test_combinatorics_variations()
 end
 
 function test_combinatorics_variations_with_repetitions()
-#=
     @test collect(variations_with_repetitions(["a", "b", "c", "d"], 2)) == Array[
         ["a", "a"],
         ["a", "b"],
@@ -90,7 +87,6 @@ function test_combinatorics_variations_with_repetitions()
     ]
     @test length(variations_with_repetitions(["a", "b", "c", "d"], 2)) == 16
     @test eltype(variations_with_repetitions(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
-=#
 end
 
 function test_combinatorics_combinations()
