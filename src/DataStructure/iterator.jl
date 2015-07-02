@@ -1,5 +1,6 @@
 export
-    takewhile, dropwhile
+    takewhile, dropwhile,
+    tmap
 
 #
 # BEGIN
@@ -65,3 +66,26 @@ Base.eltype{I,F}(::Type{DropWhile{I,F}}) = Base.eltype(I)
 # END
 # http://slendermeans.org/julia-iterators.html
 #
+
+immutable TMap{T}
+    mapfunc::Base.Callable
+    xs::Vector{Any}
+end
+
+tmap(mapfunc, resulttype::Type, it1, its...) =
+    TMap{resulttype}(mapfunc, Any[it1, its...])
+
+Base.start(it::TMap) = map(start, it.xs)
+Base.next(it::TMap, state) = begin
+    next_result = map(next, it.xs, state)
+    (
+        it.mapfunc(map(x -> x[1], next_result)...),
+        map(x -> x[2], next_result)
+    )
+end
+Base.done(it::TMap, state) = any(map(done, it.xs, state))
+
+Base.eltype(it::TMap) = Base.eltype(typeof(it))
+Base.eltype{T}(::Type{TMap{T}}) = T
+
+Base.length(it::TMap) = minimum(map(x -> length(x), it.xs))
