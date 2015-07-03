@@ -1,8 +1,5 @@
 @reexport module Math
 
-using Brainstorm: tmap
-using Iterators: product, repeated
-using Pipe.@pipe
 using Reexport.@reexport
 
 # @reexport using DecFP

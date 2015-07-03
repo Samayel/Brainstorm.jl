@@ -1,4 +1,8 @@
 function test_combinatorics_permutations()
+    @test collect(permutations(Int[])) == Array{Int64,1}[[]]
+    @test length(permutations(Int[])) == 1
+    @test eltype(permutations(Int[])) == Array{Int64,1}
+
     @test collect(permutations(["a", "b", "c"])) == Array[
         ["a", "b", "c"],
         ["a", "c", "b"],
@@ -11,8 +15,12 @@ function test_combinatorics_permutations()
     @test eltype(permutations(["a", "b", "c"])) == Array{ASCIIString,1}
 end
 
-function test_combinatorics_permutations_with_repetitions()
-    @test collect(permutations_with_repetitions(["a", "b", "c"])) == Array[
+function test_combinatorics_permutations_with_repetition()
+    @test collect(permutations_with_repetition(Int[])) == Array{Int64,1}[[]]
+    @test length(permutations_with_repetition(Int[])) == 1
+    @test eltype(permutations_with_repetition(Int[])) == Array{Int64,1}
+
+    @test collect(permutations_with_repetition(["a", "b", "c"])) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
         ["a", "a", "c"],
@@ -41,12 +49,19 @@ function test_combinatorics_permutations_with_repetitions()
         ["c", "c", "b"],
         ["c", "c", "c"],
     ]
-    @test length(permutations_with_repetitions(["a", "b", "c"])) == 27
-    @test eltype(permutations_with_repetitions(["a", "b", "c"])) == Array{ASCIIString,1}
+    @test length(permutations_with_repetition(["a", "b", "c"])) == 27
+    @test eltype(permutations_with_repetition(["a", "b", "c"])) == Array{ASCIIString,1}
 end
 
 function test_combinatorics_variations()
-#=
+    @test collect(variations(Int[], 0)) == Array{Int64,1}[[]]
+    @test length(variations(Int[], 0)) == 1
+    @test eltype(variations(Int[], 0)) == Array{Int64,1}
+
+    @test collect(variations(Int[], 1)) == Array{Int64,1}[]
+    @test length(variations(Int[], 1)) == 0
+    @test eltype(variations(Int[], 1)) == Array{Int64,1}
+
     @test collect(variations(["a", "b", "c", "d"], 2)) == Array[
         ["a", "b"],
         ["a", "c"],
@@ -63,11 +78,21 @@ function test_combinatorics_variations()
     ]
     @test length(variations(["a", "b", "c", "d"], 2)) == 12
     @test eltype(variations(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
-=#
+
+    @test collect(variations(["a", "b"], 3)) == Array{ASCIIString,1}[]
+    @test length(variations(["a", "b"], 3)) == 0
 end
 
-function test_combinatorics_variations_with_repetitions()
-    @test collect(variations_with_repetitions(["a", "b", "c", "d"], 2)) == Array[
+function test_combinatorics_variations_with_repetition()
+    @test collect(variations_with_repetition(Int[], 0)) == Array{Int64,1}[[]]
+    @test length(variations_with_repetition(Int[], 0)) == 1
+    @test eltype(variations_with_repetition(Int[], 0)) == Array{Int64,1}
+
+    @test collect(variations_with_repetition(Int[], 1)) == Array{Int64,1}[]
+    @test length(variations_with_repetition(Int[], 1)) == 0
+    @test eltype(variations_with_repetition(Int[], 1)) == Array{Int64,1}
+
+    @test collect(variations_with_repetition(["a", "b", "c", "d"], 2)) == Array[
         ["a", "a"],
         ["a", "b"],
         ["a", "c"],
@@ -85,11 +110,31 @@ function test_combinatorics_variations_with_repetitions()
         ["d", "c"],
         ["d", "d"],
     ]
-    @test length(variations_with_repetitions(["a", "b", "c", "d"], 2)) == 16
-    @test eltype(variations_with_repetitions(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
+    @test length(variations_with_repetition(["a", "b", "c", "d"], 2)) == 4^2
+    @test eltype(variations_with_repetition(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
+
+    @test collect(variations_with_repetition(["a", "b"], 3)) == Array[
+        ["a", "a", "a"],
+        ["a", "a", "b"],
+        ["a", "b", "a"],
+        ["a", "b", "b"],
+        ["b", "a", "a"],
+        ["b", "a", "b"],
+        ["b", "b", "a"],
+        ["b", "b", "b"],
+    ]
+    @test length(variations_with_repetition(["a", "b"], 3)) == 2^3
 end
 
 function test_combinatorics_combinations()
+    @test collect(combinations(Int[], 0)) == Array{Int64,1}[[]]
+    @test length(combinations(Int[], 0)) == 1
+    @test eltype(combinations(Int[], 0)) == Array{Int64,1}
+
+    @test collect(combinations(Int[], 1)) == Array{Int64,1}[]
+    @test length(combinations(Int[], 1)) == 0
+    @test eltype(combinations(Int[], 1)) == Array{Int64,1}
+
     @test collect(combinations(["a", "b", "c", "d"], 2)) == Array[
         ["a", "b"],
         ["a", "c"],
@@ -100,10 +145,21 @@ function test_combinatorics_combinations()
     ]
     @test length(combinations(["a", "b", "c", "d"], 2)) == 6
     @test eltype(combinations(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
+
+    @test collect(combinations(["a", "b"], 3)) == Array{ASCIIString,1}[]
+    @test length(combinations(["a", "b"], 3)) == 0
 end
 
-function test_combinatorics_combinations_with_repetitions()
-    @test collect(combinations_with_repetitions(["a", "b", "c", "d"], 2)) == Array[
+function test_combinatorics_combinations_with_repetition()
+    @test collect(combinations_with_repetition(Int[], 0)) == Array{Int64,1}[[]]
+    @test length(combinations_with_repetition(Int[], 0)) == 1
+    @test eltype(combinations_with_repetition(Int[], 0)) == Array{Int64,1}
+
+    @test collect(combinations_with_repetition(Int[], 1)) == Array{Int64,1}[]
+    @test length(combinations_with_repetition(Int[], 1)) == 0
+    @test eltype(combinations_with_repetition(Int[], 1)) == Array{Int64,1}
+
+    @test collect(combinations_with_repetition(["a", "b", "c", "d"], 2)) == Array[
         ["a", "a"],
         ["a", "b"],
         ["a", "c"],
@@ -115,21 +171,29 @@ function test_combinatorics_combinations_with_repetitions()
         ["c", "d"],
         ["d", "d"],
     ]
-    @test length(combinations_with_repetitions(["a", "b", "c", "d"], 2)) == 10
-    @test eltype(combinations_with_repetitions(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
+    @test length(combinations_with_repetition(["a", "b", "c", "d"], 2)) == 10
+    @test eltype(combinations_with_repetition(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
+
+    @test collect(combinations_with_repetition(["a", "b"], 3)) == Array[
+        ["a", "a", "a"],
+        ["a", "a", "b"],
+        ["a", "b", "b"],
+        ["b", "b", "b"],
+    ]
+    @test length(combinations_with_repetition(["a", "b"], 3)) == 4
 end
 
 function test_combinatorics_all()
     print(rpad("Math.Combinatorics...", 50, ' '))
 
     test_combinatorics_permutations()
-    test_combinatorics_permutations_with_repetitions()
+    test_combinatorics_permutations_with_repetition()
 
     test_combinatorics_variations()
-    test_combinatorics_variations_with_repetitions()
+    test_combinatorics_variations_with_repetition()
 
     test_combinatorics_combinations()
-    test_combinatorics_combinations_with_repetitions()
+    test_combinatorics_combinations_with_repetition()
 
     println("PASS")
 end

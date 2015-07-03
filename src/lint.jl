@@ -4,8 +4,6 @@ end
 @lintpragma("Ignore undefined module DataStructures.SortedDict")
 @lintpragma("Ignore undefined module Iterators.drop")
 @lintpragma("Ignore undefined module Iterators.imap")
-@lintpragma("Ignore undefined module Iterators.product")
-@lintpragma("Ignore undefined module Iterators.repeated")
 @lintpragma("Ignore undefined module Iterators.take")
 @lintpragma("Ignore undefined module Lint.lintpkg")
 @lintpragma("Ignore undefined module TaylorSeries.Taylor1")
@@ -16,7 +14,6 @@ end
 
 @lintpragma("Ignore undefined module Brainstorm.dropwhile")
 @lintpragma("Ignore undefined module Brainstorm.takewhile")
-@lintpragma("Ignore undefined module Brainstorm.tmap")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_add")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_sub")
 @lintpragma("Ignore undefined module Brainstorm.@anon")
