@@ -1,5 +1,6 @@
 @reexport module Math
 
+using Brainstorm: flatten
 using Reexport.@reexport
 
 # @reexport using DecFP

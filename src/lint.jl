@@ -13,6 +13,7 @@ end
 @lintpragma("Ignore undefined module Reexport.@reexport")
 
 @lintpragma("Ignore undefined module Brainstorm.dropwhile")
+@lintpragma("Ignore undefined module Brainstorm.flatten")
 @lintpragma("Ignore undefined module Brainstorm.takewhile")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_add")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_sub")
