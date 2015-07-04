@@ -17,6 +17,8 @@ end
 @lintpragma("Ignore undefined module Brainstorm.takewhile")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_add")
 @lintpragma("Ignore undefined module Brainstorm.Math.checked_sub")
+@lintpragma("Ignore undefined module Brainstorm.Math.NumberTheory.coefficient")
+@lintpragma("Ignore undefined module Brainstorm.Math.NumberTheory.expand_maclaurin_series")
 @lintpragma("Ignore undefined module Brainstorm.@anon")
 
 @lintpragma("Ignore use of undeclared variable _")

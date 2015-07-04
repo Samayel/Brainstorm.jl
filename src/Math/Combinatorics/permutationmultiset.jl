@@ -1,37 +1,24 @@
-export
-    permutations_of_multiset
 
-permutations_of_multiset{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}) =
-    MultisetPermuations(a, c)
+Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}) =
+    MultisetPermuations(a, c, sum(c))
 
-permutations_of_multiset{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::Integer) =
-    MultisetKPermuations(a, c, k)
+Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::Integer) =
+    MultisetPermuations(a, c, k)
 
-abstract AbstractMultisetPermuations{T,U}
-
-immutable MultisetPermuations{T,U} <: AbstractMultisetPermuations{T,U}
-    a::T
-    c::U
-end
-
-immutable MultisetKPermuations{T,U} <: AbstractMultisetPermuations{T,U}
+immutable MultisetPermuations{T,U}
     a::T
     c::U
     k::Int
 end
 
-getk(p::MultisetPermuations) = sum(p.c)
-getk(p::MultisetKPermuations) = p.k
-
-Base.start(p::AbstractMultisetPermuations) = begin
+Base.start(p::MultisetPermuations) = begin
     s = [fill(i, p.c[i]) for i = 1:length(p.a)] |> flatten
-    k = getk(p)
-    k <= length(s) ? s[1:k] : [length(p.a) + 1]
+    p.k <= length(s) ? s[1:p.k] : [length(p.a) + 1]
 end
 
-Base.next(p::AbstractMultisetPermuations, s) = begin
-    variation = [p.a[si] for si in s]
-    getk(p) > 0 || return (variation, [length(p.a) + 1])
+Base.next(p::MultisetPermuations, s) = begin
+    permutation = [p.a[si] for si in s]
+    p.k > 0 || return (permutation, [length(p.a) + 1])
 
     s = copy(s)
     for i = length(s):-1:1
@@ -47,18 +34,25 @@ Base.next(p::AbstractMultisetPermuations, s) = begin
         end
     end
 
-    (variation, s)
+    (permutation, s)
 end
 
-Base.done(p::AbstractMultisetPermuations, s) = !isempty(s) && s[1] > length(p.a)
+Base.done(p::MultisetPermuations, s) = !isempty(s) && s[1] > length(p.a)
 
-Base.eltype(p::AbstractMultisetPermuations) = eltype(typeof(p))
+Base.eltype(p::MultisetPermuations) = eltype(typeof(p))
 Base.eltype{T,U}(::Type{MultisetPermuations{T,U}}) = Array{eltype(T),1}
-Base.eltype{T,U}(::Type{MultisetKPermuations{T,U}}) = Array{eltype(T),1}
 
-Base.length(p::MultisetPermuations) = multinomial(p.c...)
+Base.length(p::MultisetPermuations) = begin
+    p.k == 0 && return 1
 
-# TODO
-#   - https://mathoverflow.net/questions/33273/combinations-of-multisets-with-finite-multiplicities
-#   - http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
-# Base.length(p::MultisetKPermuations) = ???
+    csum = sum(p.c)
+    p.k > csum && return 0
+    p.k == csum && multinomial(p.c...)
+
+    s = expand_maclaurin_series(z -> gf(z, p.c), p.k, Number)
+    round(Int, factorial(p.k) * coefficient(s, p.k))
+end
+
+# http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
+gf(t, m::Integer) = sum([t^j / factorial(j) for j = 0:big(m)])
+gf{T<:Integer}(t, c::AbstractArray{T,1}) = prod([gf(t, m) for m in c])
