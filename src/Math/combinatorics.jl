@@ -1,12 +1,26 @@
 
-VERSION < v"0.4-" && @reexport using Combinatorics
 @reexport using Multicombinations
 
 export
+    multinomial,
     permutations_with_repetition,
     variations, variations_with_repetition,
     combinations_with_repetition,
     permutations_of_multiset
+
+
+# Multinomial coefficient where n = sum(k)
+# https://github.com/jiahao/Combinatorics.jl/blob/master/src/Combinatorics.jl
+multinomial(k...) = begin
+    s = 0
+    result = 1
+    for i in k
+        s += i
+        result *= binomial(s, i)
+    end
+    result
+end
+
 
 # TODO: k-combinations of multisets
 # TODO: Iterator.subsets()
@@ -36,7 +50,7 @@ end
 
 Base.start(v::Variations) = begin
     v.repetition && return ones(Int, v.k)
-    v.k <= length(v.a) ? [1:v.k;] : [length(v.a) + 1]
+    v.k <= length(v.a) ? collect(1:v.k) : [length(v.a) + 1]
 end
 
 Base.next(v::Variations, s) = begin
@@ -51,7 +65,7 @@ Base.next(v::Variations, s) = begin
         if s[i] <= length(v.a)
             s[i+1:end] = v.repetition ?
                 ones(Int, length(s) - i) :
-                setdiff([1:v.k], s[1:i])[1:(length(s)-i)]
+                setdiff(collect(1:v.k), s[1:i])[1:(length(s)-i)]
             break
         end
     end
@@ -64,8 +78,11 @@ Base.done(v::Variations, s) = !isempty(s) && s[1] > length(v.a)
 Base.eltype(v::Variations) = eltype(typeof(v))
 Base.eltype{T}(::Type{Variations{T}}) = Array{eltype(T),1}
 
-Base.length(v::Variations) =
-    v.repetition ? length(v.a)^v.k : factorial(length(v.a), length(v.a) - v.k)
+Base.length(v::Variations) = begin
+    v.repetition && return length(v.a)^v.k
+    v.k <= length(v.a) || return 0
+    factorial(length(v.a), length(v.a) - v.k)
+end
 
 
 ###
