@@ -1,6 +1,5 @@
 @reexport module Math
 
-using Brainstorm: flatten
 using Reexport.@reexport
 
 # @reexport using DecFP
@@ -29,6 +28,6 @@ macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
 
 include("NumberTheory/numbertheory.jl")
-include("combinatorics.jl")
+include("Combinatorics/combinatorics.jl")
 
 end

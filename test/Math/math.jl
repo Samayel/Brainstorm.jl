@@ -1,15 +1,15 @@
 module Math
 
-using Brainstorm.Math
 using Base.Test
 
 include("NumberTheory/numbertheory.jl")
-include("combinatorics.jl")
+include("Combinatorics/combinatorics.jl")
 
 function test_all()
     println("")
     NumberTheory.test_all()
-    test_combinatorics_all()
+    println("")
+    Combinatorics.test_all()
 end
 
 end
