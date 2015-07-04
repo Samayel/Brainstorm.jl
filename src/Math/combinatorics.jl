@@ -36,8 +36,8 @@ immutable Variations{T}
 end
 
 Base.start(v::Variations) = begin
-    v.repetition && return ones(v.k)
-    v.k <= length(v.a) ? [1:v.k;] : [v.k]
+    v.repetition && return ones(Int, v.k)
+    v.k <= length(v.a) ? [1:v.k;] : [length(v.a) + 1]
 end
 
 Base.next(v::Variations, s) = begin
@@ -48,8 +48,13 @@ Base.next(v::Variations, s) = begin
     for i = length(s):-1:1
         s[i] += 1
         v.repetition || (while s[i] ∈ s[1:i-1]; s[i] += 1; end)
-        s[i] <= length(v.a) && break
-        i > 1 && (s[i] = 1)
+
+        if s[i] <= length(v.a)
+            s[i+1:end] = v.repetition ?
+                ones(Int, length(s) - i) :
+                setdiff([1:v.k], s[1:i])[1:(length(s)-i)]
+            break
+        end
     end
 
     (variation, s)

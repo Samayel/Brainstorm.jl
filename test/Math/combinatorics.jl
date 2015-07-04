@@ -79,6 +79,35 @@ function test_combinatorics_variations()
     @test length(variations(["a", "b", "c", "d"], 2)) == 12
     @test eltype(variations(["a", "b", "c", "d"], 2)) == Array{ASCIIString,1}
 
+    @test collect(variations(["a", "b", "c", "d"], 3)) == Array[
+        ["a", "b", "c"],
+        ["a", "b", "d"],
+        ["a", "c", "b"],
+        ["a", "c", "d"],
+        ["a", "d", "b"],
+        ["a", "d", "c"],
+        ["b", "a", "c"],
+        ["b", "a", "d"],
+        ["b", "c", "a"],
+        ["b", "c", "d"],
+        ["b", "d", "a"],
+        ["b", "d", "c"],
+        ["c", "a", "b"],
+        ["c", "a", "d"],
+        ["c", "b", "a"],
+        ["c", "b", "d"],
+        ["c", "d", "a"],
+        ["c", "d", "b"],
+        ["d", "a", "b"],
+        ["d", "a", "c"],
+        ["d", "b", "a"],
+        ["d", "b", "c"],
+        ["d", "c", "a"],
+        ["d", "c", "b"],
+    ]
+    @test length(variations(["a", "b", "c", "d"], 3)) == 24
+    @test eltype(variations(["a", "b", "c", "d"], 3)) == Array{ASCIIString,1}
+
     @test collect(variations(["a", "b"], 3)) == Array{ASCIIString,1}[]
     @test length(variations(["a", "b"], 3)) == 0
 end
