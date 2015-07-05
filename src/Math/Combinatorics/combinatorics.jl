@@ -24,8 +24,8 @@ include("permutation.jl")
 include("combination.jl")
 
 include("multipermutation.jl")
+include("multicombination.jl")
 
-# TODO: k-combinations of multisets
 # TODO: Iterator.subsets()
 
 end

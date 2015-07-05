@@ -48,10 +48,10 @@ Base.length(p::MultisetPermuations) = begin
     p.k > csum && return 0
     p.k == csum && return multinomial(p.c...)
 
-    s = expand_maclaurin_series(z -> gf(z, p.c), p.k, Number)
+    s = expand_maclaurin_series(z -> gfperm(z, p.c), p.k, Number)
     round(Int, factorial(p.k) * coefficient(s, p.k))
 end
 
 # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
-gf(t, m::Integer) = sum([t^j / factorial(j) for j = 0:big(m)])
-gf{T<:Integer}(t, c::AbstractArray{T,1}) = prod([gf(t, m) for m in c])
+gfperm(t, m::Integer) = sum([t^j / factorial(j) for j = 0:big(m)])
+gfperm{T<:Integer}(t, c::AbstractArray{T,1}) = prod([gfperm(t, m) for m in c])
