@@ -12,6 +12,7 @@ function test_multipermutation_permutations()
     @test eltype(permutations(["a", "b"], [2, 1])) == Array{ASCIIString,1}
 
     @test length(permutations(["M","I","S","P"], [1,4,4,2])) == 34650
+    @test length(permutations([:right,:down], [20,20])) == 137846528820
 
     @test collect(permutations(Int[], Int[], 0)) == Array{Int64,1}[[]]
     @test length(permutations(Int[], Int[], 0)) == 1

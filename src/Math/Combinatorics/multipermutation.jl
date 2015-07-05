@@ -46,7 +46,7 @@ Base.length(p::MultisetPermuations) = begin
 
     csum = sum(p.c)
     p.k > csum && return 0
-    p.k == csum && multinomial(p.c...)
+    p.k == csum && return multinomial(p.c...)
 
     s = expand_maclaurin_series(z -> gf(z, p.c), p.k, Number)
     round(Int, factorial(p.k) * coefficient(s, p.k))
