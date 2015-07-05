@@ -1,4 +1,4 @@
-function test_permutationmultiset_permutations()
+function test_multipermutation_permutations()
     @test collect(permutations(Int[], Int[])) == Array{Int64,1}[[]]
     @test length(permutations(Int[], Int[])) == 1
     @test eltype(permutations(Int[], Int[])) == Array{Int64,1}
@@ -36,10 +36,10 @@ function test_permutationmultiset_permutations()
     @test length(permutations(["M","I","S","P"], [1,4,4,2], 11)) == 34650
 end
 
-function test_permutationmultiset_all()
+function test_multipermutation_all()
     print(rpad("Math.Combinatorics.Permutation[Multiset]...", 50, ' '))
 
-    test_permutationmultiset_permutations()
+    test_multipermutation_permutations()
 
     println("PASS")
 end

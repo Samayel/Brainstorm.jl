@@ -21,10 +21,9 @@ multinomial(k...) = begin
 end
 
 include("permutation.jl")
-include("variation.jl")
 include("combination.jl")
 
-include("permutationmultiset.jl")
+include("multipermutation.jl")
 
 # TODO: k-combinations of multisets
 # TODO: Iterator.subsets()

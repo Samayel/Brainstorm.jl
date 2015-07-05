@@ -1,7 +1,6 @@
 
 Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}) =
-    MultisetPermuations(a, c, sum(c))
-
+    permutations(a, c, sum(c))
 Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::Integer) =
     MultisetPermuations(a, c, k)
 
