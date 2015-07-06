@@ -26,6 +26,9 @@ include("combination.jl")
 include("multipermutation.jl")
 include("multicombination.jl")
 
-# TODO: Iterator.subsets()
+include("subset.jl")
+
+include("integerpartition.jl")
+include("integersum.jl")
 
 end

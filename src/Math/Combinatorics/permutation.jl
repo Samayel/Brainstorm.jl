@@ -1,5 +1,5 @@
 
-# permutations{T}(a::AbstractArray{T,1}) = Base.permutations(a)
+# permutations(a) = Base.permutations(a)
 
 Base.permutations{T}(a::AbstractArray{T,1}, mode::Symbol) =
     permutations(a, length(a), mode)
