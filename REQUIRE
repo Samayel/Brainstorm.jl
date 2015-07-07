@@ -29,6 +29,7 @@ Memoize
 MinimalPerfectHashes
 NamedArrays
 NamedTuples
+OEIS
 Pipe
 ProgressMeter
 Redis
