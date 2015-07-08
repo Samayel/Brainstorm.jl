@@ -12,6 +12,7 @@ using Reexport.@reexport
 
 export
     checked_add, checked_sub,
+    setbits,
     @activate_mathematica,
     @activate_matlab
 
@@ -24,6 +25,14 @@ checked_sub(a::Number, b::Number) = checked_sub(promote(a, b)...)
 checked_sub{T<:Number}(a::T, b::T) = Base.checked_sub(a, b)
 checked_sub(a::BigInt, b::BigInt) = a - b
 checked_sub(a::BigFloat, b::BigFloat) = a - b
+
+setbits(n::Integer, idx) = begin
+    m = copy(n)
+    for i in idx
+        m |= one(n) << i
+    end
+    m
+end
 
 macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
