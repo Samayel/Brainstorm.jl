@@ -29,6 +29,8 @@ end
 
 const PRIMES = Base.PRIMES
 
+Base.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
+
 maskprimes(n::Integer) = Base.primesmask(n)
 
 ##  Find all twin primes
