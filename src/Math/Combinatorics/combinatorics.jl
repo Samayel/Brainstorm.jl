@@ -1,5 +1,7 @@
 @reexport module Combinatorics
 
+using Reexport.@reexport
+
 using Brainstorm: flatten
 using Brainstorm.Math.NumberTheory: expand_maclaurin_series, coefficient
 
