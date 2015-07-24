@@ -8,7 +8,7 @@ using Reexport.@reexport
 @reexport using IntModN
 @reexport using OEIS
 @reexport using TaylorSeries
-@reexport using ValidatedNumerics
+# @reexport using ValidatedNumerics
 
 export
     checked_add, checked_sub,

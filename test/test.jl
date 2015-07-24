@@ -59,7 +59,7 @@ function test_external()
     Pkg.test("SortingAlgorithms")
     Pkg.test("SparseVectors")
     Pkg.test("TaylorSeries")
-    Pkg.test("ValidatedNumerics")
+    # Pkg.test("ValidatedNumerics")
     # Pkg.test("ValueDispatch")
 end
 
