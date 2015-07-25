@@ -32,5 +32,6 @@ flatten(a) = a
 include("iterator.jl")
 include("vector.jl")
 include("matrix.jl")
+include("intset.jl")
 
 end
