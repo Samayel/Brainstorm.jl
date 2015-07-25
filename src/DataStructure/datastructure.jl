@@ -15,6 +15,7 @@ VERSION >= v"0.4-" && @reexport using Base.Dates
 @reexport using Iterators
 #VERSION < v"0.4-" && @reexport using Lazy      # conflicts with Iterators.drop
 @reexport using LightGraphs
+@reexport using Lists
 VERSION < v"0.4-" && @reexport using NamedArrays
 @reexport using NamedTuples
 @reexport using ShowSet
