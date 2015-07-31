@@ -18,6 +18,8 @@ function test_intset_validated_setdiff()
 
     @test validated_setdiff!(s, []) == true
     @test s == IntSet([])
+
+    @test validated_setdiff!(IntSet(1:3), IntSet(2)) == true
 end
 
 function test_intset_all()
