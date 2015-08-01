@@ -17,4 +17,6 @@ script:
   - julia -e 'Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve");'
   - julia --check-bounds=yes -e 'Pkg.clone(pwd()); Pkg.build("Brainstorm"); Pkg.test("Brainstorm"; coverage=true)'
 after_success:
-  - julia -e 'cd(Pkg.dir("Brainstorm")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia -e 'Pkg.add("Coverage")'
+  - julia -e 'cd(Pkg.dir("Brainstorm")); using Coverage; Coveralls.submit(Coveralls.process_folder())'
+  - julia -e 'cd(Pkg.dir("Brainstorm")); using Coverage; Codecov.submit(Codecov.process_folder())'
