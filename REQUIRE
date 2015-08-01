@@ -30,6 +30,7 @@ MinimalPerfectHashes
 NamedArrays
 NamedTuples
 OEIS
+Parameters
 Pipe
 ProgressMeter
 Redis

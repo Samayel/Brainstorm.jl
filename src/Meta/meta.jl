@@ -4,6 +4,7 @@ using Reexport.@reexport
 
 @reexport using Match
 @reexport using Memoize
+@reexport using Parameters
 @reexport using Pipe
 @reexport using ProgressMeter
 @reexport using Requires
