@@ -13,7 +13,7 @@ function test_intset_validated_setdiff()
     @test validated_setdiff!(s, [2,4,6,8]) == true
     @test s == IntSet([])
 
-    @test validated_setdiff!(s, [0]) == false
+    @test validated_setdiff!(s, [1]) == false
     @test s == IntSet([])
 
     @test validated_setdiff!(s, []) == true
