@@ -38,6 +38,7 @@ Requires
 ShowSet
 SortingAlgorithms
 SparseVectors
+StatsFuns
 TaylorSeries
 ValidatedNumerics
 ValueDispatch
