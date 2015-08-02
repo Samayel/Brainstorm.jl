@@ -1,5 +1,28 @@
 export
+    nthtriangle, ntriangle,
+    alltriangle, sometriangle, exacttriangle,
     primitive_pythagorean_triples
+
+nthtriangle(n::Integer) = div(n * (n+1), 2)
+ntriangle(n::Integer, T::Type = Int) = exacttriangle(n, T) |> collect
+
+alltriangle(T::Type = Int) = TriangleIterator{T}()
+sometriangle{T<:Integer}(xmax::T) = @pipe alltriangle(T) |> takewhile(@anon(x -> x <= xmax), _)
+exacttriangle(n::Integer, T::Type = Int) = @pipe alltriangle(T) |> take(_, n)
+
+immutable TriangleIterator{T<:Integer}
+end
+
+Base.start{T<:Integer}(::TriangleIterator{T}) = zero(T), one(T)
+Base.next{T<:Integer}(::TriangleIterator{T}, state) = begin
+    s = sum(state)
+    s, (s, state[2] + one(T))
+end
+Base.done(::TriangleIterator, _) = false
+
+Base.eltype(it::TriangleIterator) = Base.eltype(typeof(it))
+Base.eltype{T<:Integer}(::Type{TriangleIterator{T}}) = T
+
 
 
 primitive_pythagorean_triples(T::Type = Int) = PrimitivePythagoreanTripleIterator{T}()
