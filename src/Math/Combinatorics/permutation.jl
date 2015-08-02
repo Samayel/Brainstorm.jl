@@ -3,17 +3,19 @@
 
 Base.permutations{T}(a::AbstractArray{T,1}, mode::Symbol) =
     permutations(a, length(a), mode)
-Base.permutations{T}(a::AbstractArray{T,1}, k::Integer, mode::Symbol) =
-    Permutations(a, k, mode == :repetition)
+Base.permutations{T}(a::AbstractArray{T,1}, k::Integer, mode::Symbol) = begin
+    mode ∈ [:unique, :repeated] || error("Mode must be :unique or :repeated")
+    Permutations(a, k, mode == :repeated)
+end
 
 immutable Permutations{T}
     a::T
     k::Int
-    repetition::Bool
+    repeated::Bool
 end
 
 Base.start(v::Permutations) = begin
-    v.repetition && return ones(Int, v.k)
+    v.repeated && return ones(Int, v.k)
     v.k <= length(v.a) ? collect(1:v.k) : [length(v.a) + 1]
 end
 
@@ -24,10 +26,10 @@ Base.next(v::Permutations, s) = begin
     s = copy(s)
     for i = length(s):-1:1
         s[i] += 1
-        v.repetition || (while s[i] ∈ s[1:i-1]; s[i] += 1; end)
+        v.repeated || (while s[i] ∈ s[1:i-1]; s[i] += 1; end)
 
         if s[i] <= length(v.a)
-            s[i+1:end] = v.repetition ?
+            s[i+1:end] = v.repeated ?
                 ones(Int, length(s) - i) :
                 setdiff(collect(1:v.k), s[1:i])[1:(length(s)-i)]
             break
@@ -43,7 +45,7 @@ Base.eltype(v::Permutations) = eltype(typeof(v))
 Base.eltype{T}(::Type{Permutations{T}}) = Array{eltype(T),1}
 
 Base.length(v::Permutations) = begin
-    v.repetition && return length(v.a)^v.k
+    v.repeated && return length(v.a)^v.k
     v.k <= length(v.a) || return 0
     factorial(length(v.a), length(v.a) - v.k)
 end

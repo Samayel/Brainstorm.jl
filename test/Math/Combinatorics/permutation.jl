@@ -16,11 +16,11 @@ function test_permutation_permutations()
 end
 
 function test_permutation_permutations_with_repetition()
-    @test collect(permutations(Int[], :repetition)) == Array{Int64,1}[[]]
-    @test length(permutations(Int[], :repetition)) == 1
-    @test eltype(permutations(Int[], :repetition)) == Array{Int64,1}
+    @test collect(permutations(Int[], :repeated)) == Array{Int64,1}[[]]
+    @test length(permutations(Int[], :repeated)) == 1
+    @test eltype(permutations(Int[], :repeated)) == Array{Int64,1}
 
-    @test collect(permutations(["a", "b", "c"], :repetition)) == Array[
+    @test collect(permutations(["a", "b", "c"], :repeated)) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
         ["a", "a", "c"],
@@ -49,8 +49,12 @@ function test_permutation_permutations_with_repetition()
         ["c", "c", "b"],
         ["c", "c", "c"],
     ]
-    @test length(permutations(["a", "b", "c"], :repetition)) == 27
-    @test eltype(permutations(["a", "b", "c"], :repetition)) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c"], :repeated)) == 27
+    @test eltype(permutations(["a", "b", "c"], :repeated)) == Array{ASCIIString,1}
+end
+
+function test_permutation_permutations_unknown_mode()
+    @test_throws ErrorException permutations(["a", "b", "c"], :unknown)
 end
 
 function test_permutation_kpermutations()
@@ -113,15 +117,15 @@ function test_permutation_kpermutations()
 end
 
 function test_permutation_kpermutations_with_repetition()
-    @test collect(permutations(Int[], 0, :repetition)) == Array{Int64,1}[[]]
-    @test length(permutations(Int[], 0, :repetition)) == 1
-    @test eltype(permutations(Int[], 0, :repetition)) == Array{Int64,1}
+    @test collect(permutations(Int[], 0, :repeated)) == Array{Int64,1}[[]]
+    @test length(permutations(Int[], 0, :repeated)) == 1
+    @test eltype(permutations(Int[], 0, :repeated)) == Array{Int64,1}
 
-    @test collect(permutations(Int[], 1, :repetition)) == Array{Int64,1}[]
-    @test length(permutations(Int[], 1, :repetition)) == 0
-    @test eltype(permutations(Int[], 1, :repetition)) == Array{Int64,1}
+    @test collect(permutations(Int[], 1, :repeated)) == Array{Int64,1}[]
+    @test length(permutations(Int[], 1, :repeated)) == 0
+    @test eltype(permutations(Int[], 1, :repeated)) == Array{Int64,1}
 
-    @test collect(permutations(["a", "b", "c", "d"], 2, :repetition)) == Array[
+    @test collect(permutations(["a", "b", "c", "d"], 2, :repeated)) == Array[
         ["a", "a"],
         ["a", "b"],
         ["a", "c"],
@@ -139,10 +143,10 @@ function test_permutation_kpermutations_with_repetition()
         ["d", "c"],
         ["d", "d"],
     ]
-    @test length(permutations(["a", "b", "c", "d"], 2, :repetition)) == 4^2
-    @test eltype(permutations(["a", "b", "c", "d"], 2, :repetition)) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c", "d"], 2, :repeated)) == 4^2
+    @test eltype(permutations(["a", "b", "c", "d"], 2, :repeated)) == Array{ASCIIString,1}
 
-    @test collect(permutations(["a", "b"], 3, :repetition)) == Array[
+    @test collect(permutations(["a", "b"], 3, :repeated)) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
         ["a", "b", "a"],
@@ -152,7 +156,11 @@ function test_permutation_kpermutations_with_repetition()
         ["b", "b", "a"],
         ["b", "b", "b"],
     ]
-    @test length(permutations(["a", "b"], 3, :repetition)) == 2^3
+    @test length(permutations(["a", "b"], 3, :repeated)) == 2^3
+end
+
+function test_permutation_kpermutations_unknown_mode()
+    @test_throws ErrorException permutations(["a", "b", "c", "d"], 2, :unknown)
 end
 
 function test_permutation_all()
@@ -160,8 +168,10 @@ function test_permutation_all()
 
     test_permutation_permutations()
     test_permutation_permutations_with_repetition()
+    test_permutation_permutations_unknown_mode()
     test_permutation_kpermutations()
     test_permutation_kpermutations_with_repetition()
+    test_permutation_kpermutations_unknown_mode()
 
     println("PASS")
 end
