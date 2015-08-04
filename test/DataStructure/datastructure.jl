@@ -1,5 +1,7 @@
 module DataStructure
 
+import Brainstorm
+
 using Brainstorm.DataStructure
 using Base.Test
 
