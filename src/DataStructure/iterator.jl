@@ -132,13 +132,13 @@ nextstate(it::NestedIterator, state) = begin
     outerit = it.source
     outerstate, innerit, innerstate = state
 
-    if (outerstate == Nothing)
+    if outerstate == Nothing
         outerstate = start(outerit)
     end
 
     done(outerit, outerstate) && return (outerstate, innerit, innerstate)
 
-    if (innerit == Nothing)
+    if innerit == Nothing
         innerit, innerstate = createinner(it, outerstate)
     else
         _, innerstate = next(innerit, innerstate)

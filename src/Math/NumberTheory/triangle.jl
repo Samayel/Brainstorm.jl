@@ -1,27 +1,31 @@
 export
-    nthtriangle, ntriangle,
-    alltriangle, sometriangle, exacttriangle,
+    istriangular,
+    nthtriangular, ntriangular,
+    alltriangular, sometriangular, exacttriangular,
     primitive_pythagorean_triples
 
-nthtriangle(n::Integer) = div(n * (n+1), 2)
-ntriangle(n::Integer, T::Type = Int) = exacttriangle(n, T) |> collect
+istriangular(n::Integer) = isperfectsquare(8*n + 1)
 
-alltriangle(T::Type = Int) = TriangleIterator{T}()
-sometriangle{T<:Integer}(xmax::T) = @pipe alltriangle(T) |> takewhile(@anon(x -> x <= xmax), _)
-exacttriangle(n::Integer, T::Type = Int) = @pipe alltriangle(T) |> take(_, n)
+nthtriangular(n::Integer) = div(n * (n+1), 2)
+ntriangular(n::Integer, T::Type = Int) = exacttriangular(n, T) |> collect
 
-immutable TriangleIterator{T<:Integer}
+alltriangular(T::Type = Int) = TriangularIterator{T}()
+sometriangular{T<:Integer}(xmax::T) = @pipe alltriangular(T) |> takewhile(@anon(x -> x <= xmax), _)
+exacttriangular(n::Integer, T::Type = Int) = @pipe alltriangular(T) |> take(_, n)
+
+immutable TriangularIterator{T<:Integer}
 end
 
-Base.start{T<:Integer}(::TriangleIterator{T}) = zero(T), one(T)
-Base.next{T<:Integer}(::TriangleIterator{T}, state) = begin
-    s = sum(state)
-    s, (s, state[2] + one(T))
+Base.start{T<:Integer}(::TriangularIterator{T}) = zero(T), one(T)
+Base.next{T<:Integer}(::TriangularIterator{T}, state) = begin
+    s, n = state
+    s += n
+    s, (s, n + 1)
 end
-Base.done(::TriangleIterator, _) = false
+Base.done(::TriangularIterator, _) = false
 
-Base.eltype(it::TriangleIterator) = Base.eltype(typeof(it))
-Base.eltype{T<:Integer}(::Type{TriangleIterator{T}}) = T
+Base.eltype(it::TriangularIterator) = Base.eltype(typeof(it))
+Base.eltype{T<:Integer}(::Type{TriangularIterator{T}}) = T
 
 
 

@@ -19,6 +19,8 @@ include("decimal.jl")
 include("fibonacci.jl")
 include("hailstone.jl")
 include("triangle.jl")
+include("pentagon.jl")
+include("hexagon.jl")
 include("genfunc.jl")
 
 end

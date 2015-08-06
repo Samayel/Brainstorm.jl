@@ -1,26 +1,30 @@
-function test_triangle_nthtriangle()
-    @test nthtriangle(1) == 1
-    @test nthtriangle(2) == 3
-    @test nthtriangle(10) == 55
+function test_triangle_istriangular()
+    @test find([istriangular(i) for i = 1:400]) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231, 253, 276, 300, 325, 351, 378]
 end
 
-function test_triangle_ntriangle()
-    @test ntriangle(10) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
-    @test eltype(ntriangle(10)) == Int
-    @test eltype(ntriangle(10, BigInt)) == BigInt
+function test_triangle_nthtriangular()
+    @test nthtriangular(1) == 1
+    @test nthtriangular(2) == 3
+    @test nthtriangular(10) == 55
 end
 
-function test_triangle_sometriangle()
-    @test collect(sometriangle(35)) == [1, 3, 6, 10, 15, 21, 28]
-    @test collect(sometriangle(36)) == [1, 3, 6, 10, 15, 21, 28, 36]
-    @test eltype(sometriangle(36)) == Int
-    @test eltype(sometriangle(big(36))) == BigInt
+function test_triangle_ntriangular()
+    @test ntriangular(10) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+    @test eltype(ntriangular(10)) == Int
+    @test eltype(ntriangular(10, BigInt)) == BigInt
 end
 
-function test_triangle_exacttriangle()
-    @test collect(exacttriangle(10)) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
-    @test eltype(exacttriangle(10)) == Int
-    @test eltype(exacttriangle(10, BigInt)) == BigInt
+function test_triangle_sometriangular()
+    @test collect(sometriangular(35)) == [1, 3, 6, 10, 15, 21, 28]
+    @test collect(sometriangular(36)) == [1, 3, 6, 10, 15, 21, 28, 36]
+    @test eltype(sometriangular(36)) == Int
+    @test eltype(sometriangular(big(36))) == BigInt
+end
+
+function test_triangle_exacttriangular()
+    @test collect(exacttriangular(10)) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+    @test eltype(exacttriangular(10)) == Int
+    @test eltype(exacttriangular(10, BigInt)) == BigInt
 end
 
 function test_triangle_primitive_pythagorean_triples()
@@ -67,10 +71,11 @@ end
 function test_triangle_all()
     print(rpad("Math.NumberTheory.Triangle...", 50, ' '))
 
-    test_triangle_nthtriangle()
-    test_triangle_ntriangle()
-    test_triangle_sometriangle()
-    test_triangle_exacttriangle()
+    test_triangle_istriangular()
+    test_triangle_nthtriangular()
+    test_triangle_ntriangular()
+    test_triangle_sometriangular()
+    test_triangle_exacttriangular()
 
     test_triangle_primitive_pythagorean_triples()
 

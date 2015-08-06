@@ -1,9 +1,12 @@
 export
+    isperfectsquare,
     divisorcount, divisorsigma,
     isperfect, isdeficient, isabundant,
     factorization_sorted,
     primefactors, factors,
     least_number_with_d_divisors
+
+isperfectsquare(n::Integer) = n == isqrt(n)^2
 
 # https://oeis.org/wiki/Divisor_function
 divisorcount(n::Integer) = begin

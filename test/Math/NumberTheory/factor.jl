@@ -1,3 +1,7 @@
+function test_factor_isperfectsquare()
+    @test find([isperfectsquare(i) for i = 1:100]) == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+end
+
 function test_factor_divisorcount()
     @test divisorcount(1) == 1
     @test divisorcount(2) == 2
@@ -74,6 +78,7 @@ end
 function test_factor_all()
     print(rpad("Math.NumberTheory.Factor...", 50, ' '))
 
+    test_factor_isperfectsquare()
     test_factor_divisorcount()
     test_factor_divisorsigma()
     test_factor_isperfect()
