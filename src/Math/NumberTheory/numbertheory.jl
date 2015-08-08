@@ -2,6 +2,7 @@
 
 using Brainstorm: takewhile, @anon
 using Brainstorm.Math: checked_add, checked_sub
+using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using Iterators: drop, imap, take
 using Lists: List, ListNode
@@ -22,5 +23,6 @@ include("triangle.jl")
 include("pentagon.jl")
 include("hexagon.jl")
 include("genfunc.jl")
+include("diophantine.jl")
 
 end
