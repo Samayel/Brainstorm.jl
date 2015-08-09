@@ -6,7 +6,7 @@ end
 function test_diophantine_all()
     print(rpad("Math.NumberTheory.Diophantine...", 50, ' '))
 
-    test_diophantine_solutions_listing()
+    test_diophantine_solutions()
     test_diophantine_solutions_nonex_noney()
     test_diophantine_solutions_anyx_anyy()
     test_diophantine_solutions_onex_anyy()
