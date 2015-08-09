@@ -1,7 +1,6 @@
 include("diophantine_solution.jl")
-
-function test_diophantine_solve_diophantine_linear()
-end
+include("diophantine_linear.jl")
+include("diophantine_quadratic.jl")
 
 function test_diophantine_all()
     print(rpad("Math.NumberTheory.Diophantine...", 50, ' '))
@@ -14,6 +13,7 @@ function test_diophantine_all()
     test_diophantine_solutions_somex_somey_anyt()
 
     test_diophantine_solve_diophantine_linear()
+    test_diophantine_solve_diophantine_quadratic()
 
     println("PASS")
 end

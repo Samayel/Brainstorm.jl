@@ -1,0 +1,2 @@
+function test_diophantine_solve_diophantine_quadratic()
+end
