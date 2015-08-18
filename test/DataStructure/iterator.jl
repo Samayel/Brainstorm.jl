@@ -27,11 +27,11 @@ function test_iterator_tmap()
     @test length(tmap(+, Int, 1:5, 11:20)) == 5
 end
 
-Brainstorm.create(it::DefaultNestedIterator{Array{Int,1}}, value) = begin
+create(it::DefaultNestedIterator{Array{Int,1}}, value) = begin
     f = filter(x -> x != value, it.source)
     length(f) > 1 ? nested(f, it.level + 1) : f
 end
-Brainstorm.combine(::DefaultNestedIterator{Array{Int,1}}, outer, inner) = "$outer$inner"
+combine(::DefaultNestedIterator{Array{Int,1}}, outer, inner) = "$outer$inner"
 
 Base.eltype(it::DefaultNestedIterator{Array{Int,1}}) = eltype(typeof(it))
 Base.eltype(::Type{DefaultNestedIterator{Array{Int,1}}}) = ASCIIString
@@ -50,11 +50,11 @@ end
 
 digitperm(s, l) = l == 1 ? s : DigitPermutationIterator(s, l)
 
-Brainstorm.create(it::DigitPermutationIterator, value) = begin
+create(it::DigitPermutationIterator, value) = begin
     f = filter(x -> x != value, it.source)
     (it.maxlen > 2 && length(f) > 1) ? digitperm(f, it.maxlen - 1) : f
 end
-Brainstorm.combine(::DigitPermutationIterator, outer, inner) = "$outer$inner"
+combine(::DigitPermutationIterator, outer, inner) = "$outer$inner"
 
 Base.eltype(it::DigitPermutationIterator) = eltype(typeof(it))
 Base.eltype(::Type{DigitPermutationIterator}) = ASCIIString

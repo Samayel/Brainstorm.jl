@@ -1,6 +1,6 @@
 module DataStructure
 
-import Brainstorm
+import Brainstorm.DataStructure: create, combine
 
 using Brainstorm.DataStructure
 using Base.Test

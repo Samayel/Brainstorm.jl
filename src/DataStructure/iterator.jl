@@ -1,7 +1,7 @@
 export
     takewhile, dropwhile,
     tmap,
-    NestedIterator, DefaultNestedIterator, nested, create, combine
+    NestedIterator, DefaultNestedIterator, nested
 
 #
 # BEGIN
