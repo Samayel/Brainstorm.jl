@@ -9,6 +9,8 @@ immutable DiophantineEquationLinearXY{T<:Integer}
     c0::T  # F
 end
 
+Base.show(io::IO, eq::DiophantineEquationLinearXY) = print(io, "$(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
+
 
 solve{T<:Integer}(eq::DiophantineEquationLinearXY{T}) = begin
     cx, cy, c0 = eq.cx, eq.cy, eq.c0

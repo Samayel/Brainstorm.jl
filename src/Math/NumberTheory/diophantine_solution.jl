@@ -28,7 +28,7 @@ end
 
 
 immutable DiophantineSolutions{T<:AbstractDiophantineSolution} <: AbstractDiophantineSolutions{T}
-    solutions
+    solutions::Array{T,1}
 end
 
 immutable DiophantineSolutionsNoneXNoneY{T<:DiophantineSolutionXY} <: AbstractDiophantineSolutions{T}
@@ -50,22 +50,32 @@ immutable DiophantineSolutionsSomeXSomeYAnyT{T<:DiophantineSolutionXY} <: Abstra
     yfunc::Function
 end
 
-typealias SolutionXY DiophantineSolutionXY
-typealias Solutions DiophantineSolutions
-typealias NoneX_NoneY DiophantineSolutionsNoneXNoneY
-typealias AnyX_AnyY DiophantineSolutionsAnyXAnyY
-typealias OneX_AnyY DiophantineSolutionsOneXAnyY
-typealias AnyX_OneY DiophantineSolutionsAnyXOneY
-typealias SomeX_SomeY_AnyT DiophantineSolutionsSomeXSomeYAnyT
+typealias SolutionXY        DiophantineSolutionXY
+typealias Solutions         DiophantineSolutions
+typealias NoneX_NoneY       DiophantineSolutionsNoneXNoneY
+typealias AnyX_AnyY         DiophantineSolutionsAnyXAnyY
+typealias OneX_AnyY         DiophantineSolutionsOneXAnyY
+typealias AnyX_OneY         DiophantineSolutionsAnyXOneY
+typealias SomeX_SomeY_AnyT  DiophantineSolutionsSomeXSomeYAnyT
 
 
 diophantine_solution{T<:Integer}(x::T, y::T) = SolutionXY(x, y)
-diophantine_solutions{T<:AbstractDiophantineSolution}(s::AbstractArray{T,1}) = Solutions{T}(s)
+diophantine_solutions{T<:AbstractDiophantineSolution}(s::Array{T,1}) = Solutions{T}(s)
 diophantine_nonex_noney(T::Type = Int) = NoneX_NoneY{SolutionXY{T}}()
 diophantine_anyx_anyy(T::Type = Int) = AnyX_AnyY{SolutionXY{T}}()
 diophantine_onex_anyy{T<:Integer}(x::T) = OneX_AnyY{SolutionXY{T},T}(x)
 diophantine_anyx_oney{T<:Integer}(y::T) = AnyX_OneY{SolutionXY{T},T}(y)
 diophantine_somex_somey_anyt(xfunc, yfunc, T::Type = Int) = SomeX_SomeY_AnyT{SolutionXY{T}}(xfunc, yfunc)
+
+
+Base.show(io::IO, sol::SolutionXY)     = print(io, "x=$(sol.x) ∧ y=$(sol.y)")
+Base.show(io::IO, ::NoneX_NoneY)       = print(io, "∅")
+Base.show(io::IO, ::AnyX_AnyY)         = print(io, "∀t,s∈ℤ: x=t ∧ y=s")
+Base.show(io::IO, sol::OneX_AnyY)      = print(io, "∀t∈ℤ: x=$(sol.x) ∧ y=t")
+Base.show(io::IO, sol::AnyX_OneY)      = print(io, "∀t∈ℤ: x=t ∧ y=$(sol.y)")
+Base.show(io::IO, ::SomeX_SomeY_AnyT)  = print(io, "∀t∈ℤ: x=x(t) ∧ y=y(t)")
+Base.show(io::IO, sol::Solutions)      = print(io, sol.solutions)
+#Base.show(io::IO, sol::Solutions)     = writemime(io, MIME("text/plain"), sol.solutions)
 
 
 Base.eltype(it::AbstractDiophantineSolution) = eltype(typeof(it))
