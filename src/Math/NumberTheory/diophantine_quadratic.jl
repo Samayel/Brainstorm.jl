@@ -41,11 +41,10 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
         cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-div(cx, cxy)))
     else
         @compat xytuples = Tuple{T,T}[]
-        divisors = flatten([[f,-f] for f in factors(discriminant)])
-        for d in divisors
-            x, r = divrem(d - cy, cxy)
+        for f in factors(discriminant; negative = true)
+            x, r = divrem(f - cy, cxy)
             r == 0 || continue
-            y, r = divrem(div(discriminant, d) - cx, cxy)
+            y, r = divrem(div(discriminant, f) - cx, cxy)
             r == 0 || continue
             push!(xytuples, (x, y))
         end

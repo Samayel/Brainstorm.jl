@@ -41,14 +41,21 @@ factorization_sorted(n::Integer) = factorization(n) |> SortedDict
 primefactors(n::Integer) = factorization(n) |> keys |> collect |> sort!
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
-factors(n::Integer) = begin
+factors(n::Integer; negative::Bool = false) = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
     f = [one(n)]
     for (p, k) in factorization(n)
         f = reduce(vcat, f, [f * p^j for j in 1:k])
     end
-    length(f) == 1 ? [one(n), n] : sort!(f)
+
+    if length(f) == 1
+        f = [one(n), n]
+    else
+        sort!(f)
+    end
+
+    negative ? flatten([f -f]') : f
 end
 
 function indexfactorization2number{T<:Integer}(x::Array{T,1})

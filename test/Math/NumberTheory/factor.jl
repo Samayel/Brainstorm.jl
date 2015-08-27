@@ -65,6 +65,7 @@ end
 
 function test_factor_factors()
     @test factors(24) == [1, 2, 3, 4, 6, 8, 12, 24]
+    @test factors(24; negative = true) == [1, -1, 2, -2, 3, -3, 4, -4, 6, -6, 8, -8, 12, -12, 24, -24]
 end
 
 function test_factor_least_number_with_d_divisors()
