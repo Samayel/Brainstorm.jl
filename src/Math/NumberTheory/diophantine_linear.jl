@@ -1,5 +1,6 @@
 export
-    DiophantineEquationLinearXY
+    DiophantineEquationLinearXY,
+    diophantine_equation_linear_xy
 
 
 # Dx + Ey + F = 0
@@ -8,6 +9,8 @@ immutable DiophantineEquationLinearXY{T<:Integer}
     cy::T  # E
     c0::T  # F
 end
+
+diophantine_equation_linear_xy{T<:Integer}(;cx::T=0, cy::T=0, c0::T=0) = DiophantineEquationLinearXY(cx, cy, c0)
 
 Base.show(io::IO, eq::DiophantineEquationLinearXY) = print(io, "$(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 

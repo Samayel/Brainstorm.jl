@@ -1,5 +1,6 @@
 export
-    DiophantineEquationQuadraticXY
+    DiophantineEquationQuadraticXY,
+    diophantine_equation_quadratic_xy
 
 
 # Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0
@@ -12,13 +13,15 @@ immutable DiophantineEquationQuadraticXY{T<:Integer}
     c0::T  # F
 end
 
+diophantine_equation_quadratic_xy{T<:Integer}(;cx²::T=0, cxy::T=0, cy²::T=0, cx::T=0, cy::T=0, c0::T=0) = DiophantineEquationQuadraticXY(cx², cxy, cy², cx, cy, c0)
+
 Base.show(io::IO, eq::DiophantineEquationQuadraticXY) = print(io, "$(eq.cx²)x² + $(eq.cxy)xy + $(eq.cy²)y² + $(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 
 
 solve{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
-    cx² == cxy == cy² == 0 && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solve(DiophantineEquationLinearXY(cx, cy, c0))]
+    cx² == cxy == cy² == 0 && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solve(diophantine_equation_linear_xy(cx=cx, cy=cy, c0=c0))]
     cx² == cy² == 0 && return solve_simplehyperbolic(eq)
 
     discriminant = cxy^2 - 4*cx²*cy²
