@@ -10,7 +10,7 @@ function test_diophantine_all()
     test_diophantine_solutions_anyx_anyy()
     test_diophantine_solutions_onex_anyy()
     test_diophantine_solutions_anyx_oney()
-    test_diophantine_solutions_somex_somey_anyt()
+    test_diophantine_solutions_linearx_lineary()
 
     test_diophantine_solve_diophantine_linear()
     test_diophantine_solve_diophantine_quadratic()

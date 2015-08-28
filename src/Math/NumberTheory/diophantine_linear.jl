@@ -35,8 +35,5 @@ solve{T<:Integer}(eq::DiophantineEquationLinearXY{T}) = begin
     cx, cy, c0 = div(cx, g), div(cy, g), div(c0, g)
     _, u, v = gcdx(cx, cy)
 
-    diophantine_somex_somey_anyt(
-        t ->  cy * t - c0 * u,
-        t -> -cx * t - c0 * v,
-        T)
+    diophantine_linearx_lineary(cy, -c0*u, -cx, -c0*v)
 end

@@ -7,14 +7,14 @@ export
     DiophantineSolutionsAnyXAnyY,
     DiophantineSolutionsOneXAnyY,
     DiophantineSolutionsAnyXOneY,
-    DiophantineSolutionsSomeXSomeYAnyT,
+    DiophantineSolutionsLinearXLinearY,
     diophantine_solution,
     diophantine_solutions,
     diophantine_nonex_noney,
     diophantine_anyx_anyy,
     diophantine_onex_anyy,
     diophantine_anyx_oney,
-    diophantine_somex_somey_anyt
+    diophantine_linearx_lineary
 
 
 abstract AbstractDiophantineSolution{T<:Integer}
@@ -45,9 +45,11 @@ immutable DiophantineSolutionsAnyXOneY{T<:DiophantineSolutionXY, S<:Integer} <: 
     y::S
 end
 
-immutable DiophantineSolutionsSomeXSomeYAnyT{T<:DiophantineSolutionXY} <: AbstractDiophantineSolutions{T}
-    xfunc::Function
-    yfunc::Function
+immutable DiophantineSolutionsLinearXLinearY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
+    mx::S
+    nx::S
+    my::S
+    ny::S
 end
 
 typealias SolutionXY        DiophantineSolutionXY
@@ -56,7 +58,7 @@ typealias NoneX_NoneY       DiophantineSolutionsNoneXNoneY
 typealias AnyX_AnyY         DiophantineSolutionsAnyXAnyY
 typealias OneX_AnyY         DiophantineSolutionsOneXAnyY
 typealias AnyX_OneY         DiophantineSolutionsAnyXOneY
-typealias SomeX_SomeY_AnyT  DiophantineSolutionsSomeXSomeYAnyT
+typealias LinearXLinearY    DiophantineSolutionsLinearXLinearY
 
 
 diophantine_solution{T<:Integer}(x::T, y::T) = SolutionXY(x, y)
@@ -69,17 +71,29 @@ diophantine_nonex_noney(T::Type = Int) = NoneX_NoneY{SolutionXY{T}}()
 diophantine_anyx_anyy(T::Type = Int) = AnyX_AnyY{SolutionXY{T}}()
 diophantine_onex_anyy{T<:Integer}(x::T) = OneX_AnyY{SolutionXY{T},T}(x)
 diophantine_anyx_oney{T<:Integer}(y::T) = AnyX_OneY{SolutionXY{T},T}(y)
-diophantine_somex_somey_anyt(xfunc, yfunc, T::Type = Int) = SomeX_SomeY_AnyT{SolutionXY{T}}(xfunc, yfunc)
+diophantine_linearx_lineary{T<:Integer}(mx::T, nx::T, my::T, ny::T) = LinearXLinearY{SolutionXY{T},T}(mx, nx, my, ny)
 
 
-Base.show(io::IO, sol::SolutionXY)     = print(io, "x=$(sol.x) ∧ y=$(sol.y)")
-Base.show(io::IO, ::NoneX_NoneY)       = print(io, "∅")
-Base.show(io::IO, ::AnyX_AnyY)         = print(io, "∀t,s∈ℤ: x=t ∧ y=s")
-Base.show(io::IO, sol::OneX_AnyY)      = print(io, "∀t∈ℤ: x=$(sol.x) ∧ y=t")
-Base.show(io::IO, sol::AnyX_OneY)      = print(io, "∀t∈ℤ: x=t ∧ y=$(sol.y)")
-Base.show(io::IO, ::SomeX_SomeY_AnyT)  = print(io, "∀t∈ℤ: x=x(t) ∧ y=y(t)")
-Base.show(io::IO, sol::Solutions)      = print(io, sol.solutions)
-#Base.show(io::IO, sol::Solutions)     = writemime(io, MIME("text/plain"), sol.solutions)
+Base.show(io::IO, sol::SolutionXY)        = print(io, "x=$(sol.x) ∧ y=$(sol.y)")
+Base.show(io::IO, ::NoneX_NoneY)          = print(io, "∅")
+Base.show(io::IO, ::AnyX_AnyY)            = print(io, "∀t,s∈ℤ: x=t ∧ y=s")
+Base.show(io::IO, sol::OneX_AnyY)         = print(io, "∀t∈ℤ: x=$(sol.x) ∧ y=t")
+Base.show(io::IO, sol::AnyX_OneY)         = print(io, "∀t∈ℤ: x=t ∧ y=$(sol.y)")
+Base.show(io::IO, sol::LinearXLinearY)    = print(io, "∀t∈ℤ: x=$(formatlinear(sol.mx, sol.nx)) ∧ y=$(formatlinear(sol.my, sol.ny))")
+Base.show(io::IO, sol::Solutions)         = print(io, sol.solutions)
+#Base.show(io::IO, sol::Solutions)        = writemime(io, MIME("text/plain"), sol.solutions)
+
+formatlinear{T<:Integer}(m::T, n::T) = begin
+    m == 0 && n == 0 && return "0"
+
+    nstr = string(n)
+    m == 0 && return nstr
+
+    mstr = abs(m) == 1 ? (signbit(m) ? "-" : "") * "t" : "$(m)t"
+    n == 0 && return mstr
+
+    mstr * nstr
+end
 
 
 Base.eltype(it::AbstractDiophantineSolution) = eltype(typeof(it))
@@ -91,7 +105,7 @@ Base.eltype{T}(::Type{NoneX_NoneY{T}}) = T
 Base.eltype{T}(::Type{AnyX_AnyY{T}}) = T
 Base.eltype{T,S}(::Type{OneX_AnyY{T,S}}) = T
 Base.eltype{T,S}(::Type{AnyX_OneY{T,S}}) = T
-Base.eltype{T}(::Type{SomeX_SomeY_AnyT{T}}) = T
+Base.eltype{T,S}(::Type{LinearXLinearY{T,S}}) = T
 
 
 Base.start(it::Solutions) = start(it.solutions)
@@ -116,12 +130,11 @@ Base.next(it::AnyX_OneY, state) = begin
 end
 Base.done(::AnyX_OneY, _) = false
 
-Base.start(::SomeX_SomeY_AnyT) = 0
-Base.next(it::SomeX_SomeY_AnyT, state) = begin
-    T = eltype(eltype(it))
-    s = SolutionXY{T}(it.xfunc(state), it.yfunc(state))
+Base.start(it::LinearXLinearY) = zero(it.mx)
+Base.next(it::LinearXLinearY, state) = begin
+    s = SolutionXY(it.mx * state + it.nx, it.my * state + it.ny)
     s, nextstate(state)
 end
-Base.done(::SomeX_SomeY_AnyT, _) = false
+Base.done(::LinearXLinearY, _) = false
 
 nextstate(state::Integer) = state <= zero(state) ? abs(state) + one(state) : -state

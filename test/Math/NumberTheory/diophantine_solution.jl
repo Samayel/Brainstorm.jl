@@ -61,25 +61,22 @@ function test_diophantine_solutions_anyx_oney()
     @test eltype(diophantine_anyx_oney(big(42))) == DiophantineSolutionXY{BigInt}
 end
 
-function test_diophantine_solutions_somex_somey_anyt()
-    xfunc = t ->  2t
-    yfunc = t -> -3t
-
-    @test collect(take(diophantine_somex_somey_anyt(xfunc, yfunc), 5)) == [
+function test_diophantine_solutions_linearx_lineary()
+    @test collect(take(diophantine_linearx_lineary(2, 0, -3, 0), 5)) == [
         diophantine_solution(0, 0),
         diophantine_solution(2, -3),
         diophantine_solution(-2, 3),
         diophantine_solution(4, -6),
         diophantine_solution(-4, 6)
     ]
-    @test eltype(diophantine_somex_somey_anyt(xfunc, yfunc)) == DiophantineSolutionXY{Int}
+    @test eltype(diophantine_linearx_lineary(2, 0, -3, 0)) == DiophantineSolutionXY{Int}
 
-    @test collect(take(diophantine_somex_somey_anyt(xfunc, yfunc, BigInt), 5)) == [
+    @test collect(take(diophantine_linearx_lineary(big(2), big(0), big(-3), big(0)), 5)) == [
         diophantine_solution(big(0), big(0)),
         diophantine_solution(big(2), big(-3)),
         diophantine_solution(big(-2), big(3)),
         diophantine_solution(big(4), big(-6)),
         diophantine_solution(big(-4), big(6))
     ]
-    @test eltype(diophantine_somex_somey_anyt(xfunc, yfunc, BigInt)) == DiophantineSolutionXY{BigInt}
+    @test eltype(diophantine_linearx_lineary(big(2), big(0), big(-3), big(0))) == DiophantineSolutionXY{BigInt}
 end
