@@ -36,6 +36,7 @@ ProgressMeter
 Redis
 Reexport
 Requires
+Roots
 ShowSet
 SortingAlgorithms
 SparseVectors

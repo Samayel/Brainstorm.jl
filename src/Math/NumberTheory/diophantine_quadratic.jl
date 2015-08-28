@@ -53,3 +53,31 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
 
     solutions
 end
+
+solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+    cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
+
+    f(t) = (cxy^2 - 4*cx²*cy²)*t^2 + 2(cxy*cy - 2*cy²*cx)*t + (cy^2 - 4*cy²*c0)
+    z = map(r -> trunc(Integer, r), fzeros(f))
+
+    isempty(z) && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[diophantine_nonex_noney(T)]
+
+    @compat xytuples = Tuple{T,T}[]
+
+    sort!(z)
+    for x = z[1]:z[2]
+        u = f(x)
+        v = isqrt(u)
+        v*v == u || continue
+
+        y, r = divrem(-(cxy*x + cy) + v, 2*cy²)
+        r == 0 && push!(xytuples, (x, y))
+
+        v != 0 || continue
+        y, r = divrem(-(cxy*x + cy) - v, 2*cy²)
+        r == 0 && push!(xytuples, (x, y))
+    end
+
+    solution = isempty(xytuples) ? diophantine_nonex_noney(T) : diophantine_solutions(xytuples)
+    AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solution]
+end

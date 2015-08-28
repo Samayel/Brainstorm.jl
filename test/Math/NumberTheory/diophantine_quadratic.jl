@@ -18,4 +18,9 @@ function test_diophantine_solve_diophantine_quadratic()
     sol = solve(diophantine_equation_quadratic_xy(cxy=2, cx=5, cy=56, c0=7))
     @test sol == [diophantine_solutions((-27,64), (-29,-69), (-21,7), (-35,-12), (-9,1), (-47,-6), (105,-2), (-161,-3))]
     @test typeof(sol) == soltype
+
+    # elliptical
+    sol = solve(diophantine_equation_quadratic_xy(cx²=42, cxy=8, cy²=15, cx=23, cy=17, c0=-4915))
+    @test sol == [diophantine_solutions((-11,-1))]
+    @test typeof(sol) == soltype
 end
