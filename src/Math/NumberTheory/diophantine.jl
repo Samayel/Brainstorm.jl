@@ -1,5 +1,5 @@
 export
-    solve
+    solve, evaluate
 
 # http://www.alpertron.com.ar/METHODS.HTM
 

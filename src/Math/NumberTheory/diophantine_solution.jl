@@ -37,15 +37,15 @@ end
 immutable DiophantineSolutionsAnyXAnyY{T<:DiophantineSolutionXY} <: AbstractDiophantineSolutions{T}
 end
 
-immutable DiophantineSolutionsOneXAnyY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
+@auto_hash_equals immutable DiophantineSolutionsOneXAnyY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
     x::S
 end
 
-immutable DiophantineSolutionsAnyXOneY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
+@auto_hash_equals immutable DiophantineSolutionsAnyXOneY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
     y::S
 end
 
-immutable DiophantineSolutionsLinearXLinearY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
+@auto_hash_equals immutable DiophantineSolutionsLinearXLinearY{T<:DiophantineSolutionXY, S<:Integer} <: AbstractDiophantineSolutions{T}
     mx::S
     nx::S
     my::S

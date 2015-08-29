@@ -17,6 +17,9 @@ diophantine_equation_quadratic_xy{T<:Integer}(;cx²::T=0, cxy::T=0, cy²::T=0, c
 
 Base.show(io::IO, eq::DiophantineEquationQuadraticXY) = print(io, "$(eq.cx²)x² + $(eq.cxy)xy + $(eq.cy²)y² + $(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 
+evaluate{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}, sol::DiophantineSolutionXY{T}) = evaluate(eq, sol.x, sol.y)
+evaluate{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}, x::T, y::T) = eq.cx² * x^2 + eq.cxy * x * y + eq.cy² * y^2 + eq.cx * x + eq.cy * y + eq.c0
+
 
 solve{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0

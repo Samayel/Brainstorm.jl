@@ -14,6 +14,9 @@ diophantine_equation_linear_xy{T<:Integer}(;cx::T=0, cy::T=0, c0::T=0) = Diophan
 
 Base.show(io::IO, eq::DiophantineEquationLinearXY) = print(io, "$(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 
+evaluate{T<:Integer}(eq::DiophantineEquationLinearXY{T}, sol::DiophantineSolutionXY{T}) = evaluate(eq, sol.x, sol.y)
+evaluate{T<:Integer}(eq::DiophantineEquationLinearXY{T}, x::T, y::T) = eq.cx * x + eq.cy * y + eq.c0
+
 
 solve{T<:Integer}(eq::DiophantineEquationLinearXY{T}) = begin
     cx, cy, c0 = eq.cx, eq.cy, eq.c0
