@@ -12,6 +12,8 @@ using Pipe: @pipe
 using Reexport: @reexport
 using Roots: fzeros
 
+import TaylorSeries: evaluate
+
 @reexport using ContinuedFractions
 @reexport using Digits
 

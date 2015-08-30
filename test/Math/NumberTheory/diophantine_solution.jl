@@ -80,3 +80,23 @@ function test_diophantine_solutions_linearx_lineary()
     ]
     @test eltype(diophantine_linearx_lineary(big(2), big(0), big(-3), big(0))) == DiophantineSolutionXY{BigInt}
 end
+
+function test_diophantine_solutions_quadraticx_quadraticy()
+    @test collect(take(diophantine_quadraticx_quadraticy(1, 2, 3, -1, 3, 2), 5)) == [
+        diophantine_solution(3, 2),
+        diophantine_solution(6, 4),
+        diophantine_solution(2, -2),
+        diophantine_solution(11, 4),
+        diophantine_solution(3, -8)
+    ]
+    @test eltype(diophantine_quadraticx_quadraticy(1, 2, 3, -1, 3, 2)) == DiophantineSolutionXY{Int}
+
+    @test collect(take(diophantine_quadraticx_quadraticy(big(1), big(2), big(3), big(-1), big(3), big(2)), 5)) == [
+        diophantine_solution(big(3), big(2)),
+        diophantine_solution(big(6), big(4)),
+        diophantine_solution(big(2), big(-2)),
+        diophantine_solution(big(11), big(4)),
+        diophantine_solution(big(3), big(-8))
+    ]
+    @test eltype(diophantine_quadraticx_quadraticy(big(1), big(2), big(3), big(-1), big(3), big(2))) == DiophantineSolutionXY{BigInt}
+end
