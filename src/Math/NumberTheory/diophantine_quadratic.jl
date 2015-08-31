@@ -38,16 +38,16 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
 
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
 
-    discriminant = cx * cy - cxy * c0
-    if discriminant == 0
+    d = cx * cy - cxy * c0
+    if d == 0
         cy % cxy == 0 && push!(solutions, diophantine_onex_anyy(-div(cy, cxy)))
         cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-div(cx, cxy)))
     else
         @compat xytuples = Tuple{T,T}[]
-        for f in factors(discriminant; negative = true)
+        for f in factors(abs(d); negative = true)
             x, r = divrem(f - cy, cxy)
             r == 0 || continue
-            y, r = divrem(div(discriminant, f) - cx, cxy)
+            y, r = divrem(div(d, f) - cx, cxy)
             r == 0 || continue
             push!(xytuples, (x, y))
         end
@@ -96,8 +96,8 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
 
     f(t) = ra * g * t^2 + cx * t + ra * c0
 
-    discriminant = rc * cx - ra * cy
-    if discriminant == 0
+    d = rc * cx - ra * cy
+    if d == 0
         u = map(r -> trunc(Integer, r), fzeros(f))
 
         isempty(u) && push!(solutions, diophantine_nonex_noney(T))
@@ -105,14 +105,53 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
             f(v) == 0 && push!(solutions, solve(diophantine_equation_linear_xy(cx=ra, cy=rc, c0=-v)))
         end
     else
-        for u = 0:(abs(discriminant) - 1)
-            f(u) % discriminant == 0 || continue
+        for u = 0:(abs(d) - 1)
+            f(u) % d == 0 || continue
             push!(solutions, diophantine_quadraticx_quadraticy(
-                rc * g * (-discriminant), -(cy + 2 * rc * g * u), -div(rc * g * u^2 + cy * u + rc * c0, discriminant),
-                ra * g *   discriminant,    cx + 2 * ra * g * u,   div(ra * g * u^2 + cx * u + ra * c0, discriminant)
+                rc * g * (-d), -(cy + 2 * rc * g * u), -div(rc * g * u^2 + cy * u + rc * c0, d),
+                ra * g *   d,    cx + 2 * ra * g * u,   div(ra * g * u^2 + cx * u + ra * c0, d)
             ))
         end
     end
 
     solutions
+end
+
+solve_hyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+    (eq.cx == eq.cy == 0) ?
+        solve_hyperbolic_homogeneous(eq) :
+        solve_hyperbolic_general_quadratic(eq)
+end
+
+solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+    cx², cxy, cy², c0 = eq.cx², eq.cxy, eq.cy², eq.c0
+
+    solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
+
+    discriminant = cxy^2 - 4*cx²*cy²
+    k = isqrt(discriminant)
+
+    if c0 == 0
+        push!(solutions, diophantine_solutions((0, 0)))
+        if k*k == discriminant
+            push!(solutions, solve(diophantine_equation_linear_xy(cx=2*cx², cy=cxy+k, c0=0)))
+            push!(solutions, solve(diophantine_equation_linear_xy(cx=2*cx², cy=cxy-k, c0=0)))
+        end
+        return solutions
+    end
+
+    if k*k == discriminant
+        @compat xytuples = Tuple{T,T}[]
+        for f in factors(abs(-4*cx²*c0); negative = true)
+            y, r = divrem(f + div(4*cx²*c0, f), 2*k)
+            r == 0 || continue
+            x, r = divrem(f - (cxy + k)*y, 2*cx²)
+            r == 0 || continue
+            push!(xytuples, (x, y))
+        end
+        push!(solutions, isempty(xytuples) ? diophantine_nonex_noney(T) : diophantine_solutions(xytuples))
+        return solutions
+    end
+
+    # WIP
 end

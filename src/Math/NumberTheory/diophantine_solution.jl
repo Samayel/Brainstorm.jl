@@ -137,10 +137,12 @@ Base.eltype{T<:Integer}(::Type{QuadraticXQuadraticY{T}}) = DiophantineSolutionXY
 Base.start(it::Solutions) = start(it.solutions)
 Base.next(it::Solutions, state) = next(it.solutions, state)
 Base.done(it::Solutions, state) = done(it.solutions, state)
+Base.length(it::Solutions) = length(it.solutions)
 
 Base.start(::NoneX_NoneY) = Nothing
 Base.next(::NoneX_NoneY, _) = Nothing
 Base.done(::NoneX_NoneY, _) = true
+Base.length(::NoneX_NoneY) = 0
 
 Base.start(it::OneX_AnyY) = zero(it.x)
 Base.next(it::OneX_AnyY, state) = begin
