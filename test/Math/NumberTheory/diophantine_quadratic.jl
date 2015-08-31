@@ -23,4 +23,17 @@ function test_diophantine_solve_diophantine_quadratic()
     sol = solve(diophantine_equation_quadratic_xy(cx²=42, cxy=8, cy²=15, cx=23, cy=17, c0=-4915))
     @test sol == [diophantine_solutions((-11,-1))]
     @test typeof(sol) == soltype
+
+    # parabolic
+    sol = solve(diophantine_equation_quadratic_xy(cx²=1, cxy=2, cy²=1, cx=2, cy=2, c0=1))
+    @test sol == [diophantine_linearx_lineary(1, 0, -1, -1)]
+    @test typeof(sol) == soltype
+
+    sol = solve(diophantine_equation_quadratic_xy(cx²=1, cxy=2, cy²=1, cx=6, cy=6, c0=5))
+    @test sol == [diophantine_linearx_lineary(1, 0, -1, -1), diophantine_linearx_lineary(1, 0, -1, -5)]
+    @test typeof(sol) == soltype
+
+    sol = solve(diophantine_equation_quadratic_xy(cx²=8, cxy=-24, cy²=18, cx=5, cy=7, c0=16))
+    @test sol == [diophantine_quadraticx_quadraticy(-174, 17, -2, -116, 21, -2), diophantine_quadraticx_quadraticy(-174, 41, -4, -116, 37, -4)]
+    @test typeof(sol) == soltype
 end

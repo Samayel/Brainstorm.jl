@@ -84,3 +84,35 @@ solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     solution = isempty(xytuples) ? diophantine_nonex_noney(T) : diophantine_solutions(xytuples)
     AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solution]
 end
+
+solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+    cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
+
+    solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
+
+    g = copysign(gcd(cx², cy²), cx²)
+    a, b, c = div(cx², g), div(cxy, g), div(cy², g)
+    ra, rc = isqrt(a), copysign(isqrt(c), b)
+
+    f(t) = ra * g * t^2 + cx * t + ra * c0
+
+    discriminant = rc * cx - ra * cy
+    if discriminant == 0
+        u = map(r -> trunc(Integer, r), fzeros(f))
+
+        isempty(u) && push!(solutions, diophantine_nonex_noney(T))
+        for v in u
+            f(v) == 0 && push!(solutions, solve(diophantine_equation_linear_xy(cx=ra, cy=rc, c0=-v)))
+        end
+    else
+        for u = 0:(abs(discriminant) - 1)
+            f(u) % discriminant == 0 || continue
+            push!(solutions, diophantine_quadraticx_quadraticy(
+                rc * g * (-discriminant), -(cy + 2 * rc * g * u), -div(rc * g * u^2 + cy * u + rc * c0, discriminant),
+                ra * g *   discriminant,    cx + 2 * ra * g * u,   div(ra * g * u^2 + cx * u + ra * c0, discriminant)
+            ))
+        end
+    end
+
+    solutions
+end
