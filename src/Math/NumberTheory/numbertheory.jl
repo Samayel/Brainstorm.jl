@@ -3,7 +3,6 @@
 using Brainstorm: flatten, takewhile, @anon
 using Brainstorm.Math: checked_add, checked_sub
 using AutoHashEquals: @auto_hash_equals
-using Compat: @compat
 using DataStructures: SortedDict
 using Iterators: chain, cycle, drop, imap, take
 using Lists: List, ListNode

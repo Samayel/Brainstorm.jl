@@ -81,8 +81,8 @@ typealias QuadraticXQuadraticY    DiophantineSolutionsQuadraticXQuadraticY
 diophantine_solution{T<:Integer}(x::T, y::T) = SolutionXY(x, y)
 
 diophantine_solutions{T<:AbstractDiophantineSolution}(s::Array{T,1}) = Solutions{T}(s)
-@compat diophantine_solutions{T<:Integer}(s::Tuple{T,T}...) = diophantine_solutions([diophantine_solution(x, y) for (x, y) in s])
-@compat diophantine_solutions{T<:Integer}(s::AbstractArray{Tuple{T,T},1}) = diophantine_solutions(s...)
+diophantine_solutions{T<:Integer}(s::Tuple{T,T}...) = diophantine_solutions([diophantine_solution(x, y) for (x, y) in s])
+diophantine_solutions{T<:Integer}(s::AbstractArray{Tuple{T,T},1}) = diophantine_solutions(s...)
 
 diophantine_nonex_noney(T::Type = Int) = NoneX_NoneY{T}()
 diophantine_anyx_anyy(T::Type = Int) = AnyX_AnyY{T}()

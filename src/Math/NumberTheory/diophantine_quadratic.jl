@@ -43,7 +43,7 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
         cy % cxy == 0 && push!(solutions, diophantine_onex_anyy(-div(cy, cxy)))
         cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-div(cx, cxy)))
     else
-        @compat xytuples = Tuple{T,T}[]
+        xytuples = Tuple{T,T}[]
         for f in factors(abs(d); negative = true)
             x, r = divrem(f - cy, cxy)
             r == 0 || continue
@@ -65,7 +65,7 @@ solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
 
     isempty(z) && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[diophantine_nonex_noney(T)]
 
-    @compat xytuples = Tuple{T,T}[]
+    xytuples = Tuple{T,T}[]
 
     sort!(z)
     for x = z[1]:z[2]
@@ -141,7 +141,7 @@ solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) 
     end
 
     if k*k == discriminant
-        @compat xytuples = Tuple{T,T}[]
+        xytuples = Tuple{T,T}[]
         for f in factors(abs(-4*cx²*c0); negative = true)
             y, r = divrem(f + div(4*cx²*c0, f), 2*k)
             r == 0 || continue

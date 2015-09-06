@@ -2,7 +2,6 @@ module NumberTheory
 
 using Brainstorm.Math.NumberTheory
 using Base.Test
-using Compat
 using TaylorSeries: Taylor1
 
 include("primes.jl")
