@@ -1,11 +1,13 @@
 @reexport module Meta
 
-using Reexport.@reexport
+using Pipe: @pipe
+using Reexport: @reexport
+
+export @pipe
 
 @reexport using Match
 @reexport using Memoize
 @reexport using Parameters
-@reexport using Pipe
 @reexport using ProgressMeter
 @reexport using Requires
 
