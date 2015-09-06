@@ -11,6 +11,7 @@ using Pipe: @pipe
 using Reexport: @reexport
 using Roots: fzeros
 
+import Base: ==
 import TaylorSeries: evaluate
 
 @reexport using Digits
