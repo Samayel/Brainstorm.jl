@@ -1,58 +1,70 @@
 export
-    ContinuedFraction,
+    ContinuedFraction, NonPeriodicContinuedFraction, PeriodicContinuedFraction,
     confrac,
-    ContinuedFractionConvergentsIterator,
+    ContinuedFractionConvergentsIterator, NonPeriodicContinuedFractionConvergentsIterator, PeriodicContinuedFractionConvergentsIterator,
     convergents
 
 
-@auto_hash_equals immutable ContinuedFraction{T<:Integer}
+abstract ContinuedFraction{T<:Integer}
+
+@auto_hash_equals immutable NonPeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
+    denominators::Array{T,1}
+end
+
+@auto_hash_equals immutable PeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
     denominators::Array{T,1}
     periodstart::Int
 end
 
 
+Base.start(::ContinuedFraction) = 1
+Base.next(it::NonPeriodicContinuedFraction, state) = it.denominators[state], state + 1
+Base.next(it::PeriodicContinuedFraction, state) = it.denominators[state], (state == length(it.denominators) ? it.periodstart : state + 1)
+Base.done(it::NonPeriodicContinuedFraction, state) = state > length(it.denominators)
+Base.done(::PeriodicContinuedFraction, _) = false
+
+Base.eltype(it::ContinuedFraction) = Base.eltype(typeof(it))
+Base.eltype{T}(::Type{NonPeriodicContinuedFraction{T}}) = T
+Base.eltype{T}(::Type{PeriodicContinuedFraction{T}}) = T
+
+Base.length(it::NonPeriodicContinuedFraction) = length(it.denominators)
+
+
 Base.show(io::IO, cf::ContinuedFraction) = begin
     print(io, "[")
-
-    len = length(cf.denominators)
-    len > 0 && print(io, cf.denominators[1])
-
-    hasperiod = false
-    for i = 2:len
-        print(io, i == 2 ? ";" : ",")
-        i == cf.periodstart && (print(io, "("); hasperiod = true)
+    for i = 1:length(cf.denominators)
+        i == 2 && print(io, ";")
+        i >= 3 && print(io, ",")
+        isa(cf, PeriodicContinuedFraction) && i == cf.periodstart && print(io, "(")
         print(io, cf.denominators[i])
     end
-
-    hasperiod && print(io, ")")
+    isa(cf, PeriodicContinuedFraction) && print(io, ")")
     print(io, "]")
 end
 
+
 Base.rationalize{T<:Integer}(cf::ContinuedFraction{T}, len::Int = -1) = begin
     len >= 0 || (len = length(cf.denominators))
-    len > 0 || return zero(Rational{T})
+    len > 0 || return one(T) // zero(T)   # [] = +Inf;  [a; b] = a + 1 / [b] = a + 1 / (b + 1 / []) = a + 1 / (b + 1 / +Inf) = a + 1 / b
 
-    d = cf.denominators
-    cf.periodstart >= 1 && (d = chain(d[1:cf.periodstart-1], cycle(d[cf.periodstart:end])))
-
-    foldr((x, y) -> x + 1 // y, collect(take(d, len)))
+    @pipe cf |> convergents |> drop(_, len-1) |> first |> Rational(_...)
 end
 
 
-confrac{T<:Integer}(d::Array{T,1}, p::Int = 0) = ContinuedFraction(d, p)
+confrac{T<:Integer}(d::Array{T,1}) = NonPeriodicContinuedFraction(d)
+confrac{T<:Integer}(d::Array{T,1}, p::Int) = PeriodicContinuedFraction(d, p)
 
 confrac{T<:Integer}(rat::Rational{T}) = begin
     n, d = rat.num, rat.den
 
     denominators = T[]
-
     while d != 0
         a = fld(n, d)
         push!(denominators, a)
         n, d = d, n - a * d
     end
 
-    ContinuedFraction(denominators, 0)
+    confrac(denominators)
 end
 
 # == (n + sqrt(δ)) / d
@@ -114,21 +126,36 @@ confrac{T<:Integer}(n::T, δ::T, d::T) = begin
         #end
     end
 
-    ContinuedFraction(denominators, periodstart)
+    confrac(denominators, periodstart)
 end
 
 
+abstract ContinuedFractionConvergentsIterator{T<:Integer}
 
-immutable ContinuedFractionConvergentsIterator{T<:Integer}
-    cf::ContinuedFraction{T}
+immutable NonPeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
+    cf::NonPeriodicContinuedFraction{T}
 end
 
-convergents(cf::ContinuedFraction) = ContinuedFractionConvergentsIterator(cf)
+immutable PeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
+    cf::PeriodicContinuedFraction{T}
+end
 
-Base.start(::ContinuedFractionConvergentsIterator) = 1
-Base.next(it::ContinuedFractionConvergentsIterator, state) = rationalize(it.cf, state), state + 1
-Base.done(it::ContinuedFractionConvergentsIterator, state) = it.cf.periodstart <= 0 && state > length(it.cf.denominators)
+convergents(cf::NonPeriodicContinuedFraction) = NonPeriodicContinuedFractionConvergentsIterator(cf)
+convergents(cf::PeriodicContinuedFraction) = PeriodicContinuedFractionConvergentsIterator(cf)
+
+Base.start{T<:Integer}(it::ContinuedFractionConvergentsIterator{T}) = start(it.cf), one(T), zero(T), zero(T), one(T)
+Base.next(it::ContinuedFractionConvergentsIterator, state) = begin
+    cfs, p, q, r, s = state
+
+    c, cfs = next(it.cf, cfs)
+    p, q, r, s = c*p+r, c*q+s, p, q
+
+    (p, q), (cfs, p, q, r, s)
+end
+Base.done(it::ContinuedFractionConvergentsIterator, state) = done(it.cf, state[1])
 
 Base.eltype(it::ContinuedFractionConvergentsIterator) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{ContinuedFractionConvergentsIterator{T}}) = Rational{T}
-#Base.length(it::ContinuedFractionConvergentsIterator) = ...
+Base.eltype{T}(::Type{NonPeriodicContinuedFractionConvergentsIterator{T}}) = Tuple{T,T}
+Base.eltype{T}(::Type{PeriodicContinuedFractionConvergentsIterator{T}}) = Tuple{T,T}
+
+Base.length(it::NonPeriodicContinuedFractionConvergentsIterator) = length(it.cf.denominators)

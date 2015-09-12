@@ -1,32 +1,61 @@
-function test_confrac_rationalize()
-    cf = ContinuedFraction(Int[], 0)
-    @test rationalize(cf) == 0
-    @test rationalize(cf, 0) == 0
+function test_confrac_iterator()
+    cf = confrac(Int[])
+    @test collect(cf) == []
+    @test eltype(cf) == Int
+    @test length(cf) == 0
 
-    cf = ContinuedFraction([1], 0)
+    cf = confrac([1])
+    @test collect(cf) == [1]
+    @test eltype(cf) == Int
+    @test length(cf) == 1
+
+    cf = confrac(BigInt[1])
+    @test collect(cf) == [1]
+    @test eltype(cf) == BigInt
+    @test length(cf) == 1
+
+    cf = confrac([1, 2, 3, 4])
+    @test collect(cf) == [1, 2, 3, 4]
+    @test eltype(cf) == Int
+    @test length(cf) == 4
+
+    cf = confrac([1], 1)
+    @test collect(take(cf, 3)) == [1, 1, 1]
+    @test eltype(cf) == Int
+
+    cf = confrac([1, 2, 3], 2)
+    @test collect(take(cf, 5)) == [1, 2, 3, 2, 3]
+    @test eltype(cf) == Int
+end
+
+function test_confrac_rationalize()
+    cf = confrac(Int[])
+    @test rationalize(cf) == 1 // 0
+    @test rationalize(cf, 0) == 1 // 0
+
+    cf = confrac([1])
     @test rationalize(cf) == 1
-    @test rationalize(cf, 0) == 0
+    @test rationalize(cf, 0) == 1 // 0
     @test rationalize(cf, 1) == 1
 
-    cf = ContinuedFraction([1, 2, 3, 4], 0)
+    cf = confrac([1, 2, 3, 4])
     @test rationalize(cf) == 43 // 30
-    @test rationalize(cf, 0) == 0
+    @test rationalize(cf, 0) == 1 // 0
     @test rationalize(cf, 1) == 1
     @test rationalize(cf, 2) == 3 // 2
     @test rationalize(cf, 3) == 10 // 7
     @test rationalize(cf, 4) == 43 // 30
-    @test rationalize(cf, 5) == 43 // 30
 
-    cf = ContinuedFraction([1], 1)
+    cf = confrac([1], 1)
     @test rationalize(cf) == 1
-    @test rationalize(cf, 0) == 0
+    @test rationalize(cf, 0) == 1 // 0
     @test rationalize(cf, 1) == 1
     @test rationalize(cf, 2) == 2
     @test rationalize(cf, 3) == 3 // 2
 
-    cf = ContinuedFraction([1, 2, 3], 2)
+    cf = confrac([1, 2, 3], 2)
     @test rationalize(cf) == 10 // 7
-    @test rationalize(cf, 0) == 0
+    @test rationalize(cf, 0) == 1 // 0
     @test rationalize(cf, 1) == 1
     @test rationalize(cf, 2) == 3 // 2
     @test rationalize(cf, 3) == 10 // 7
@@ -60,34 +89,39 @@ function test_confrac_confrac()
 end
 
 function test_confrac_convergents()
-    cf = ContinuedFraction(Int[], 0)
+    cf = confrac(Int[])
     @test collect(convergents(cf)) == []
-    @test eltype(convergents(cf)) == Rational{Int}
+    @test eltype(convergents(cf)) == Tuple{Int,Int}
+    @test length(convergents(cf)) == 0
 
-    cf = ContinuedFraction([1], 0)
-    @test collect(convergents(cf)) == [1]
-    @test eltype(convergents(cf)) == Rational{Int}
+    cf = confrac([1])
+    @test collect(convergents(cf)) == [(1, 1)]
+    @test eltype(convergents(cf)) == Tuple{Int,Int}
+    @test length(convergents(cf)) == 1
 
-    cf = ContinuedFraction(BigInt[1], 0)
-    @test collect(convergents(cf)) == [1]
-    @test eltype(convergents(cf)) == Rational{BigInt}
+    cf = confrac(BigInt[1])
+    @test collect(convergents(cf)) == [(1, 1)]
+    @test eltype(convergents(cf)) == Tuple{BigInt,BigInt}
+    @test length(convergents(cf)) == 1
 
-    cf = ContinuedFraction([1, 2, 3, 4], 0)
-    @test collect(convergents(cf)) == [1, 3 // 2, 10 // 7, 43 // 30]
-    @test eltype(convergents(cf)) == Rational{Int}
+    cf = confrac([1, 2, 3, 4])
+    @test collect(convergents(cf)) == [(1, 1), (3, 2), (10, 7), (43, 30)]
+    @test eltype(convergents(cf)) == Tuple{Int,Int}
+    @test length(convergents(cf)) == 4
 
-    cf = ContinuedFraction([1], 1)
-    @test collect(take(convergents(cf), 3)) == [1, 2, 3 // 2]
-    @test eltype(convergents(cf)) == Rational{Int}
+    cf = confrac([1], 1)
+    @test collect(take(convergents(cf), 3)) == [(1, 1), (2, 1), (3, 2)]
+    @test eltype(convergents(cf)) == Tuple{Int,Int}
 
-    cf = ContinuedFraction([1, 2, 3], 2)
-    @test collect(take(convergents(cf), 5)) == [1, 3 // 2, 10 // 7, 23 // 16, 79 // 55]
-    @test eltype(convergents(cf)) == Rational{Int}
+    cf = confrac([1, 2, 3], 2)
+    @test collect(take(convergents(cf), 5)) == [(1, 1), (3, 2), (10, 7), (23, 16), (79, 55)]
+    @test eltype(convergents(cf)) == Tuple{Int,Int}
 end
 
 function test_confrac_all()
     print(rpad("Math.NumberTheory.ConFrac...", 50, ' '))
 
+    test_confrac_iterator()
     test_confrac_rationalize()
     test_confrac_confrac()
     test_confrac_convergents()
