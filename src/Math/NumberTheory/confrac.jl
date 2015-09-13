@@ -32,11 +32,11 @@ Base.length(it::NonPeriodicContinuedFraction) = length(it.denominators)
 
 Base.show(io::IO, cf::ContinuedFraction) = begin
     print(io, "[")
-    for i = 1:length(cf.denominators)
+    for (i, d) in enumerate(cf.denominators)
         i == 2 && print(io, ";")
         i >= 3 && print(io, ",")
         isa(cf, PeriodicContinuedFraction) && i == cf.periodstart && print(io, "(")
-        print(io, cf.denominators[i])
+        print(io, d)
     end
     isa(cf, PeriodicContinuedFraction) && print(io, ")")
     print(io, "]")

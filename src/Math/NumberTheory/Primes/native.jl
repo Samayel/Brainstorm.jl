@@ -151,10 +151,8 @@ Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 # testf is not a function and uses two parameters
 function count(testf, A::AbstractArray)
     c = 0
-    for i = 1:length(A)
-        if testf(i, A[i])
-            c += 1
-        end
+    for (i, a) in enumerate(A)
+        c += testf(i, a)
     end
     c
 end

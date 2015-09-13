@@ -11,7 +11,7 @@ immutable MultisetPermuations{T,U}
 end
 
 Base.start(p::MultisetPermuations) = begin
-    s = [fill(i, p.c[i]) for i = 1:length(p.a)] |> flatten
+    s = [fill(i, p.c[i]) for i in eachindex(p.a)] |> flatten
     p.k <= length(s) ? s[1:p.k] : [length(p.a) + 1]
 end
 
@@ -27,7 +27,7 @@ Base.next(p::MultisetPermuations, s) = begin
         end
 
         if s[i] <= length(p.a)
-            t = [fill(i, p.c[i] - countnz(s .== i)) for i = 1:length(p.a)] |> flatten
+            t = [fill(i, p.c[i] - countnz(s .== i)) for i in eachindex(p.a)] |> flatten
             s[i+1:end] = t[1:(length(s)-i)]
             break
         end

@@ -9,7 +9,7 @@ immutable MultisetCombinations{T,U}
 end
 
 Base.start(c::MultisetCombinations) = begin
-    s = [fill(i, c.c[i]) for i = 1:length(c.a)] |> flatten
+    s = [fill(i, c.c[i]) for i in eachindex(c.a)] |> flatten
     c.k <= length(s) ? s[1:c.k] : [length(c.a) + 1]
 end
 
