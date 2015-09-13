@@ -1,12 +1,10 @@
 
 # permutations(a) = Base.permutations(a)
 
-Base.permutations{T}(a::AbstractArray{T,1}, mode::Symbol) =
-    permutations(a, length(a), mode)
-Base.permutations{T}(a::AbstractArray{T,1}, k::Integer, mode::Symbol) = begin
-    mode ∈ [:unique, :repeated] || error("Mode must be :unique or :repeated")
-    Permutations(a, k, mode == :repeated)
-end
+Base.permutations{T}(a::AbstractArray{T,1}, mode::Val{:unique}) = permutations(a, length(a), mode)
+Base.permutations{T}(a::AbstractArray{T,1}, mode::Val{:repeated}) = permutations(a, length(a), mode)
+Base.permutations{T}(a::AbstractArray{T,1}, k::Integer, ::Val{:unique}) = Permutations(a, k, false)
+Base.permutations{T}(a::AbstractArray{T,1}, k::Integer, ::Val{:repeated}) = Permutations(a, k, true)
 
 immutable Permutations{T}
     a::T
