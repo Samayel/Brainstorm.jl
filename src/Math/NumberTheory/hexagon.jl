@@ -13,7 +13,7 @@ nthhexagonal(n::Integer) = n * (2*n - 1)
 nhexagonal(n::Integer, T::Type = Int) = exacthexagonal(n, T) |> collect
 
 allhexagonal(T::Type = Int) = HexagonalIterator{T}()
-somehexagonal{T<:Integer}(xmax::T) = @pipe allhexagonal(T) |> takewhile(@anon(x -> x <= xmax), _)
+somehexagonal{T<:Integer}(xmax::T) = @pipe allhexagonal(T) |> takewhile(Functor.leq(xmax), _)
 exacthexagonal(n::Integer, T::Type = Int) = @pipe allhexagonal(T) |> take(_, n)
 
 immutable HexagonalIterator{T<:Integer}

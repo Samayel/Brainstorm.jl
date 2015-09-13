@@ -82,8 +82,8 @@ Base.start(it::TMap) = map(start, it.xs)
 Base.next(it::TMap, state) = begin
     next_result = map(next, it.xs, state)
     (
-        it.mapfunc(map(x -> x[1], next_result)...),
-        map(x -> x[2], next_result)
+        it.mapfunc(map(Functor.idx(1), next_result)...),
+        map(Functor.idx(2), next_result)
     )
 end
 Base.done(it::TMap, state) = any(map(done, it.xs, state))
@@ -91,7 +91,7 @@ Base.done(it::TMap, state) = any(map(done, it.xs, state))
 Base.eltype(it::TMap) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{TMap{T}}) = T
 
-Base.length(it::TMap) = minimum(map(x -> length(x), it.xs))
+Base.length(it::TMap) = minimum(map(length, it.xs))
 
 
 

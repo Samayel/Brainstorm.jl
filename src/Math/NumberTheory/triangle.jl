@@ -10,7 +10,7 @@ nthtriangular(n::Integer) = div(n * (n+1), 2)
 ntriangular(n::Integer, T::Type = Int) = exacttriangular(n, T) |> collect
 
 alltriangular(T::Type = Int) = TriangularIterator{T}()
-sometriangular{T<:Integer}(xmax::T) = @pipe alltriangular(T) |> takewhile(@anon(x -> x <= xmax), _)
+sometriangular{T<:Integer}(xmax::T) = @pipe alltriangular(T) |> takewhile(Functor.leq(xmax), _)
 exacttriangular(n::Integer, T::Type = Int) = @pipe alltriangular(T) |> take(_, n)
 
 immutable TriangularIterator{T<:Integer}

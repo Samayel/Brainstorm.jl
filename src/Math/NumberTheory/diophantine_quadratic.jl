@@ -61,7 +61,7 @@ solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
     f(t) = (cxy^2 - 4*cx²*cy²)*t^2 + 2(cxy*cy - 2*cy²*cx)*t + (cy^2 - 4*cy²*c0)
-    z = map(r -> trunc(Integer, r), fzeros(f))
+    z = map(Functor.trunc(Integer), fzeros(f))
 
     isempty(z) && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[diophantine_nonex_noney(T)]
 
@@ -98,7 +98,7 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
 
     d = rc * cx - ra * cy
     if d == 0
-        u = map(r -> trunc(Integer, r), fzeros(f))
+        u = map(Functor.trunc(Integer), fzeros(f))
 
         isempty(u) && push!(solutions, diophantine_nonex_noney(T))
         for v in u

@@ -13,7 +13,7 @@ nthpentagonal(n::Integer) = div(n * (3n-1), 2)
 npentagonal(n::Integer, T::Type = Int) = exactpentagonal(n, T) |> collect
 
 allpentagonal(T::Type = Int) = PentagonalIterator{T}()
-somepentagonal{T<:Integer}(xmax::T) = @pipe allpentagonal(T) |> takewhile(@anon(x -> x <= xmax), _)
+somepentagonal{T<:Integer}(xmax::T) = @pipe allpentagonal(T) |> takewhile(Functor.leq(xmax), _)
 exactpentagonal(n::Integer, T::Type = Int) = @pipe allpentagonal(T) |> take(_, n)
 
 immutable PentagonalIterator{T<:Integer}

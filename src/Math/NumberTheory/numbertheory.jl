@@ -1,7 +1,8 @@
 @reexport module NumberTheory
 
-using Brainstorm: flatten, takewhile, @anon
+using Brainstorm: flatten, takewhile
 using Brainstorm.Math: checked_add, checked_sub
+using Brainstorm.Meta: Functor
 using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using Iterators: chain, cycle, drop, imap, take

@@ -1,4 +1,4 @@
-using Brainstorm: takewhile, @anon
+using Brainstorm: takewhile, Functor
 using Pipe.@pipe
 
 export
@@ -71,8 +71,13 @@ genprimes(a::Integer, b::Integer) = primesieve(a, b)
 genprimes(b::Integer) = primesieve(b)
 
 countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
-countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count(@anon((i, x) -> x && (i >= a)), _)
+countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count(TrueAndIdxGeq(a), _)
 primepi(n::Integer) = countprimes(2, n)
+
+immutable TrueAndIdxGeq{T} <: Base.Func{2}
+    minidx::T
+end
+Base.call(f::TrueAndIdxGeq, i, x) = x && (i >= f.minidx)
 
 nprimes(n::Integer) = primesieve(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
 nprimes(n::Integer, start::Integer) = @pipe allprimes(start) |> take(_, n) |> collect
@@ -135,7 +140,7 @@ end
 allprimes(n::Integer = 2) = PrimeIterator(n)
 
 someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
-someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(@anon(x -> x <= n2), _)
+someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(Functor.leq(n2), _)
 someprimes(n2::Integer) = someprimes(2, n2)
 
 type PrimeIterator{T<:Integer}
