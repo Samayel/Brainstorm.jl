@@ -6,7 +6,7 @@ using Base.Test
 
 function test_factorization()
     @test factorization(147573952589676412927) ==
-        Dict{Int,Int}(193707721 => 1, 761838257287 => 1)
+        Dict{Int64,Int}(193707721 => 1, 761838257287 => 1)
     @test factorization((big(2)^31-1)*(big(2)^17-1)) ==
         Dict(big(2^31-1) => 1, big(2^17-1) => 1)
 end

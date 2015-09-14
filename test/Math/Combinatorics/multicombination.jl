@@ -1,11 +1,11 @@
 function test_multicombination_combinations()
-    @test collect(combinations(Int[], Int[], 0)) == Array{Int64,1}[[]]
+    @test collect(combinations(Int[], Int[], 0)) == Array{Int,1}[[]]
     @test length(combinations(Int[], Int[], 0)) == 1
-    @test eltype(combinations(Int[], Int[], 0)) == Array{Int64,1}
+    @test eltype(combinations(Int[], Int[], 0)) == Array{Int,1}
 
-    @test collect(combinations(Int[], Int[], 1)) == Array{Int64,1}[]
+    @test collect(combinations(Int[], Int[], 1)) == Array{Int,1}[]
     @test length(combinations(Int[], Int[], 1)) == 0
-    @test eltype(combinations(Int[], Int[], 1)) == Array{Int64,1}
+    @test eltype(combinations(Int[], Int[], 1)) == Array{Int,1}
 
     @test collect(combinations(["a", "b"], [2, 1], 3)) == Array[
         ["a", "a", "b"],

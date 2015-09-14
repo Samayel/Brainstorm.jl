@@ -1,11 +1,11 @@
 function test_combination_combinations()
-    @test collect(combinations(Int[], 0, Val{:unique}())) == Array{Int64,1}[[]]
+    @test collect(combinations(Int[], 0, Val{:unique}())) == Array{Int,1}[[]]
     @test length(combinations(Int[], 0, Val{:unique}())) == 1
-    @test eltype(combinations(Int[], 0, Val{:unique}())) == Array{Int64,1}
+    @test eltype(combinations(Int[], 0, Val{:unique}())) == Array{Int,1}
 
-    @test collect(combinations(Int[], 1, Val{:unique}())) == Array{Int64,1}[]
+    @test collect(combinations(Int[], 1, Val{:unique}())) == Array{Int,1}[]
     @test length(combinations(Int[], 1, Val{:unique}())) == 0
-    @test eltype(combinations(Int[], 1, Val{:unique}())) == Array{Int64,1}
+    @test eltype(combinations(Int[], 1, Val{:unique}())) == Array{Int,1}
 
     @test collect(combinations(["a", "b", "c", "d"], 2, Val{:unique}())) == Array[
         ["a", "b"],
@@ -23,13 +23,13 @@ function test_combination_combinations()
 end
 
 function test_combination_combinations_with_repetition()
-    @test collect(combinations(Int[], 0, Val{:repeated}())) == Array{Int64,1}[[]]
+    @test collect(combinations(Int[], 0, Val{:repeated}())) == Array{Int,1}[[]]
     @test length(combinations(Int[], 0, Val{:repeated}())) == 1
-    @test eltype(combinations(Int[], 0, Val{:repeated}())) == Array{Int64,1}
+    @test eltype(combinations(Int[], 0, Val{:repeated}())) == Array{Int,1}
 
-    @test collect(combinations(Int[], 1, Val{:repeated}())) == Array{Int64,1}[]
+    @test collect(combinations(Int[], 1, Val{:repeated}())) == Array{Int,1}[]
     @test length(combinations(Int[], 1, Val{:repeated}())) == 0
-    @test eltype(combinations(Int[], 1, Val{:repeated}())) == Array{Int64,1}
+    @test eltype(combinations(Int[], 1, Val{:repeated}())) == Array{Int,1}
 
     @test collect(combinations(["a", "b", "c", "d"], 2, Val{:repeated}())) == Array[
         ["a", "a"],

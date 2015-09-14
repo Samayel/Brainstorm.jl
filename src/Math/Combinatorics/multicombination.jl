@@ -1,11 +1,11 @@
 
-Base.combinations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::Integer) =
-    MultisetCombinations(a, c, k)
+Base.combinations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::U) =
+    MultisetCombinations{T,U}(a, c, k)
 
 immutable MultisetCombinations{T,U}
-    a::T
-    c::U
-    k::Int
+    a::AbstractArray{T,1}
+    c::AbstractArray{U,1}
+    k::U
 end
 
 Base.start(c::MultisetCombinations) = begin
@@ -41,7 +41,7 @@ end
 Base.done(c::MultisetCombinations, s) = !isempty(s) && s[1] > length(c.a)
 
 Base.eltype(c::MultisetCombinations) = eltype(typeof(c))
-Base.eltype{T,U}(::Type{MultisetCombinations{T,U}}) = Array{eltype(T),1}
+Base.eltype{T,U}(::Type{MultisetCombinations{T,U}}) = Array{T,1}
 
 Base.length(c::MultisetCombinations) = begin
     c.k == 0 && return 1

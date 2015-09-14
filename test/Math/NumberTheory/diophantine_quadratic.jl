@@ -1,5 +1,5 @@
 function test_diophantine_solve_diophantine_quadratic()
-    soltype = Array{AbstractDiophantineSolutions{DiophantineSolutionXY{Int64}},1}
+    soltype = Array{AbstractDiophantineSolutions{DiophantineSolutionXY{Int}},1}
 
     # linear
     sol = solve(diophantine_equation_quadratic_xy(cx=3, c0=-9))

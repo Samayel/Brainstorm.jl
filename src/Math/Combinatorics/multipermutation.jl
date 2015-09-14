@@ -1,13 +1,13 @@
 
 Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}) =
     permutations(a, c, sum(c))
-Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::Integer) =
-    MultisetPermuations(a, c, k)
+Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::U) =
+    MultisetPermuations{T,U}(a, c, k)
 
 immutable MultisetPermuations{T,U}
-    a::T
-    c::U
-    k::Int
+    a::AbstractArray{T,1}
+    c::AbstractArray{U,1}
+    k::U
 end
 
 Base.start(p::MultisetPermuations) = begin
@@ -39,14 +39,14 @@ end
 Base.done(p::MultisetPermuations, s) = !isempty(s) && s[1] > length(p.a)
 
 Base.eltype(p::MultisetPermuations) = eltype(typeof(p))
-Base.eltype{T,U}(::Type{MultisetPermuations{T,U}}) = Array{eltype(T),1}
+Base.eltype{T,U}(::Type{MultisetPermuations{T,U}}) = Array{T,1}
 
 Base.length(p::MultisetPermuations) = begin
     p.k == 0 && return 1
 
     csum = sum(p.c)
     p.k > csum && return 0
-    p.k == csum && return multinomial(p.c...)
+    p.k == csum && return multinomial(p.c)
 
     s = expand_maclaurin_series(GFPerm(p.c), p.k, Number)
     round(Int, factorial(p.k) * coefficient(s, p.k))
