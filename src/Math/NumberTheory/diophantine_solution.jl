@@ -139,8 +139,8 @@ Base.next(it::Solutions, state) = next(it.solutions, state)
 Base.done(it::Solutions, state) = done(it.solutions, state)
 Base.length(it::Solutions) = length(it.solutions)
 
-Base.start(::NoneX_NoneY) = Nothing
-Base.next(::NoneX_NoneY, _) = Nothing
+Base.start(::NoneX_NoneY) = Void
+Base.next(::NoneX_NoneY, _) = Void
 Base.done(::NoneX_NoneY, _) = true
 Base.length(::NoneX_NoneY) = 0
 

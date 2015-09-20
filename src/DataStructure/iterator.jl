@@ -108,7 +108,7 @@ create(::NestedIterator, ::Any) = []
 combine(::NestedIterator, outer, inner) = "$outer,$inner"
 
 
-Base.start(it::NestedIterator) = nextstate(it, (Nothing, Nothing, Nothing))
+Base.start(it::NestedIterator) = nextstate(it, (Void, Void, Void))
 
 Base.next(it::NestedIterator, state) = begin
     outerit = it.source
@@ -132,13 +132,13 @@ nextstate(it::NestedIterator, state) = begin
     outerit = it.source
     outerstate, innerit, innerstate = state
 
-    if outerstate == Nothing
+    if outerstate == Void
         outerstate = start(outerit)
     end
 
     done(outerit, outerstate) && return (outerstate, innerit, innerstate)
 
-    if innerit == Nothing
+    if innerit == Void
         innerit, innerstate = createinner(it, outerstate)
     else
         _, innerstate = next(innerit, innerstate)

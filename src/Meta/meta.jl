@@ -42,8 +42,8 @@ macro testtimed(label, func, tests)
     end
 end
 
-function get_jl_filenames(directory::String, skipRootFiles = false)
-    files = String[]
+function get_jl_filenames(directory::AbstractString, skipRootFiles = false)
+    files = AbstractString[]
     for entry in readdir(directory)
         path = joinpath(directory, entry)
 
