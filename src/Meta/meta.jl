@@ -11,11 +11,6 @@ export @pipe
 @reexport using ProgressMeter
 @reexport using Requires
 
-# fix ambiguous definition
-Base.map(f::Base.Callable, ex::Expr) =
-    Expr(ex.head, [isa(arg, Expr) ? map(f, arg) : f(arg) for arg in ex.args]...)
-@reexport using ValueDispatch
-
 include("functor.jl")
 
 export

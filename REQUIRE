@@ -1,7 +1,7 @@
 julia 0.4-
 AutoHashEquals
 BloomFilters
-Combinatorics
+# Combinatorics
 DataStructures
 Dates
 # DecFP
@@ -42,4 +42,4 @@ SparseVectors
 StatsFuns
 TaylorSeries
 ValidatedNumerics
-ValueDispatch
+# ValueDispatch
