@@ -50,15 +50,10 @@ Base.length(c::MultisetCombinations) = begin
     c.k > csum && return 0
     c.k == csum && return 1
 
-    s = expand_maclaurin_series(GFComb(c.c), c.k)
-    coefficient(s, c.k)
-end
+    # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
+    R, z = PowerSeriesRing(ZZ, c.k + 1, "z")
+    gf = prod([sum([z^j for j = 0:m]) for m in c.c])
+    l = coeff(gf, c.k)
 
-immutable GFComb{T} <: Base.Func{1}
-    c::T
+    convert(Int, l)
 end
-Base.call(f::GFComb, z) = gfcomb(z, f.c)
-
-# http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
-gfcomb(t, m::Integer) = sum([t^j for j = 0:m])
-gfcomb{T<:Integer}(t, c::AbstractArray{T,1}) = prod([gfcomb(t, m) for m in c])

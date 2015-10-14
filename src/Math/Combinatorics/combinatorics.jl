@@ -3,7 +3,7 @@
 using Reexport.@reexport
 
 using Brainstorm: flatten
-using Brainstorm.Math.NumberTheory: expand_maclaurin_series, coefficient
+using Nemo: QQ, ZZ, PowerSeriesRing, coeff, divexact, fac
 
 @reexport using Multicombinations
 

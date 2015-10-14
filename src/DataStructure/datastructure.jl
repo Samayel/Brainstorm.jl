@@ -3,6 +3,8 @@
 using Brainstorm.Meta: Functor
 using Reexport.@reexport
 
+import Nemo: cols, rows
+
 @reexport using Base.Dates
 
 @reexport using AutoHashEquals

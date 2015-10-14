@@ -2,7 +2,6 @@ module NumberTheory
 
 using Brainstorm.Math.NumberTheory
 using Base.Test
-using TaylorSeries: Taylor1
 
 include("primes.jl")
 include("Primes/native.jl")
@@ -14,7 +13,6 @@ include("hailstone.jl")
 include("triangle.jl")
 include("pentagon.jl")
 include("hexagon.jl")
-include("genfunc.jl")
 include("confrac.jl")
 include("diophantine.jl")
 
@@ -29,7 +27,6 @@ function test_all()
     test_triangle_all()
     test_pentagon_all()
     test_hexagon_all()
-    test_genfunc_all()
     test_confrac_all()
     test_diophantine_all()
 end

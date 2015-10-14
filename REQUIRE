@@ -1,4 +1,4 @@
-julia 0.4-
+julia 0.4
 AutoHashEquals
 BloomFilters
 # Combinatorics
@@ -14,7 +14,6 @@ FunctionalCollections
 Graphs
 ImmutableArrays
 IndexedArrays
-IntModN
 IterationManagers
 Iterators
 Lazy
@@ -40,6 +39,5 @@ ShowSet
 SortingAlgorithms
 SparseVectors
 StatsFuns
-TaylorSeries
 ValidatedNumerics
 # ValueDispatch
