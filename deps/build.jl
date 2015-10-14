@@ -19,3 +19,10 @@ catch err
     Pkg.clone("https://github.com/jlep/Multicombinations.jl")
     Pkg.build("Multicombinations")
 end
+
+try
+    eval(Expr(:import,:Nemo))
+catch err
+    Pkg.clone("https://github.com/wbhart/Nemo.jl")
+    Pkg.build("Nemo")
+end

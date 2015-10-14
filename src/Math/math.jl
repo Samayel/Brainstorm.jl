@@ -6,6 +6,7 @@ using Reexport.@reexport
 @reexport using DualNumbers
 @reexport using FixedPointNumbers
 @reexport using IntModN
+@reexport using Nemo
 @reexport using OEIS
 @reexport using StatsFuns
 @reexport using TaylorSeries

@@ -27,9 +27,9 @@ solve{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     cx² == cxy == cy² == 0 && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solve(diophantine_equation_linear_xy(cx=cx, cy=cy, c0=c0))]
     cx² == cy² == 0 && return solve_simplehyperbolic(eq)
 
-    discriminant = cxy^2 - 4*cx²*cy²
-    discriminant < 0 && return solve_elliptical(eq)
-    discriminant == 0 && return solve_parabolic(eq)
+    discr = cxy^2 - 4*cx²*cy²
+    discr < 0 && return solve_elliptical(eq)
+    discr == 0 && return solve_parabolic(eq)
     solve_hyperbolic(eq)
 end
 
@@ -128,19 +128,19 @@ solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) 
 
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
 
-    discriminant = cxy^2 - 4*cx²*cy²
-    k = isqrt(discriminant)
+    discr = cxy^2 - 4*cx²*cy²
+    k = isqrt(discr)
 
     if c0 == 0
         push!(solutions, diophantine_solutions((0, 0)))
-        if k*k == discriminant
+        if k*k == discr
             push!(solutions, solve(diophantine_equation_linear_xy(cx=2*cx², cy=cxy+k, c0=0)))
             push!(solutions, solve(diophantine_equation_linear_xy(cx=2*cx², cy=cxy-k, c0=0)))
         end
         return solutions
     end
 
-    if k*k == discriminant
+    if k*k == discr
         xytuples = Tuple{T,T}[]
         for f in factors(abs(-4*cx²*c0); negative = true)
             y, r = divrem(f + div(4*cx²*c0, f), 2*k)
