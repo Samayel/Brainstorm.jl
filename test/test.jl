@@ -1,7 +1,7 @@
 module Test
 
 using Base.Test
-using Lint.lintpkg
+# using Lint.lintpkg
 
 include("Algorithm/algorithm.jl")
 include("DataStructure/datastructure.jl")
@@ -15,7 +15,7 @@ function test_internal()
     Meta.test_all()
     println("")
     # @test isempty(lintpkg("Brainstorm", returnMsgs=true))
-    lintpkg("Brainstorm", returnMsgs=true)
+    # lintpkg("Brainstorm", returnMsgs=true)
 end
 
 function test_external()
