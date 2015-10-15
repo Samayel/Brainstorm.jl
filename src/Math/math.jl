@@ -9,7 +9,7 @@ using Reexport.@reexport
 @reexport using OEIS
 @reexport using StatsFuns
 @reexport using TaylorSeries
-# @reexport using ValidatedNumerics
+@reexport using ValidatedNumerics
 
 export
     checked_add, checked_sub,
