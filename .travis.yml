@@ -19,6 +19,6 @@ script:
   - julia -e 'using LightGraphs'       # trigger precompilation
   - julia --check-bounds=yes -e 'Pkg.test("Brainstorm"; coverage=true)'
 after_success:
-  - julia -e 'Pkg.add("Coverage")'
-  - julia -e 'cd(Pkg.dir("Brainstorm")); using Coverage; Coveralls.submit(Coveralls.process_folder())'
-  - julia -e 'cd(Pkg.dir("Brainstorm")); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - julia -e '@linux_only Pkg.add("Coverage")'
+  - julia -e '@linux_only begin cd(Pkg.dir("Brainstorm")); using Coverage; Coveralls.submit(Coveralls.process_folder()) end'
+  - julia -e '@linux_only begin cd(Pkg.dir("Brainstorm")); using Coverage; Codecov.submit(Codecov.process_folder()) end'
