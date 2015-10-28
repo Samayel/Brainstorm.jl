@@ -16,7 +16,7 @@ script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve");'
   - julia -e 'Pkg.clone(pwd()); Pkg.build("Brainstorm")'
-  - julia -e 'using MacroTools'        # trigger precompilation
+  - julia -e 'using Lazy'              # trigger precompilation of MacroTools
   - julia -e 'using LightGraphs'       # trigger precompilation
   - julia --check-bounds=yes -e 'Pkg.test("Brainstorm"; coverage=true)'
 after_success:
