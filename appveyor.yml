@@ -30,6 +30,7 @@ build_script:
   - C:\projects\julia\bin\julia-debug -e "versioninfo(); Pkg.init();"
 # - C:\projects\julia\bin\julia-debug -e "Pkg.clone(\"https://github.com/Samayel/PrimeSieve.jl.git\"); Pkg.build(\"PrimeSieve\");"
   - C:\projects\julia\bin\julia-debug -e "Pkg.clone(pwd(), \"Brainstorm\"); Pkg.build(\"Brainstorm\");"
+  - C:\projects\julia\bin\julia-debug -e "using MacroTools"     # trigger precompilation
   - C:\projects\julia\bin\julia-debug -e "using LightGraphs"    # trigger precompilation
 
 test_script:
