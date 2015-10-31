@@ -5,11 +5,7 @@ using Reexport: @reexport
 
 export @pipe
 
-@reexport using Match
 @reexport using Memoize
-@reexport using Parameters
-@reexport using ProgressMeter
-@reexport using Requires
 
 include("functor.jl")
 

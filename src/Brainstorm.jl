@@ -2,12 +2,9 @@ __precompile__(false)
 
 module Brainstorm
 
+using Reexport: @reexport
+
 include("lint.jl")
-
-using Reexport.@reexport
-
-@reexport using Formatting
-@reexport using Redis
 
 include("Meta/meta.jl")
 include("DataStructure/datastructure.jl")

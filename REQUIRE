@@ -1,44 +1,18 @@
 julia 0.4
 AutoHashEquals
-BloomFilters
-# Combinatorics
 DataStructures
-Dates
-# DecFP
 Digits
-DualNumbers
-FastAnonymous
-FixedPointNumbers
-Formatting
 FunctionalCollections
-Graphs
 ImmutableArrays
 IndexedArrays
-IntervalTrees
-IterationManagers
 Iterators
 Lazy
 LightGraphs
-Lint
-Match
-# MathLink
-Mathematica
-MATLAB
 Memoize
-MinimalPerfectHashes
-NamedArrays
-NamedTuples
-OEIS
-Parameters
 Pipe
-ProgressMeter
-Redis
 Reexport
-Requires
 Roots
-ShowSet
 SortingAlgorithms
 SparseVectors
 StatsFuns
 ValidatedNumerics
-# ValueDispatch

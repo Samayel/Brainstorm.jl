@@ -8,19 +8,14 @@ import Nemo: cols, rows
 @reexport using Base.Dates
 
 @reexport using AutoHashEquals
-@reexport using BloomFilters
 @reexport using DataStructures
-@reexport using DeepConvert
 @reexport using FunctionalCollections
 @reexport using ImmutableArrays
 @reexport using IndexedArrays
-@reexport using IntervalTrees
 @reexport using Iterators
 @reexport using Lazy
 @reexport using LightGraphs
 @reexport using Lists
-@reexport using NamedTuples
-@reexport using ShowSet
 @reexport using SparseVectors
 
 export
