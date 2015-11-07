@@ -3,16 +3,19 @@ module Test
 using Base.Test
 # using Lint.lintpkg
 
-include("Algorithm/algorithm.jl")
-include("DataStructure/datastructure.jl")
-include("Math/math.jl")
 include("Meta/meta.jl")
+include("DataStructure/datastructure.jl")
+include("Algorithm/algorithm.jl")
+include("Math/math.jl")
+include("Finance/finance.jl")
 
 function test()
-    Algorithm.test_all()
-    DataStructure.test_all()
-    Math.test_all()
     Meta.test_all()
+    DataStructure.test_all()
+    Algorithm.test_all()
+    Math.test_all()
+    Finance.test_all()
+
     println("")
 
     # @test isempty(lintpkg("Brainstorm", returnMsgs=true))

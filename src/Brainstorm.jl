@@ -10,6 +10,7 @@ include("Meta/meta.jl")
 include("DataStructure/datastructure.jl")
 include("Algorithm/algorithm.jl")
 include("Math/math.jl")
+include("Finance/finance.jl")
 
 include("../test/test.jl")
 
