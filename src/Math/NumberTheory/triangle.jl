@@ -7,11 +7,11 @@ export
 istriangular(n::Integer) = isperfectsquare(8*n + 1)
 
 nthtriangular(n::Integer) = div(n * (n+1), 2)
-ntriangular(n::Integer, T::Type = Int) = exacttriangular(n, T) |> collect
+ntriangular(n::Int, T::Type = Int) = collect(exacttriangular(n, T))
 
 alltriangular(T::Type = Int) = TriangularIterator{T}()
 sometriangular{T<:Integer}(xmax::T) = @pipe alltriangular(T) |> takewhile(Functor.leq(xmax), _)
-exacttriangular(n::Integer, T::Type = Int) = @pipe alltriangular(T) |> take(_, n)
+exacttriangular(n::Int, T::Type = Int) = @pipe alltriangular(T) |> take(_, n)
 
 immutable TriangularIterator{T<:Integer}
 end

@@ -10,11 +10,11 @@ ishexagonal(n::Integer) = begin
 end
 
 nthhexagonal(n::Integer) = n * (2*n - 1)
-nhexagonal(n::Integer, T::Type = Int) = exacthexagonal(n, T) |> collect
+nhexagonal(n::Int, T::Type = Int) = collect(exacthexagonal(n, T))
 
 allhexagonal(T::Type = Int) = HexagonalIterator{T}()
 somehexagonal{T<:Integer}(xmax::T) = @pipe allhexagonal(T) |> takewhile(Functor.leq(xmax), _)
-exacthexagonal(n::Integer, T::Type = Int) = @pipe allhexagonal(T) |> take(_, n)
+exacthexagonal(n::Int, T::Type = Int) = @pipe allhexagonal(T) |> take(_, n)
 
 immutable HexagonalIterator{T<:Integer}
 end

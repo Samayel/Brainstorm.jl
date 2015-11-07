@@ -12,17 +12,17 @@ factorization(n::Integer) = Base.factor(n)
 
 ##  Eratosthenes' prime number sieve
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-primesieve(n::Integer) = begin
-    n <= 1 && return typeof(n)[]
+primesieve{T<:Integer}(n::T) = begin
+    n <= 1 && return T[]
 
-    p = collect(one(n):oftype(n, 2):n)
+    p = collect(one(T):convert(T, 2):n)
     q = length(p)
-    p[1] = oftype(n, 2)
+    p[1] = convert(T, 2)
 
     if n >= 9
         for k = 3:2:isqrt(n)
             if p[(k+1)>>1] != 0
-                p[(k*k+1)>>1:k:q] = zero(n)
+                p[(k*k+1)>>1:k:q] = zero(T)
             end
         end
     end
@@ -84,21 +84,21 @@ nprimes(n::Integer, start::Integer) = @pipe allprimes(start) |> take(_, n) |> co
 nthprime(n::Integer) = nprimes(n)[n]
 
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-nextprime(n::Integer) = begin
-    n <= 1 && return oftype(n, 2)
-    n == 2 && return oftype(n, 3)
+nextprime{T<:Integer}(n::T) = begin
+    n <= 1 && return convert(T, 2)
+    n == 2 && return convert(T, 3)
 
-    n += iseven(n) ? one(n) : oftype(n, 2)
+    n += iseven(n) ? one(T) : convert(T, 2)
     isprime(n) && return n
 
     m = mod(n, 3)
     if m == 1
-        a = oftype(n, 4); b = oftype(n, 2)
+        a = convert(T, 4); b = convert(T, 2)
     elseif m == 2
-        a = oftype(n, 2); b = oftype(n, 4)
+        a = convert(T, 2); b = convert(T, 4)
     else
         n += 2
-        a = oftype(n, 2); b = oftype(n, 4)
+        a = convert(T, 2); b = convert(T, 4)
     end
 
     p = n
@@ -111,21 +111,21 @@ nextprime(n::Integer) = begin
 end
 
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-prevprime(n::Integer) = begin
+prevprime{T<:Integer}(n::T) = begin
     n <= 2 && throw(DomainError())
-    n == 3 && return oftype(n, 2)
+    n == 3 && return convert(T, 2)
 
-    n -= iseven(n) ? one(n) : oftype(n, 2)
+    n -= iseven(n) ? one(T) : convert(T, 2)
     isprime(n) && return n
 
     m = mod(n, 3)
     if m == 1
-        a = oftype(n, 2); b = oftype(n, 4)
+        a = convert(T, 2); b = convert(T, 4)
     elseif m == 2
-        a = oftype(n, 4); b = oftype(n, 2)
+        a = convert(T, 4); b = convert(T, 2)
     else
         n -= 2
-        a = oftype(n, 2); b = oftype(n, 4)
+        a = convert(T, 2); b = convert(T, 4)
     end
 
     p = n
@@ -154,9 +154,9 @@ Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{PrimeIterator{T}}) = T
 
 # testf is not a function and uses two parameters
-function count(testf, A::AbstractArray)
+function count(testf, coll)
     c = 0
-    for (i, a) in enumerate(A)
+    for (i, a) in enumerate(coll)
         c += testf(i, a)
     end
     c

@@ -12,7 +12,7 @@ isperfectsquare(n::Integer) = n == isqrt(n)^2
 divisorcount(n::Integer) = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
-    c = 1
+    c = one(n)
     for k in values(factorization(n))
         c *= k + 1
     end
@@ -22,10 +22,10 @@ divisorsigma(n::Integer, s = 1) = begin
     s >= 0 || error("Argument 's' must be an integer greater or equal 0")
     n >  0 || error("Argument 'n' must be an integer greater 0")
 
-    n == 1 && return 1
+    n == 1 && return one(n)
     s == 0 && return divisorcount(n)
 
-    σ = 1
+    σ = one(n)
     for (p, k) in factorization(n)
         σ *= div(p^((k + 1) * s) - 1, p^s - 1)
     end
@@ -38,15 +38,15 @@ isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
 factorization_sorted(n::Integer) = factorization(n) |> SortedDict
 
-primefactors(n::Integer) = factorization(n) |> keys |> collect |> sort!
+primefactors(n::Integer) = sort!(collect(keys(factorization(n))))
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
-factors(n::Integer; negative::Bool = false) = begin
+factors{T<:Integer}(n::T, negative::Bool = false) = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
     f = [one(n)]
     for (p, k) in factorization(n)
-        f = reduce(vcat, f, [f * p^j for j in 1:k])
+        f = reduce(vcat, f, [f * p^j for j in 1:k])::Array{T,1}
     end
 
     if length(f) == 1
@@ -59,17 +59,15 @@ factors(n::Integer; negative::Bool = false) = begin
 end
 
 function indexfactorization2number{T<:Integer}(x::Array{T,1})
-    [big(nthprime(i))^k for (i, k) = enumerate(x)] |> prod
+    prod([big(nthprime(i))^k for (i, k) in enumerate(x)])
 end
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors(d::Integer) =
-    @pipe least_number_with_d_divisors_exponents(d) |>
-    imap(indexfactorization2number, _) |>
-    minimum
+    minimum([indexfactorization2number(e) for e in least_number_with_d_divisors_exponents(d)])
 
-function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = 0)
-    d <= 1 && return Any[Integer[]]
+function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = zero(T))
+    d <= 1 && return Vector{T}[T[]]
 
     f = factorization_sorted(d)
     pmax = last(f)[1]
@@ -80,10 +78,10 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
     m = floor(Integer, log(p) / log(p_i))
 
     c = [pmax]
-    for b = 2:m
+    for b in 2:m
         !(b in keys(f)) && continue
 
-        for a = b:m
+        for a in b:m
             a*b <= pmax && continue
             d % (a*b) != 0 && continue
             first(primefactors(a)) < b && continue
@@ -93,7 +91,7 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
         end
     end
 
-    ans = Any[]
+    ans = Vector{T}[]
     for ni in c
         for tailn in least_number_with_d_divisors_exponents(div(d, ni), i+1, ni)
             push!(tailn, ni-1)

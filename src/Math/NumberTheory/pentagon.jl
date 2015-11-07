@@ -10,11 +10,11 @@ ispentagonal(n::Integer) = begin
 end
 
 nthpentagonal(n::Integer) = div(n * (3n-1), 2)
-npentagonal(n::Integer, T::Type = Int) = exactpentagonal(n, T) |> collect
+npentagonal(n::Int, T::Type = Int) = collect(exactpentagonal(n, T))
 
 allpentagonal(T::Type = Int) = PentagonalIterator{T}()
 somepentagonal{T<:Integer}(xmax::T) = @pipe allpentagonal(T) |> takewhile(Functor.leq(xmax), _)
-exactpentagonal(n::Integer, T::Type = Int) = @pipe allpentagonal(T) |> take(_, n)
+exactpentagonal(n::Int, T::Type = Int) = @pipe allpentagonal(T) |> take(_, n)
 
 immutable PentagonalIterator{T<:Integer}
 end

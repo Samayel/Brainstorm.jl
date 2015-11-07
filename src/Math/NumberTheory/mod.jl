@@ -48,12 +48,12 @@ end
 
 ##  Find a primitive root modulo m
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-primitiveroot(m::Integer) = begin
+primitiveroot{T<:Integer}(m::T) = begin
     isprime(m) || error("Argument 'm' must be a prime number")
-    m == 2 && return 1
+    m == 2 && return one(T)
 
     P = primefactors(m-1)
-    for r = 2:(m-1)
+    for r in 2:(m-1)
         not_found = true
         for p in P
             if powermod(r, div(m-1, p), m) == 1
@@ -63,5 +63,5 @@ primitiveroot(m::Integer) = begin
         end
         not_found && return r
     end
-    0
+    zero(T)
 end

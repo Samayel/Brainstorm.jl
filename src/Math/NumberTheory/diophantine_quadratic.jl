@@ -44,7 +44,7 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
         cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-div(cx, cxy)))
     else
         xytuples = Tuple{T,T}[]
-        for f in factors(abs(d); negative = true)
+        for f in factors(abs(d), true)
             x, r = divrem(f - cy, cxy)
             r == 0 || continue
             y, r = divrem(div(d, f) - cx, cxy)
@@ -142,7 +142,7 @@ solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) 
 
     if k*k == discr
         xytuples = Tuple{T,T}[]
-        for f in factors(abs(-4*cx²*c0); negative = true)
+        for f in factors(abs(-4*cx²*c0), true)
             y, r = divrem(f + div(4*cx²*c0, f), 2*k)
             r == 0 || continue
             x, r = divrem(f - (cxy + k)*y, 2*cx²)
