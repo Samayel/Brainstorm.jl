@@ -42,10 +42,10 @@ Base.eltype(p::MultisetPermuations) = eltype(typeof(p))
 Base.eltype{T,U}(::Type{MultisetPermuations{T,U}}) = Array{T,1}
 
 Base.length(p::MultisetPermuations) = begin
-    p.k == 0 && return 1
+    p.k == 0 && return big(1)
 
     csum = sum(p.c)
-    p.k > csum && return 0
+    p.k > csum && return big(0)
     p.k == csum && return multinomial(p.c)
 
     # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
@@ -54,5 +54,5 @@ Base.length(p::MultisetPermuations) = begin
     l = fac(p.k) * coeff(gf, p.k)
 
     @assert den(l) == 1
-    convert(Int, num(l))
+    convert(BigInt, num(l))
 end

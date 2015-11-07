@@ -44,16 +44,16 @@ Base.eltype(c::MultisetCombinations) = eltype(typeof(c))
 Base.eltype{T,U}(::Type{MultisetCombinations{T,U}}) = Array{T,1}
 
 Base.length(c::MultisetCombinations) = begin
-    c.k == 0 && return 1
+    c.k == 0 && return big(1)
 
     csum = sum(c.c)
-    c.k > csum && return 0
-    c.k == csum && return 1
+    c.k > csum && return big(0)
+    c.k == csum && return big(1)
 
     # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
     R, z = PowerSeriesRing(ZZ, c.k + 1, "z")
     gf = prod([sum([z^j for j = 0:m]) for m in c.c])
     l = coeff(gf, c.k)
 
-    convert(Int, l)
+    convert(BigInt, l)
 end

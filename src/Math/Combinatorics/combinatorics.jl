@@ -12,9 +12,9 @@ export
 
 # Multinomial coefficient where n = sum(k)
 # https://github.com/jiahao/Combinatorics.jl/blob/master/src/Combinatorics.jl
-multinomial{T<:Integer}(k::AbstractArray{T,1}) = begin
-    s = zero(T)
-    result = one(T)
+multinomial(k) = begin
+    s = big(0)
+    result = big(1)
     for i in k
         s += i
         result *= binomial(s, i)

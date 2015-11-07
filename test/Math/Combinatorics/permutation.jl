@@ -1,9 +1,9 @@
 function test_permutation_permutations()
-    @test collect(permutations(Int[], Val{:unique}())) == Array{Int,1}[[]]
-    @test length(permutations(Int[], Val{:unique}())) == 1
-    @test eltype(permutations(Int[], Val{:unique}())) == Array{Int,1}
+    @test collect(permutations(Int[], Val{:unique})) == Array{Int,1}[[]]
+    @test length(permutations(Int[], Val{:unique})) == 1
+    @test eltype(permutations(Int[], Val{:unique})) == Array{Int,1}
 
-    @test collect(permutations(["a", "b", "c"], Val{:unique}())) == Array[
+    @test collect(permutations(["a", "b", "c"], Val{:unique})) == Array[
         ["a", "b", "c"],
         ["a", "c", "b"],
         ["b", "a", "c"],
@@ -11,16 +11,16 @@ function test_permutation_permutations()
         ["c", "a", "b"],
         ["c", "b", "a"],
     ]
-    @test length(permutations(["a", "b", "c"], Val{:unique}())) == 6
-    @test eltype(permutations(["a", "b", "c"], Val{:unique}())) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c"], Val{:unique})) == 6
+    @test eltype(permutations(["a", "b", "c"], Val{:unique})) == Array{ASCIIString,1}
 end
 
 function test_permutation_permutations_with_repetition()
-    @test collect(permutations(Int[], Val{:repeated}())) == Array{Int,1}[[]]
-    @test length(permutations(Int[], Val{:repeated}())) == 1
-    @test eltype(permutations(Int[], Val{:repeated}())) == Array{Int,1}
+    @test collect(permutations(Int[], Val{:repeated})) == Array{Int,1}[[]]
+    @test length(permutations(Int[], Val{:repeated})) == 1
+    @test eltype(permutations(Int[], Val{:repeated})) == Array{Int,1}
 
-    @test collect(permutations(["a", "b", "c"], Val{:repeated}())) == Array[
+    @test collect(permutations(["a", "b", "c"], Val{:repeated})) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
         ["a", "a", "c"],
@@ -49,24 +49,24 @@ function test_permutation_permutations_with_repetition()
         ["c", "c", "b"],
         ["c", "c", "c"],
     ]
-    @test length(permutations(["a", "b", "c"], Val{:repeated}())) == 27
-    @test eltype(permutations(["a", "b", "c"], Val{:repeated}())) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c"], Val{:repeated})) == 27
+    @test eltype(permutations(["a", "b", "c"], Val{:repeated})) == Array{ASCIIString,1}
 end
 
 function test_permutation_permutations_unknown_mode()
-    @test_throws MethodError permutations(["a", "b", "c"], Val{:unknown}())
+    @test_throws MethodError permutations(["a", "b", "c"], Val{:unknown})
 end
 
 function test_permutation_kpermutations()
-    @test collect(permutations(Int[], 0, Val{:unique}())) == Array{Int,1}[[]]
-    @test length(permutations(Int[], 0, Val{:unique}())) == 1
-    @test eltype(permutations(Int[], 0, Val{:unique}())) == Array{Int,1}
+    @test collect(permutations(Int[], 0, Val{:unique})) == Array{Int,1}[[]]
+    @test length(permutations(Int[], 0, Val{:unique})) == 1
+    @test eltype(permutations(Int[], 0, Val{:unique})) == Array{Int,1}
 
-    @test collect(permutations(Int[], 1, Val{:unique}())) == Array{Int,1}[]
-    @test length(permutations(Int[], 1, Val{:unique}())) == 0
-    @test eltype(permutations(Int[], 1, Val{:unique}())) == Array{Int,1}
+    @test collect(permutations(Int[], 1, Val{:unique})) == Array{Int,1}[]
+    @test length(permutations(Int[], 1, Val{:unique})) == 0
+    @test eltype(permutations(Int[], 1, Val{:unique})) == Array{Int,1}
 
-    @test collect(permutations(["a", "b", "c", "d"], 2, Val{:unique}())) == Array[
+    @test collect(permutations(["a", "b", "c", "d"], 2, Val{:unique})) == Array[
         ["a", "b"],
         ["a", "c"],
         ["a", "d"],
@@ -80,10 +80,10 @@ function test_permutation_kpermutations()
         ["d", "b"],
         ["d", "c"],
     ]
-    @test length(permutations(["a", "b", "c", "d"], 2, Val{:unique}())) == 12
-    @test eltype(permutations(["a", "b", "c", "d"], 2, Val{:unique}())) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c", "d"], 2, Val{:unique})) == 12
+    @test eltype(permutations(["a", "b", "c", "d"], 2, Val{:unique})) == Array{ASCIIString,1}
 
-    @test collect(permutations(["a", "b", "c", "d"], 3, Val{:unique}())) == Array[
+    @test collect(permutations(["a", "b", "c", "d"], 3, Val{:unique})) == Array[
         ["a", "b", "c"],
         ["a", "b", "d"],
         ["a", "c", "b"],
@@ -109,23 +109,23 @@ function test_permutation_kpermutations()
         ["d", "c", "a"],
         ["d", "c", "b"],
     ]
-    @test length(permutations(["a", "b", "c", "d"], 3, Val{:unique}())) == 24
-    @test eltype(permutations(["a", "b", "c", "d"], 3, Val{:unique}())) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c", "d"], 3, Val{:unique})) == 24
+    @test eltype(permutations(["a", "b", "c", "d"], 3, Val{:unique})) == Array{ASCIIString,1}
 
-    @test collect(permutations(["a", "b"], 3, Val{:unique}())) == Array{ASCIIString,1}[]
-    @test length(permutations(["a", "b"], 3, Val{:unique}())) == 0
+    @test collect(permutations(["a", "b"], 3, Val{:unique})) == Array{ASCIIString,1}[]
+    @test length(permutations(["a", "b"], 3, Val{:unique})) == 0
 end
 
 function test_permutation_kpermutations_with_repetition()
-    @test collect(permutations(Int[], 0, Val{:repeated}())) == Array{Int,1}[[]]
-    @test length(permutations(Int[], 0, Val{:repeated}())) == 1
-    @test eltype(permutations(Int[], 0, Val{:repeated}())) == Array{Int,1}
+    @test collect(permutations(Int[], 0, Val{:repeated})) == Array{Int,1}[[]]
+    @test length(permutations(Int[], 0, Val{:repeated})) == 1
+    @test eltype(permutations(Int[], 0, Val{:repeated})) == Array{Int,1}
 
-    @test collect(permutations(Int[], 1, Val{:repeated}())) == Array{Int,1}[]
-    @test length(permutations(Int[], 1, Val{:repeated}())) == 0
-    @test eltype(permutations(Int[], 1, Val{:repeated}())) == Array{Int,1}
+    @test collect(permutations(Int[], 1, Val{:repeated})) == Array{Int,1}[]
+    @test length(permutations(Int[], 1, Val{:repeated})) == 0
+    @test eltype(permutations(Int[], 1, Val{:repeated})) == Array{Int,1}
 
-    @test collect(permutations(["a", "b", "c", "d"], 2, Val{:repeated}())) == Array[
+    @test collect(permutations(["a", "b", "c", "d"], 2, Val{:repeated})) == Array[
         ["a", "a"],
         ["a", "b"],
         ["a", "c"],
@@ -143,10 +143,10 @@ function test_permutation_kpermutations_with_repetition()
         ["d", "c"],
         ["d", "d"],
     ]
-    @test length(permutations(["a", "b", "c", "d"], 2, Val{:repeated}())) == 4^2
-    @test eltype(permutations(["a", "b", "c", "d"], 2, Val{:repeated}())) == Array{ASCIIString,1}
+    @test length(permutations(["a", "b", "c", "d"], 2, Val{:repeated})) == 4^2
+    @test eltype(permutations(["a", "b", "c", "d"], 2, Val{:repeated})) == Array{ASCIIString,1}
 
-    @test collect(permutations(["a", "b"], 3, Val{:repeated}())) == Array[
+    @test collect(permutations(["a", "b"], 3, Val{:repeated})) == Array[
         ["a", "a", "a"],
         ["a", "a", "b"],
         ["a", "b", "a"],
@@ -156,11 +156,11 @@ function test_permutation_kpermutations_with_repetition()
         ["b", "b", "a"],
         ["b", "b", "b"],
     ]
-    @test length(permutations(["a", "b"], 3, Val{:repeated}())) == 2^3
+    @test length(permutations(["a", "b"], 3, Val{:repeated})) == 2^3
 end
 
 function test_permutation_kpermutations_unknown_mode()
-    @test_throws MethodError permutations(["a", "b", "c", "d"], 2, Val{:unknown}())
+    @test_throws MethodError permutations(["a", "b", "c", "d"], 2, Val{:unknown})
 end
 
 function test_permutation_all()
