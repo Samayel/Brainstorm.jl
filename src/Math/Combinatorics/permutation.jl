@@ -3,8 +3,8 @@
 
 Base.permutations(a, mode::Type{Val{:unique}}) = permutations(a, length(a), mode)
 Base.permutations(a, mode::Type{Val{:repeated}}) = permutations(a, length(a), mode)
-Base.permutations{T}(a::T, k, ::Type{Val{:unique}}) = Permutations{T, Val{:unique}}(a, k)
-Base.permutations{T}(a::T, k, ::Type{Val{:repeated}}) = Permutations{T, Val{:repeated}}(a, k)
+Base.permutations{T}(a::T, k::Integer, ::Type{Val{:unique}}) = Permutations{T, Val{:unique}}(a, k)
+Base.permutations{T}(a::T, k::Integer, ::Type{Val{:repeated}}) = Permutations{T, Val{:repeated}}(a, k)
 
 immutable Permutations{T,M}
     a::T
@@ -16,7 +16,7 @@ Base.start{T}(v::Permutations{T, Val{:repeated}}) = ones(Int, v.k)
 
 Base.next{T,M}(v::Permutations{T,M}, s) = begin
     permutation = [v.a[si] for si in s]
-    v.k > 0 || return (permutation, [length(v.a) + 1])
+    v.k > 0 || return permutation, [length(v.a) + 1]
 
     s = copy(s)
     for i = length(s):-1:1
@@ -28,7 +28,7 @@ Base.next{T,M}(v::Permutations{T,M}, s) = begin
         end
     end
 
-    (permutation, s)
+    permutation, s
 end
 
 next!{T}(::Permutations{T, Val{:unique}}, s, i) = begin

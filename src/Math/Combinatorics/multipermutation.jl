@@ -1,13 +1,11 @@
 
-Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}) =
-    permutations(a, c, sum(c))
-Base.permutations{T,U<:Integer}(a::AbstractArray{T,1}, c::AbstractArray{U,1}, k::U) =
-    MultisetPermuations{T,U}(a, c, k)
+Base.permutations(a, c) = permutations(a, c, sum(c))
+Base.permutations(a, c, k::Integer) = MultisetPermuations(a, c, k)
 
-immutable MultisetPermuations{T,U}
-    a::AbstractArray{T,1}
-    c::AbstractArray{U,1}
-    k::U
+immutable MultisetPermuations{T,U,V}
+    a::T
+    c::U
+    k::V
 end
 
 Base.start(p::MultisetPermuations) = begin
@@ -17,7 +15,7 @@ end
 
 Base.next(p::MultisetPermuations, s) = begin
     permutation = [p.a[si] for si in s]
-    p.k > 0 || return (permutation, [length(p.a) + 1])
+    p.k > 0 || return permutation, [length(p.a) + 1]
 
     s = copy(s)
     for i = length(s):-1:1
@@ -33,13 +31,13 @@ Base.next(p::MultisetPermuations, s) = begin
         end
     end
 
-    (permutation, s)
+    permutation, s
 end
 
 Base.done(p::MultisetPermuations, s) = !isempty(s) && s[1] > length(p.a)
 
 Base.eltype(p::MultisetPermuations) = eltype(typeof(p))
-Base.eltype{T,U}(::Type{MultisetPermuations{T,U}}) = Array{T,1}
+Base.eltype{T,U,V}(::Type{MultisetPermuations{T,U,V}}) = Array{eltype(T),1}
 
 Base.length(p::MultisetPermuations) = begin
     p.k == 0 && return big(1)
