@@ -112,7 +112,7 @@ end
 
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 prevprime{T<:Integer}(n::T) = begin
-    n <= 2 && throw(DomainError())
+    n <= 2 && return zero(T)
     n == 3 && return convert(T, 2)
 
     n -= iseven(n) ? one(T) : convert(T, 2)

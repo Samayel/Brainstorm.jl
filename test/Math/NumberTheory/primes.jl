@@ -46,10 +46,8 @@ function test_primes_nextprime()
 end
 
 function test_primes_prevprime()
-    @test_throws DomainError prevprime(-1)
-    @test_throws DomainError prevprime(0)
-    @test_throws DomainError prevprime(1)
-    @test_throws DomainError prevprime(2)
+    @test prevprime(0) == 0
+    @test prevprime(2) == 0
     @test prevprime(3) == 2
     @test prevprime(5) == 3
     @test prevprime(1000) == 997

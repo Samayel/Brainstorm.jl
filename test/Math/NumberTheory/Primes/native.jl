@@ -41,10 +41,8 @@ function test_nextprime()
 end
 
 function test_prevprime()
-    @test_throws DomainError prevprime(-1)
-    @test_throws DomainError prevprime(0)
-    @test_throws DomainError prevprime(1)
-    @test_throws DomainError prevprime(2)
+    @test prevprime(0) == 0
+    @test prevprime(2) == 0
     @test [prevprime(i) for i = 3:100] ==
         [first(dropwhile(p -> p >= i, reverse(Base.PRIMES))) for i = 3:100]
 end
