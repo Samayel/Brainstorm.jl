@@ -105,11 +105,11 @@ end
 yearfraction{S<:Real}(c::Union{Thirty360, ActualFixedYear}, a, b, s::Type{S} = Float64) = convert(S, daycount(c, a, b)) / yearlength(c)
 
 yearfraction{S<:Real}(c::ActualActualISDA, a, b, ::Type{S} = Float64) = begin
-    firstyear = one(S) - yearfraction(c, a, S)
-    betweenyears = year(b) - year(a) - one(S)
-    lastyear = yearfraction(c, b, S)
+    firstyear = 1 - yearfraction(c, a)
+    betweenyears = year(b) - year(a) - 1
+    lastyear = yearfraction(c, b)
 
-    firstyear + betweenyears + lastyear
+    convert(S, firstyear + betweenyears + lastyear)
 end
 
-yearfraction{S<:Real}(c::ActualActualISDA, date, ::Type{S} = Float64) = convert(S, dayofyear(date) - 1) / yearlength(c, date)
+yearfraction{S<:Real}(c::ActualActualISDA, date, ::Type{S} = Float64) = (dayofyear(date) - 1) // yearlength(c, date)
