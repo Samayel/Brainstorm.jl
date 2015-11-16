@@ -5,6 +5,7 @@ using Reexport.@reexport
 using Brainstorm: flatten
 using Nemo: QQ, ZZ, PowerSeriesRing, coeff, divexact, fac
 
+@reexport using Combinatorics
 @reexport using Multicombinations
 
 export
