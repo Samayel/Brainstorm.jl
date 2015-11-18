@@ -18,6 +18,7 @@ function test_math_setbits()
     @test setbits(big(0), [1000]) == big(2)^1000
 end
 
+include("Constants/constants.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
 
@@ -29,6 +30,8 @@ function test_all()
 
     println("PASS")
 
+    println("")
+    Constants.test_all()
     println("")
     NumberTheory.test_all()
     println("")

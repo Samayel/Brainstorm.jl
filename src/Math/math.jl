@@ -33,6 +33,8 @@ end
 macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
 
+include("gmp.jl")
+include("Constants/constants.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
 
