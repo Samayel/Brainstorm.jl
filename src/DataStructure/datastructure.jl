@@ -3,6 +3,7 @@
 using Brainstorm.Meta: Functor
 using Reexport.@reexport
 
+import Base: getindex, push!, pop!
 import Nemo: cols, rows
 
 @reexport using Base.Dates
@@ -30,5 +31,6 @@ include("iterator.jl")
 include("vector.jl")
 include("matrix.jl")
 include("intset.jl")
+include("stack.jl")
 
 end

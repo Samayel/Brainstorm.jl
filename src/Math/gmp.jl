@@ -1,5 +1,7 @@
+@reexport module GMP
 
 export
+    set!,
     add!, sub!, mul!, fld!, div!, mod!, rem!,
     gcd!, lcm!, and!, or!, xor!,
     neg!, com!,
@@ -8,6 +10,15 @@ export
 
 typealias CulongMax Base.GMP.CulongMax
 typealias ClongMax  Base.GMP.ClongMax
+
+function set!(x::BigInt, y::Union{Clong,Int32})
+    ccall((:__gmpz_set_si, :libgmp), Void, (Ptr{BigInt}, Clong), &x, y)
+    return x
+end
+function set!(x::BigInt, y::Union{Culong,UInt32})
+    ccall((:__gmpz_set_ui, :libgmp), Void, (Ptr{BigInt}, Culong), &x, y)
+    return x
+end
 
 # Binary ops
 for (fJ, fC) in ((:add!, :add), (:sub!,:sub), (:mul!, :mul),
@@ -88,3 +99,5 @@ function mul!(x::BigInt, c::ClongMax)
     return x
 end
 mul!(c::ClongMax, x::BigInt) = mul!(x, c)
+
+end
