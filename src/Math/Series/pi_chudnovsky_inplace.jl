@@ -3,6 +3,8 @@ module Inplace
 using Brainstorm.DataStructure: PreAllocatedStack
 using Brainstorm.Math.GMP: set!, add!, mul!, div!, neg!, pow!, isqrt!
 
+include("binarysplitting.jl")
+
 const c3_over_24 = div(Int64(640320)^3, 24)
 const digits_per_term = log10(c3_over_24 / (6 * 2 * 6))
 const guard_terms = 5
@@ -32,28 +34,6 @@ pi(digits::Int64) = begin
     mul!(q, 426880)
     mul!(q, sqrtC)
     div!(q, t)
-end
-
-# http://numbers.computation.free.fr/Constants/Algorithms/splitting.html
-binarysplitting(s, a, b) = begin
-    # directly compute P(a, a + 1), Q(a, a + 1) and T(a, a + 1)
-    (b - a) == 1 && (compute(s, a, b); return)
-
-    # recursively compute P(a, b), Q(a, b) and T(a, b)
-
-    # m is the midpoint of a and b
-    m = (a + b) >> 1 
-
-    # recursively calculate P(a, m), Q(a, m) and T(a, m)
-    binarysplitting(s, a, m)
-
-    # recursively calculate P(m, b), Q(m, b) and T(m, b)
-    push!(s)
-    binarysplitting(s, m, b)
-    pop!(s)
-
-    # now combine
-    combine(s)
 end
 
 #

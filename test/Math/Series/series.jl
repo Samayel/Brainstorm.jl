@@ -1,4 +1,4 @@
-module Constants
+module Series
 
 using Brainstorm
 using Base.Test

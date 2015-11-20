@@ -1,5 +1,7 @@
 module Simple
 
+include("binarysplitting.jl")
+
 const c3_over_24 = div(Int64(640320)^3, 24)
 const digits_per_term = log10(c3_over_24 / (6 * 2 * 6))
 const guard_terms = 5
@@ -17,25 +19,6 @@ pi{T<:Integer}(digits::T) = begin
     sqrtC = isqrt(10005 * one_squared)
 
     div(q * 426880 * sqrtC, t)
-end
-
-# http://numbers.computation.free.fr/Constants/Algorithms/splitting.html
-binarysplitting(a, b) = begin
-    # directly compute P(a, a + 1), Q(a, a + 1) and T(a, a + 1)
-    (b - a) == 1 && return compute(a, b)
-
-    # recursively compute P(a, b), Q(a, b) and T(a, b)
-
-    # m is the midpoint of a and b
-    m = div(a + b, 2)
-
-    # recursively calculate P(a, m), Q(a, m) and T(a, m)
-    am = binarysplitting(a, m)
-    # recursively calculate P(m, b), Q(m, b) and T(m, b)
-    mb = binarysplitting(m, b)
-
-    # now combine
-    combine(am, mb)
 end
 
 #
