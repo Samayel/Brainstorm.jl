@@ -3,11 +3,12 @@ module Algorithm
 using Brainstorm.Algorithm
 using Base.Test
 
+include("binarysearch.jl")
+
 function test_all()
     println("")
-    print(rpad("Algorithm...", 50, ' '))
 
-    println("PASS")
+    test_binarysearch_all()
 end
 
 end
