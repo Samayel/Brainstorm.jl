@@ -31,7 +31,7 @@ euler(digits::Integer) = begin
     s = preallocatedstack(depth + 1)
 
     # calculate P(0, N) and Q(0, N)
-    binarysplitting(s, zero(n), n)
+    binarysplitting!(s, zero(n), n)
     p, q = s[1]
     o, _ = s[2]
 
@@ -45,14 +45,14 @@ end
 
 termfunc(k) = k * (ndigits(k) - 2)
 
-compute(s, a, b) = begin
+compute!(s, a, b) = begin
     p, q = s[1]
 
     set!(p, 1)
     set!(q, b)
 end
 
-combine(s) = begin
+combine!(s) = begin
     p₁, q₁ = s[1]
     p₂, q₂ = s[2]
 

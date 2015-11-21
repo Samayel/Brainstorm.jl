@@ -22,7 +22,7 @@ pi(digits::Int64) = begin
     s = preallocatedstack(depth + 1)
 
     # calculate P(0, N), Q(0, N) and T(0, N)
-    binarysplitting(s, zero(n), n)
+    binarysplitting!(s, zero(n), n)
     p, q, t = s[1]
 
     sqrtC = p
@@ -46,7 +46,7 @@ end
 # b(a) = 1
 # q(a) = a*a*a*C3_OVER_24
 #
-compute(s, a, b) = begin
+compute!(s, a, b) = begin
     p, q, t = s[1]
 
     if a == 0
@@ -73,7 +73,7 @@ compute(s, a, b) = begin
     isodd(a) && neg!(t)
 end
 
-combine(s) = begin
+combine!(s) = begin
     p₁, q₁, t₁ = s[1]
     p₂, q₂, t₂ = s[2]
 
