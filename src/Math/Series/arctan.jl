@@ -1,7 +1,7 @@
 module Arctan
 
 using Brainstorm.DataStructure: PreAllocatedStack
-using Brainstorm.Math.GMP: set!, add!, mul!, div!
+using Brainstorm.Math.GMP: set!, add!, mul!, div!, pow!
 
 const guard_terms = 5
 const guard_digits = 5
@@ -9,32 +9,40 @@ const guard_digits = 5
 preallocatedstack(size) = PreAllocatedStack(0, [(big(0), big(0), big(0)) for i in 1:size])
 
 arctan(digits::Integer, reciprocal_x::Integer) = begin
-    p, q = _arctan(digits, false, reciprocal_x)
-    o = big(10)^digits # one
+    p, q, o = _arctan(digits, false, reciprocal_x)
+
+    set!(o, 10)
+    pow!(o, UInt64(digits)) # one
 
     mul!(p, o)
     div!(p, q)
 end
 
 arctanh(digits::Integer, reciprocal_x::Integer) = begin
-    p, q = _arctan(digits, true, reciprocal_x)
-    o = big(10)^digits # one
+    p, q, o = _arctan(digits, true, reciprocal_x)
+
+    set!(o, 10)
+    pow!(o, UInt64(digits)) # one
 
     mul!(p, o)
     div!(p, q)
 end
 
 arctansum(digits::Integer, rx, coeff) = begin
-    p, q = _arctansum(digits, false, rx, coeff)
-    o = big(10)^digits # one
+    p, q, o = _arctansum(digits, false, rx, coeff)
+
+    set!(o, 10)
+    pow!(o, UInt64(digits)) # one
 
     mul!(p, o)
     div!(p, q)
 end
 
 arctanhsum(digits::Integer, rx, coeff) = begin
-    p, q = _arctansum(digits, true, rx, coeff)
-    o = big(10)^digits # one
+    p, q, o = _arctansum(digits, true, rx, coeff)
+
+    set!(o, 10)
+    pow!(o, UInt64(digits)) # one
 
     mul!(p, o)
     div!(p, q)
@@ -59,7 +67,7 @@ _arctansum(digits, hyperbolic, rx, f) = begin
     s = preallocatedstack(depth + 2)
 
     for i in 1:length(rx)
-        p, q = _arctan(hyperbolic, rx[i], n[i], s)
+        p, q, _ = _arctan(hyperbolic, rx[i], n[i], s)
         f[i] != 1 && mul!(p, f[i])
 
         if i > 1
@@ -78,8 +86,8 @@ _arctansum(digits, hyperbolic, rx, f) = begin
     end
     pop!(s)
 
-    p, q = s[1]
-    p, q
+    p, q, t = s[1]
+    p, q, t
 end
 
 # How many terms to compute
@@ -149,12 +157,12 @@ combine!(s) = begin
 end
 
 complete!(s, rx) = begin
-    p, q, _ = s[1]
+    p, q, t = s[1]
 
     add!(p, q)
     mul!(q, rx)
 
-    p, q
+    p, q, t
 end
 
 end
