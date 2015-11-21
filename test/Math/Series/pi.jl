@@ -14,6 +14,9 @@ function test_pi_machin()
     hutton  = Brainstorm.Math.Series.Pi.Machin.hutton
     machin  = Brainstorm.Math.Series.Pi.Machin.machin
 
+    gauss        = Brainstorm.Math.Series.Pi.Machin.gauss
+    strassnitzky = Brainstorm.Math.Series.Pi.Machin.strassnitzky
+
     takano1982   = Brainstorm.Math.Series.Pi.Machin.takano1982
     stoermer1896 = Brainstorm.Math.Series.Pi.Machin.stoermer1896
 
@@ -26,6 +29,9 @@ function test_pi_machin()
         @test all([hermann(d)         - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
         @test all([hutton(d)          - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
         @test all([machin(d)          - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
+
+        @test all([gauss(d)           - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
+        @test all([strassnitzky(d)    - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
 
         @test all([takano1982(d)      - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
         @test all([stoermer1896(d)    - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1000, 10000)] .== 0)
