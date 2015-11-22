@@ -5,8 +5,10 @@ function test_euler_all()
     inplace = Brainstorm.Math.Series.Euler.Taylor.Inplace.euler
 
     with_bigfloat_precision(4_000_000) do
-        @test all([simple(d)  - trunc(BigInt, e*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] .== 0)
-        @test all([inplace(d) - trunc(BigInt, e*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] .== 0)
+        expected = [trunc(BigInt, e*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)]
+
+        @test all([simple(d)  for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] - expected .== 0)
+        @test all([inplace(d) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] - expected .== 0)
     end
 
     println("PASS")

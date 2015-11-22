@@ -3,8 +3,10 @@ function test_pi_chudnovsky()
     inplace = Brainstorm.Math.Series.Pi.Chudnovsky.Inplace.pi
 
     with_bigfloat_precision(4_000_000) do
-        @test all([simple(d)  - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] .== 0)
-        @test all([inplace(d) - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] .== 0)
+        expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)]
+
+        @test all([simple(d)  for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] - expected .== 0)
+        @test all([inplace(d) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] - expected .== 0)
     end
 end
 
@@ -25,20 +27,22 @@ function test_pi_machin()
     wetherfield2004 = Brainstorm.Math.Series.Pi.Machin.wetherfield2004
 
     with_bigfloat_precision(40_000) do
-        @test all([euler(d)           - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([hermann(d)         - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([hutton(d)          - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([machin(d)          - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
+        expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]
 
-        @test all([gauss(d)           - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([strassnitzky(d)    - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
+        @test all([euler(d)           for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([hermann(d)         for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([hutton(d)          for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([machin(d)          for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
 
-        @test all([takano1982(d)      - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([stoermer1896(d)    - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
+        @test all([gauss(d)           for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([strassnitzky(d)    for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
 
-        @test all([hwang1997(d)       - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([hwang2003(d)       - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
-        @test all([wetherfield2004(d) - trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] .== 0)
+        @test all([takano1982(d)      for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([stoermer1896(d)    for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+
+        @test all([hwang1997(d)       for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([hwang2003(d)       for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([wetherfield2004(d) for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
     end
 end
 
