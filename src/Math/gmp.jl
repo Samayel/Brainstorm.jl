@@ -5,12 +5,16 @@ export
     add!, sub!, mul!, fld!, div!, mod!, rem!,
     gcd!, lcm!, and!, or!, xor!,
     neg!, com!,
-    lshft!, rshft!,
-    isqrt!, pow!
+    lsh!, rsh!,
+    pow!, isqrt!
 
 typealias CulongMax Base.GMP.CulongMax
 typealias ClongMax  Base.GMP.ClongMax
 
+function set!(x::BigInt, y::BigInt)
+    ccall((:__gmpz_set, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}), &x, &y)
+    return x
+end
 function set!(x::BigInt, y::Union{Clong,Int32})
     ccall((:__gmpz_set_si, :libgmp), Void, (Ptr{BigInt}, Clong), &x, y)
     return x
@@ -43,14 +47,14 @@ for (fJ, fC) in ((:neg!, :neg), (:com!, :com))
     end
 end
 
-function lshft!(x::BigInt, c::Int)
+function lsh!(x::BigInt, c::Int)
     c < 0 && throw(DomainError())
     c == 0 && return x
     ccall((:__gmpz_mul_2exp, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Culong), &x, &x, c)
     return x
 end
 
-function rshft!(x::BigInt, c::Int)
+function rsh!(x::BigInt, c::Int)
     c < 0 && throw(DomainError())
     c == 0 && return x
     ccall((:__gmpz_fdiv_q_2exp, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Culong), &x, &x, c)

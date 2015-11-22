@@ -1,5 +1,5 @@
 function test_arctan_all()
-    print(rpad("Math.Series.arctan[h]...", 50, ' '))
+    print(rpad("Math.Series.arctan[h](1/x)...", 50, ' '))
 
     arctan = Brainstorm.Math.Series.Arctan.arctan
     arctanh = Brainstorm.Math.Series.Arctan.arctanh
