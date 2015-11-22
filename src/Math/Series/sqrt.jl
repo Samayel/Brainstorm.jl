@@ -2,8 +2,11 @@ module Sqrt
 
 using Brainstorm.Math.GMP: set!, add!, mul!, neg!, lsh!, rsh!
 
+const bits_per_digit = log2(10)
+const guard_rounds = 1
+
 #
-# Compute int(sqrt(n) * 10^digits)
+# Compute int(sqrt(x) * 10^digits)
 #
 # This is done using Newton-Raphson method.
 #
@@ -32,11 +35,10 @@ end
 
 _reciprocalsqrt(digits, x) = begin
     # initial guess is accurate to eᵢ bits
-    eᵢ = Int64(32)
+    eᵢ = Int64(50)
     rᵢ = trunc(BigInt, (1 << eᵢ) / Base.sqrt(x))
 
-    bits_per_digit = log2(10)
-    target_precision = ceil(Int64, digits * bits_per_digit) + 5
+    target_precision = ceil(Int64, digits * bits_per_digit) << guard_rounds
 
     oᵢ, wᵢ, dᵢ = big(0), big(0), big(0)
     while eᵢ <= target_precision

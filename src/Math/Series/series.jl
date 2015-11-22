@@ -2,6 +2,7 @@
 
 include("binarysplitting.jl")
 
+include("reciprocal.jl")
 include("sqrt.jl")
 include("arctan.jl")
 include("pi.jl")
