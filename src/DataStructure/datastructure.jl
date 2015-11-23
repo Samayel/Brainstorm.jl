@@ -17,7 +17,6 @@ import Nemo: cols, rows
 @reexport using Lazy
 @reexport using LightGraphs
 @reexport using Lists
-@reexport using SparseVectors
 
 export
     flatten
