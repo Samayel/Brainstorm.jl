@@ -1,15 +1,16 @@
 @reexport module GMP
 
+import Brainstorm.Math: add!, sub!, mul!
+
 export
     set!,
-    add!, sub!, mul!, fld!, div!, mod!, rem!,
+    fld!, div!, mod!, rem!,
     gcd!, lcm!, and!, or!, xor!,
     neg!, com!,
     lsh!, rsh!,
     pow!, isqrt!
 
-typealias CulongMax Base.GMP.CulongMax
-typealias ClongMax  Base.GMP.ClongMax
+import Base.GMP: ClongMax, CulongMax, CdoubleMax
 
 function set!(x::BigInt, y::BigInt)
     ccall((:__gmpz_set, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}), &x, &y)

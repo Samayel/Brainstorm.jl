@@ -2,6 +2,9 @@
 
 using Reexport.@reexport
 
+import DataStructures: add!
+import Nemo: sub!, mul!
+
 @reexport using Nemo
 @reexport using StatsFuns
 @reexport using ValidatedNumerics
@@ -34,6 +37,7 @@ macro activate_mathematica(); Expr(:using, :Mathematica); end
 macro activate_matlab(); Expr(:using, :MATLAB); end
 
 include("gmp.jl")
+include("mpfr.jl")
 include("Series/series.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
