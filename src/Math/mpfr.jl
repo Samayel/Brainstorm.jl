@@ -2,7 +2,7 @@
 
 import Brainstorm.Math.GMP: set!, add!, mul!, sub!, neg!, pow!, lsh!, rsh!
 
-export fma!, sqrt!, exp!, exp2!, exp10!
+export fma!, sqrt!, exp!, exp2!, exp10!, precision!
 
 import Base.GMP: ClongMax, CulongMax, CdoubleMax
 import Base.MPFR: ROUNDING_MODE
@@ -203,5 +203,11 @@ function rsh!(x::BigFloat, n::Culong)
 end
 rsh!(x::BigFloat, n::ClongMax) = rsh!(x, convert(Clong, n))
 rsh!(x::BigFloat, n::CulongMax) = rsh!(x, convert(Culong, n))
+
+
+precision!(x::BigFloat, y::Int) = begin
+    ccall((:mpfr_prec_round, :libmpfr), Int32, (Ptr{BigFloat}, Clong, Int32), &x, y, ROUNDING_MODE[end])
+    return x
+end
 
 end

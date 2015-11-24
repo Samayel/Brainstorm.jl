@@ -62,12 +62,23 @@ function test_pi_agm()
     end
 end
 
+function test_pi_sine()
+    sine = Brainstorm.Math.Series.Pi.Iterative.Sine.pi
+
+    with_bigfloat_precision(40_000) do
+        expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]
+
+        @test all([trunc(BigInt, sine(d)*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+    end
+end
+
 function test_pi_all()
     print(rpad("Math.Series.Pi...", 50, ' '))
 
     test_pi_chudnovsky()
     test_pi_machin()
     test_pi_agm()
+    test_pi_sine()
 
     println("PASS")
 end
