@@ -11,16 +11,20 @@ function test_pi_chudnovsky()
 end
 
 function test_pi_machin()
-    euler   = Brainstorm.Math.Series.Pi.Machin.euler
-    hermann = Brainstorm.Math.Series.Pi.Machin.hermann
-    hutton  = Brainstorm.Math.Series.Pi.Machin.hutton
-    machin  = Brainstorm.Math.Series.Pi.Machin.machin
+    euler           = Brainstorm.Math.Series.Pi.Machin.euler
+    hermann         = Brainstorm.Math.Series.Pi.Machin.hermann
+    hutton          = Brainstorm.Math.Series.Pi.Machin.hutton
+    machin          = Brainstorm.Math.Series.Pi.Machin.machin
 
-    gauss        = Brainstorm.Math.Series.Pi.Machin.gauss
-    strassnitzky = Brainstorm.Math.Series.Pi.Machin.strassnitzky
+    gauss           = Brainstorm.Math.Series.Pi.Machin.gauss
+    strassnitzky    = Brainstorm.Math.Series.Pi.Machin.strassnitzky
+    klingenstierna  = Brainstorm.Math.Series.Pi.Machin.klingenstierna
+    euler3          = Brainstorm.Math.Series.Pi.Machin.euler3
+    loney           = Brainstorm.Math.Series.Pi.Machin.loney
+    stoermer        = Brainstorm.Math.Series.Pi.Machin.stoermer
 
-    takano1982   = Brainstorm.Math.Series.Pi.Machin.takano1982
-    stoermer1896 = Brainstorm.Math.Series.Pi.Machin.stoermer1896
+    takano1982      = Brainstorm.Math.Series.Pi.Machin.takano1982
+    stoermer1896    = Brainstorm.Math.Series.Pi.Machin.stoermer1896
 
     hwang1997       = Brainstorm.Math.Series.Pi.Machin.hwang1997
     hwang2003       = Brainstorm.Math.Series.Pi.Machin.hwang2003
@@ -36,6 +40,10 @@ function test_pi_machin()
 
         @test all([gauss(d)           for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
         @test all([strassnitzky(d)    for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([klingenstierna(d)  for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([euler3(d)          for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([loney(d)           for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
+        @test all([stoermer(d)        for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
 
         @test all([takano1982(d)      for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
         @test all([stoermer1896(d)    for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
