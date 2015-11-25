@@ -5,3 +5,5 @@ msieve.dat
 
 *.sage-chat
 *.sage-history
+
+**/.ipynb_checkpoints/
