@@ -4,19 +4,23 @@ os:
 julia:
   - 0.4
 # - nightly
+env:
+  matrix:
+    - PRIMESIEVE=true
+    - PRIMESIEVE=false
 notifications:
   email:
     recipients:
       - johm@quyo.de
     on_success: always
     on_failure: always
+before_install:
+  - if [ $PRIMESIEVE = "true" ]; then julia -e 'Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve")'; fi
 # uncomment the following lines to override the default test script
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'Pkg.clone("https://github.com/Samayel/PrimeSieve.jl.git"); Pkg.build("PrimeSieve");'
   - julia -e 'Pkg.clone(pwd()); Pkg.build("Brainstorm")'
-  - julia -e 'using Lazy'              # trigger precompilation of MacroTools
-  - julia -e 'using LightGraphs'       # trigger precompilation
+  - julia -e 'using LightGraphs'       # trigger precompilation of ParserCombinator
   - julia --check-bounds=yes -e 'Pkg.test("Brainstorm"; coverage=true)'
 after_success:
   - julia -e '@linux_only Pkg.add("Coverage")'
