@@ -24,7 +24,7 @@ function set!(x::BigInt, y::CulongMax)
     ccall((:__gmpz_set_ui, :libgmp), Void, (Ptr{BigInt}, Culong), &x, y)
     return x
 end
-set!(x::BigInt, y::Integer) = set!(x, convert(Clong, y))
+set!(x::BigInt, y::Integer) = set!(x, convert(BigInt, y))
 
 # Binary ops
 for (fJ, fC) in ((:add!, :add), (:sub!,:sub), (:mul!, :mul),
@@ -77,12 +77,20 @@ end
 pow!(x::BigInt, c::Integer) = pow!(x, convert(Culong, c))
 
 # Basic arithmetic without promotion
+function add!(x::BigInt, y::BigInt)
+    ccall((:__gmpz_add, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Ptr{BigInt}), &x, &x, &y)
+    return x
+end
 function add!(x::BigInt, c::CulongMax)
     ccall((:__gmpz_add_ui, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Culong), &x, &x, c)
     return x
 end
 add!(c::CulongMax, x::BigInt) = add!(x, c)
 
+function sub!(x::BigInt, y::BigInt)
+    ccall((:__gmpz_sub, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Ptr{BigInt}), &x, &x, &y)
+    return x
+end
 function sub!(x::BigInt, c::CulongMax)
     ccall((:__gmpz_sub_ui, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Culong), &x, &x, c)
     return x
@@ -97,10 +105,15 @@ add!(c::ClongMax, x::BigInt) = c < 0 ? sub!(x, -(c % Culong)) : add!(x, convert(
 sub!(x::BigInt, c::ClongMax) = c < 0 ? add!(x, -(c % Culong)) : sub!(x, convert(Culong, c))
 sub!(c::ClongMax, x::BigInt) = c < 0 ? neg!(add!(x, -(c % Culong))) : sub!(convert(Culong, c), x)
 
-add!(x::BigInt, c::Integer) = add!(x, convert(Clong, c))
-add!(c::Integer, x::BigInt) = add!(convert(Clong, c), x)
-sub!(x::BigInt, c::Integer) = sub!(x, convert(Clong, c))
-sub!(c::Integer, x::BigInt) = sub!(convert(Clong, c), x)
+add!(x::BigInt, c::Integer) = add!(x, convert(BigInt, c))
+add!(c::Integer, x::BigInt) = add!(convert(BigInt, c), x)
+sub!(x::BigInt, c::Integer) = sub!(x, convert(BigInt, c))
+sub!(c::Integer, x::BigInt) = sub!(convert(BigInt, c), x)
+
+function mul!(x::BigInt, y::BigInt)
+    ccall((:__gmpz_mul, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Ptr{BigInt}), &x, &x, &y)
+    return x
+end
 
 function mul!(x::BigInt, c::CulongMax)
     ccall((:__gmpz_mul_ui, :libgmp), Void, (Ptr{BigInt}, Ptr{BigInt}, Culong), &x, &x, c)
@@ -114,7 +127,7 @@ function mul!(x::BigInt, c::ClongMax)
 end
 mul!(c::ClongMax, x::BigInt) = mul!(x, c)
 
-mul!(x::BigInt, c::Integer) = mul!(x, convert(Clong, c))
-mul!(c::Integer, x::BigInt) = mul!(convert(Clong, c), x)
+mul!(x::BigInt, c::Integer) = mul!(x, convert(BigInt, c))
+mul!(c::Integer, x::BigInt) = mul!(convert(BigInt, c), x)
 
 end

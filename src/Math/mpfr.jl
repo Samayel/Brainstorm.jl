@@ -28,7 +28,7 @@ function set!(x::BigFloat, y::Float64)
     return x
 end
 
-set!(x::BigFloat, y::Integer) = set!(x, convert!(Clong, y))
+set!(x::BigFloat, y::Integer) = set!(x, convert!(BigInt, y))
 set!(x::BigFloat, y::Union{Float16,Float32}) = set!(x, Float64(y))
 
 
@@ -69,8 +69,8 @@ for (fJ, fC) in ((:add!,:add), (:mul!,:mul))
         end
         ($fJ)(c::BigInt, x::BigFloat) = ($fJ)(x,c)
 
-        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(Clong, c))
-        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(Clong, c), x)
+        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(BigInt, c))
+        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(BigInt, c), x)
     end
 end
 
@@ -121,8 +121,8 @@ for (fJ, fC) in ((:sub!,:sub),)
         end
         # no :mpfr_z_div function
 
-        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(Clong, c))
-        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(Clong, c), x)
+        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(BigInt, c))
+        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(BigInt, c), x)
     end
 end
 
@@ -175,7 +175,7 @@ function pow!(x::BigFloat, y::BigInt)
     return x
 end
 
-pow!(x::BigFloat, y::Integer) = pow!(x, convert(Clong, y))
+pow!(x::BigFloat, y::Integer) = pow!(x, convert(BigInt, y))
 
 
 for f in (:exp!, :exp2!, :exp10!)
