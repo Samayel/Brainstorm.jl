@@ -15,11 +15,11 @@ function set!(x::BigFloat, y::BigInt)
     ccall((:mpfr_set_z, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigInt}, Int32), &x, &y, ROUNDING_MODE[end])
     return x
 end
-function set!(x::BigFloat, y::Clong)
+function set!(x::BigFloat, y::ClongMax)
     ccall((:mpfr_set_si, :libmpfr), Int32, (Ptr{BigFloat}, Clong, Int32), &x, y, ROUNDING_MODE[end])
     return x
 end
-function set!(x::BigFloat, y::Culong)
+function set!(x::BigFloat, y::CulongMax)
     ccall((:mpfr_set_ui, :libmpfr), Int32, (Ptr{BigFloat}, Culong, Int32), &x, y, ROUNDING_MODE[end])
     return x
 end
@@ -28,11 +28,7 @@ function set!(x::BigFloat, y::Float64)
     return x
 end
 
-set!(x::BigFloat, y::Integer) = set!(x, BigInt(y))
-
-set!(x::BigFloat, y::Union{Bool,Int8,Int16,Int32}) = set!(x, convert(Clong, y))
-set!(x::BigFloat, y::Union{UInt8,UInt16,UInt32}) = set!(x, convert(Culong, y)) 
-
+set!(x::BigFloat, y::Integer) = set!(x, convert!(Clong, y))
 set!(x::BigFloat, y::Union{Float16,Float32}) = set!(x, Float64(y))
 
 
@@ -72,6 +68,9 @@ for (fJ, fC) in ((:add!,:add), (:mul!,:mul))
             return x
         end
         ($fJ)(c::BigInt, x::BigFloat) = ($fJ)(x,c)
+
+        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(Clong, c))
+        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(Clong, c), x)
     end
 end
 
@@ -121,6 +120,9 @@ for (fJ, fC) in ((:sub!,:sub),)
             return x
         end
         # no :mpfr_z_div function
+
+        ($fJ)(x::BigFloat, c::Integer) = ($fJ)(x, convert(Clong, c))
+        ($fJ)(c::Integer, x::BigFloat) = ($fJ)(convert(Clong, c), x)
     end
 end
 
@@ -173,6 +175,8 @@ function pow!(x::BigFloat, y::BigInt)
     return x
 end
 
+pow!(x::BigFloat, y::Integer) = pow!(x, convert(Clong, y))
+
 
 for f in (:exp!, :exp2!, :exp10!)
     @eval function $f(x::BigFloat)
@@ -182,32 +186,31 @@ for f in (:exp!, :exp2!, :exp10!)
 end
 
 
-function lsh!(x::BigFloat, n::Clong)
+function lsh!(x::BigFloat, n::ClongMax)
     ccall((:mpfr_mul_2si, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Clong, Int32), &x, &x, n, ROUNDING_MODE[end])
     return x
 end
-function lsh!(x::BigFloat, n::Culong)
+function lsh!(x::BigFloat, n::CulongMax)
     ccall((:mpfr_mul_2ui, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Culong, Int32), &x, &x, n, ROUNDING_MODE[end])
     return x
 end
-lsh!(x::BigFloat, n::ClongMax) = lsh!(x, convert(Clong, n))
-lsh!(x::BigFloat, n::CulongMax) = lsh!(x, convert(Culong, n))
+lsh!(x::BigFloat, n::Integer) = lsh!(x, convert(Clong, n))
 
-function rsh!(x::BigFloat, n::Clong)
+function rsh!(x::BigFloat, n::ClongMax)
     ccall((:mpfr_div_2si, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Clong, Int32), &x, &x, n, ROUNDING_MODE[end])
     return x
 end
-function rsh!(x::BigFloat, n::Culong)
+function rsh!(x::BigFloat, n::CulongMax)
     ccall((:mpfr_div_2ui, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Culong, Int32), &x, &x, n, ROUNDING_MODE[end])
     return x
 end
-rsh!(x::BigFloat, n::ClongMax) = rsh!(x, convert(Clong, n))
-rsh!(x::BigFloat, n::CulongMax) = rsh!(x, convert(Culong, n))
+rsh!(x::BigFloat, n::Integer) = rsh!(x, convert(Clong, n))
 
 
-precision!(x::BigFloat, y::Int) = begin
+precision!(x::BigFloat, y::ClongMax) = begin
     ccall((:mpfr_prec_round, :libmpfr), Int32, (Ptr{BigFloat}, Clong, Int32), &x, y, ROUNDING_MODE[end])
     return x
 end
+precision!(x::BigFloat, y::Integer) = precision!(x, convert(Clong, y))
 
 end
