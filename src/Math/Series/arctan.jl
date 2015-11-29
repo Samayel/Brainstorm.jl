@@ -12,7 +12,7 @@ arctan(digits::Integer, reciprocal_x::Integer) = begin
     p, q, o = _arctan(digits, false, reciprocal_x)
 
     set!(o, 10)
-    pow!(o, UInt64(digits)) # one
+    pow!(o, digits) # one
 
     mul!(p, o)
     div!(p, q)
@@ -22,7 +22,7 @@ arctanh(digits::Integer, reciprocal_x::Integer) = begin
     p, q, o = _arctan(digits, true, reciprocal_x)
 
     set!(o, 10)
-    pow!(o, UInt64(digits)) # one
+    pow!(o, digits) # one
 
     mul!(p, o)
     div!(p, q)
@@ -32,7 +32,7 @@ arctansum(digits::Integer, rx, coeff) = begin
     p, q, o = _arctansum(digits, false, rx, coeff)
 
     set!(o, 10)
-    pow!(o, UInt64(digits)) # one
+    pow!(o, digits) # one
 
     mul!(p, o)
     div!(p, q)
@@ -42,7 +42,7 @@ arctanhsum(digits::Integer, rx, coeff) = begin
     p, q, o = _arctansum(digits, true, rx, coeff)
 
     set!(o, 10)
-    pow!(o, UInt64(digits)) # one
+    pow!(o, digits) # one
 
     mul!(p, o)
     div!(p, q)

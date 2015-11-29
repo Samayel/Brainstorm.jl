@@ -36,7 +36,7 @@ end
 _reciprocalsqrt(digits, x) = begin
     # initial guess is accurate to eᵢ bits
     eᵢ = Int64(50)
-    rᵢ = trunc(BigInt, (1 << eᵢ) / Base.sqrt(x))
+    rᵢ = trunc(BigInt, (Int64(1) << eᵢ) / Base.sqrt(x))
 
     target_precision = ceil(Int64, digits * bits_per_digit) << guard_rounds
 

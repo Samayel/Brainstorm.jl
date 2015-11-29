@@ -36,7 +36,7 @@ euler(digits::Integer) = begin
     o, _ = s[2]
 
     set!(o, 10)
-    pow!(o, UInt64(digits)) # one
+    pow!(o, digits) # one
 
     mul!(p, o)
     div!(p, q)

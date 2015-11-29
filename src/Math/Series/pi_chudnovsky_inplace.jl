@@ -13,7 +13,7 @@ preallocatedstack(size) = PreAllocatedStack(0, [(big(0), big(0), big(0)) for i i
 
 # Compute int(pi * 10^digits)
 # This is done using Chudnovsky's series with binary splitting
-pi(digits::Int64) = begin
+pi(digits::Integer) = begin
     # how many terms to compute
     n = ceil(Int64, digits / digits_per_term) + guard_terms
 
@@ -27,7 +27,7 @@ pi(digits::Int64) = begin
 
     sqrtC = p
     set!(sqrtC, 10)
-    pow!(sqrtC, 2*UInt64(digits)) # one_squared
+    pow!(sqrtC, 2*digits) # one_squared
     mul!(sqrtC, 10005)
     isqrt!(sqrtC)
 
@@ -60,7 +60,7 @@ compute!(s, a, b) = begin
 
         # q = a^3 * c3_over_24
         set!(q, a)
-        pow!(q, UInt(3))
+        pow!(q, 3)
         mul!(q, c3_over_24)
     end
 
