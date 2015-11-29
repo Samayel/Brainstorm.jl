@@ -1,5 +1,5 @@
 function test_hexagon_ishexagonal()
-    @test find([ishexagonal(i) for i = 1:1000]) == [1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325, 378, 435, 496, 561, 630, 703, 780, 861, 946]
+    @test find([ishexagonal(i) for i in 1:1000]) == [1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325, 378, 435, 496, 561, 630, 703, 780, 861, 946]
 end
 
 function test_hexagon_nthhexagonal()

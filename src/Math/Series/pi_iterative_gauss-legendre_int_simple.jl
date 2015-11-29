@@ -10,7 +10,7 @@ pi(digits::Integer) = begin
     # a = 1
     # b = 1 / sqrt(2)
     a = o
-    b = div(osqr, isqrt(osqr << 1))
+    b = osqr ÷ isqrt(osqr << 1)
 
     s = big(0)
     d = a - b
@@ -28,7 +28,7 @@ pi(digits::Integer) = begin
     end
 
     # 4*a^2 / (1 - s)
-    div(4*a*a*o, (osqr - s) * big(10)^(guard_digits + eps_digits))
+    (4*a*a*o) ÷ ((osqr - s) * big(10)^(guard_digits + eps_digits))
 end
 
 end

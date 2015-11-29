@@ -27,7 +27,7 @@ divisorsigma(n::Integer, s = 1) = begin
 
     σ = one(n)
     for (p, k) in factorization(n)
-        σ *= div(p^((k + 1) * s) - 1, p^s - 1)
+        σ *= (p^((k + 1) * s) - 1) ÷ (p^s - 1)
     end
     σ
 end
@@ -93,7 +93,7 @@ function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, pr
 
     ans = Vector{T}[]
     for ni in c
-        for tailn in least_number_with_d_divisors_exponents(div(d, ni), i+1, ni)
+        for tailn in least_number_with_d_divisors_exponents(d ÷ ni, i+1, ni)
             push!(tailn, ni-1)
             push!(ans, tailn)
         end

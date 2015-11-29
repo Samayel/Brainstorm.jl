@@ -19,7 +19,7 @@ Base.next{T,M}(v::Permutations{T,M}, s) = begin
     v.k > 0 || return permutation, [length(v.a) + 1]
 
     s = copy(s)
-    for i = length(s):-1:1
+    for i in length(s):-1:1
         next!(v, s, i)
 
         if s[i] <= length(v.a)

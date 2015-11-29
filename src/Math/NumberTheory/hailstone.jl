@@ -4,7 +4,7 @@ export
 
 nexthailstone(n::Integer) = begin
     n <= 0 && throw(DomainError())
-    iseven(n) ? div(n, 2) : 3*n + 1
+    iseven(n) ? n ÷ 2 : 3*n + 1
 end
 
 hailstonelengthcalc(x, cache) = 1 + hailstonelength(nexthailstone(x), cache)

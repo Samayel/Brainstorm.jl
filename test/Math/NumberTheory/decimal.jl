@@ -1,5 +1,5 @@
 function test_decimal_decimalperiod()
-    @test [decimalperiod(1, i) for i = 1:10] == [0, 0, 1, 0, 0, 1, 6, 0, 1, 0]
+    @test [decimalperiod(1, i) for i in 1:10] == [0, 0, 1, 0, 0, 1, 6, 0, 1, 0]
 end
 
 function test_decimal_ispandigital()

@@ -5,7 +5,7 @@ using Brainstorm.Math.GMP: set!, add!, mul!, div!, neg!, pow!, isqrt!
 
 include("binarysplitting.jl")
 
-const c3_over_24 = div(Int64(640320)^3, 24)
+const c3_over_24 = Int64(640320)^3 ÷ 24
 const digits_per_term = log10(c3_over_24 / (6 * 2 * 6))
 const guard_terms = 5
 

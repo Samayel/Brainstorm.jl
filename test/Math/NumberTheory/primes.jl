@@ -8,7 +8,7 @@ function test_primes_factorization()
 end
 
 function test_primes_maskprimes()
-    @test maskprimes(100000) == [isprime(i) for i = 1:100000]
+    @test maskprimes(100000) == [isprime(i) for i in 1:100000]
 end
 
 function test_primes_genprimes()

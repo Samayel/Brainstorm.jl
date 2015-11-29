@@ -36,15 +36,15 @@ function test_primepi()
 end
 
 function test_nextprime()
-    @test [nextprime(i) for i = -1:100] ==
-        [first(dropwhile(p -> p <= i, Base.PRIMES)) for i = -1:100]
+    @test [nextprime(i) for i in -1:100] ==
+        [first(dropwhile(p -> p <= i, Base.PRIMES)) for i in -1:100]
 end
 
 function test_prevprime()
     @test prevprime(0) == 0
     @test prevprime(2) == 0
-    @test [prevprime(i) for i = 3:100] ==
-        [first(dropwhile(p -> p >= i, reverse(Base.PRIMES))) for i = 3:100]
+    @test [prevprime(i) for i in 3:100] ==
+        [first(dropwhile(p -> p >= i, reverse(Base.PRIMES))) for i in 3:100]
 end
 
 function test_nprimes()

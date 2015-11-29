@@ -85,9 +85,9 @@ confrac{T<:Integer}(n::T, δ::T, d::T) = begin
     biP = d
     biK = sqrtδ + (biP > 0 ? 0: 1) + n
     if biK > 0
-        biM = d > 0 ? div(biK, d) : div(d + 1 - biK, -d)
+        biM = d > 0 ? biK ÷ d : (d + 1 - biK) ÷ (-d)
     else
-        biM = d > 0 ? div(biK + 1 - d, d) : div(-biK, -d)
+        biM = d > 0 ? (biK + 1 - d) ÷ d : (-biK) ÷ (-d)
     end
 
     denominators = T[]
@@ -109,13 +109,13 @@ confrac{T<:Integer}(n::T, δ::T, d::T) = begin
 
         if cont >= 0
             # both numerator and denominator are positive
-            P = div(δ - M^2, P)
-            Z = div(sqrtδ + M, P)
+            P = (δ - M^2) ÷ P
+            Z = (sqrtδ + M) ÷ P
             M = Z * P - M
             cont += 1
         else
-            biP = div(δ - biM^2, biP)
-            Z = div(sqrtδ + biM + (biP > 0 ? 0 : 1), biP)
+            biP = (δ - biM^2) ÷ biP
+            Z = (sqrtδ + biM + (biP > 0 ? 0 : 1)) ÷ biP
             biM = Z * biP - biM
         end
 

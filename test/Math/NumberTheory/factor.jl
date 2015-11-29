@@ -1,5 +1,5 @@
 function test_factor_isperfectsquare()
-    @test find([isperfectsquare(i) for i = 1:100]) == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+    @test find([isperfectsquare(i) for i in 1:100]) == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 end
 
 function test_factor_divisorcount()
@@ -44,15 +44,15 @@ function test_factor_divisorsigma()
 end
 
 function test_factor_isperfect()
-    @test find([isperfect(i) for i = 1:30]) == [6, 28]
+    @test find([isperfect(i) for i in 1:30]) == [6, 28]
 end
 
 function test_factor_isdeficient()
-    @test find([isdeficient(i) for i = 1:30]) == [1:5;7:11;13:17;19;21:23;25:27;29]
+    @test find([isdeficient(i) for i in 1:30]) == [1:5;7:11;13:17;19;21:23;25:27;29]
 end
 
 function test_factor_isabundant()
-    @test find([isabundant(i) for i = 1:30]) == [12, 18, 20, 24, 30]
+    @test find([isabundant(i) for i in 1:30]) == [12, 18, 20, 24, 30]
 end
 
 function test_factor_primefactors()

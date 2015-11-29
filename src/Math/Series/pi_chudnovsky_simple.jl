@@ -2,7 +2,7 @@ module Simple
 
 include("binarysplitting.jl")
 
-const c3_over_24 = div(Int64(640320)^3, 24)
+const c3_over_24 = Int64(640320)^3 ÷ 24
 const digits_per_term = log10(c3_over_24 / (6 * 2 * 6))
 const guard_terms = 5
 
@@ -18,7 +18,7 @@ pi{T<:Integer}(digits::T) = begin
     one_squared = big(10)^(2*digits)
     sqrtC = isqrt(10005 * one_squared)
 
-    div(q * 426880 * sqrtC, t)
+    (q * 426880 * sqrtC) ÷ t
 end
 
 #

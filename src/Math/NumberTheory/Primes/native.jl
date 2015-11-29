@@ -20,7 +20,7 @@ primesieve{T<:Integer}(n::T) = begin
     p[1] = convert(T, 2)
 
     if n >= 9
-        for k = 3:2:isqrt(n)
+        for k in 3:2:isqrt(n)
             if p[(k+1)>>1] != 0
                 p[(k*k+1)>>1:k:q] = zero(T)
             end

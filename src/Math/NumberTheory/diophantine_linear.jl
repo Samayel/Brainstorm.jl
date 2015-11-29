@@ -25,17 +25,17 @@ solve{T<:Integer}(eq::DiophantineEquationLinearXY{T}) = begin
     cx == cy == 0 && return diophantine_nonex_noney(T)
 
     cx == 0 && cy != 0 && return c0 % cy == 0 ?
-        diophantine_anyx_oney(-div(c0, cy)) :
+        diophantine_anyx_oney(-(c0 ÷ cy)) :
         diophantine_nonex_noney(T)
 
     cx != 0 && cy == 0 && return c0 % cx == 0 ?
-        diophantine_onex_anyy(-div(c0, cx)) :
+        diophantine_onex_anyy(-(c0 ÷ cx)) :
         diophantine_nonex_noney(T)
 
     g = gcd(cx, cy)
     c0 % g == 0 || return diophantine_nonex_noney(T)
 
-    cx, cy, c0 = div(cx, g), div(cy, g), div(c0, g)
+    cx, cy, c0 = cx ÷ g, cy ÷ g, c0 ÷ g
     _, u, v = gcdx(cx, cy)
 
     diophantine_linearx_lineary(cy, -c0*u, -cx, -c0*v)

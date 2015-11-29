@@ -1,5 +1,5 @@
 function test_pentagon_ispentagonal()
-    @test find([ispentagonal(i) for i = 1:1000]) == [1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247, 287, 330, 376, 425, 477, 532, 590, 651, 715, 782, 852, 925]
+    @test find([ispentagonal(i) for i in 1:1000]) == [1, 5, 12, 22, 35, 51, 70, 92, 117, 145, 176, 210, 247, 287, 330, 376, 425, 477, 532, 590, 651, 715, 782, 852, 925]
 end
 
 function test_pentagon_nthpentagonal()

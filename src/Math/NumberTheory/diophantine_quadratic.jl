@@ -40,14 +40,14 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
 
     d = cx * cy - cxy * c0
     if d == 0
-        cy % cxy == 0 && push!(solutions, diophantine_onex_anyy(-div(cy, cxy)))
-        cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-div(cx, cxy)))
+        cy % cxy == 0 && push!(solutions, diophantine_onex_anyy(-(cy ÷ cxy)))
+        cx % cxy == 0 && push!(solutions, diophantine_anyx_oney(-(cx ÷ cxy)))
     else
         xytuples = Tuple{T,T}[]
         for f in factors(abs(d), true)
             x, r = divrem(f - cy, cxy)
             r == 0 || continue
-            y, r = divrem(div(d, f) - cx, cxy)
+            y, r = divrem(d ÷ f - cx, cxy)
             r == 0 || continue
             push!(xytuples, (x, y))
         end
@@ -68,7 +68,7 @@ solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     xytuples = Tuple{T,T}[]
 
     sort!(z)
-    for x = z[1]:z[2]
+    for x in z[1]:z[2]
         u = f(x)
         v = isqrt(u)
         v*v == u || continue
@@ -91,7 +91,7 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
 
     g = copysign(gcd(cx², cy²), cx²)
-    a, b, c = div(cx², g), div(cxy, g), div(cy², g)
+    a, b, c = cx² ÷ g, cxy ÷ g, cy² ÷ g
     ra, rc = isqrt(a), copysign(isqrt(c), b)
 
     f(t) = ra * g * t^2 + cx * t + ra * c0
@@ -105,11 +105,11 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
             f(v) == 0 && push!(solutions, solve(diophantine_equation_linear_xy(cx=ra, cy=rc, c0=-v)))
         end
     else
-        for u = 0:(abs(d) - 1)
+        for u in 0:(abs(d) - 1)
             f(u) % d == 0 || continue
             push!(solutions, diophantine_quadraticx_quadraticy(
-                rc * g * (-d), -(cy + 2 * rc * g * u), -div(rc * g * u^2 + cy * u + rc * c0, d),
-                ra * g *   d,    cx + 2 * ra * g * u,   div(ra * g * u^2 + cx * u + ra * c0, d)
+                rc * g * (-d), -(cy + 2 * rc * g * u), -((rc * g * u^2 + cy * u + rc * c0) ÷ d),
+                ra * g *   d,    cx + 2 * ra * g * u,    (ra * g * u^2 + cx * u + ra * c0) ÷ d
             ))
         end
     end
@@ -143,7 +143,7 @@ solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) 
     if k*k == discr
         xytuples = Tuple{T,T}[]
         for f in factors(abs(-4*cx²*c0), true)
-            y, r = divrem(f + div(4*cx²*c0, f), 2*k)
+            y, r = divrem(f + (4*cx²*c0) ÷ f, 2*k)
             r == 0 || continue
             x, r = divrem(f - (cxy + k)*y, 2*cx²)
             r == 0 || continue

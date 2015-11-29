@@ -9,7 +9,7 @@ ispentagonal(n::Integer) = begin
     (r^2 == t) && (r % 6 == 5)
 end
 
-nthpentagonal(n::Integer) = div(n * (3n-1), 2)
+nthpentagonal(n::Integer) = (n * (3n-1)) ÷ 2
 npentagonal(n::Int, T::Type = Int) = collect(exactpentagonal(n, T))
 
 allpentagonal(T::Type = Int) = PentagonalIterator{T}()

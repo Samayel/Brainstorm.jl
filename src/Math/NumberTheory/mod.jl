@@ -22,7 +22,7 @@ multiplicativeorder{T<:Integer}(a::T, m::T) = begin
     res = one(m)
     for (p, k) in factorization(m)
         m = p^k
-        t = div(m, p) * (p-1)
+        t = (m ÷ p) * (p-1)
         for f in factors(t)
             if powermod(a, f, m) == 1
                 res = lcm(res, f)
@@ -42,8 +42,8 @@ linearmod{T<:Integer}(a::T, b::T, m::T) = begin
     g, u, v = gcdx(a, m)
     mod(b, g) == 0 || return T[]
 
-    x0 = mod(u * div(b, g), m)
-    [mod(x0 + i * div(m, g) , m) for i = 0:(g-1)]
+    x0 = mod(u * (b ÷ g), m)
+    [mod(x0 + i * (m ÷ g), m) for i in 0:(g-1)]
 end
 
 ##  Find a primitive root modulo m
@@ -56,7 +56,7 @@ primitiveroot{T<:Integer}(m::T) = begin
     for r in 2:(m-1)
         not_found = true
         for p in P
-            if powermod(r, div(m-1, p), m) == 1
+            if powermod(r, (m-1) ÷ p, m) == 1
                 not_found = false
                 break
             end

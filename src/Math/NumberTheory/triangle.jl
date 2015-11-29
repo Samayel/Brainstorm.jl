@@ -6,7 +6,7 @@ export
 
 istriangular(n::Integer) = isperfectsquare(8*n + 1)
 
-nthtriangular(n::Integer) = div(n * (n+1), 2)
+nthtriangular(n::Integer) = (n * (n+1)) ÷ 2
 ntriangular(n::Int, T::Type = Int) = collect(exacttriangular(n, T))
 
 alltriangular(T::Type = Int) = TriangularIterator{T}()

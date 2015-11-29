@@ -55,7 +55,7 @@ eulerphi(n::Integer) = begin
 
     phi = n
     for p in primefactors(n)    # must be unique
-        phi -= div(phi, p)      # φ = φ * (1 - 1/p)
+        phi -= phi ÷ p          # φ = φ * (1 - 1/p)
     end
     phi
 end

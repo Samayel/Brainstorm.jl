@@ -18,7 +18,7 @@ Base.next(p::MultisetPermuations, s) = begin
     p.k > 0 || return permutation, [length(p.a) + 1]
 
     s = copy(s)
-    for i = length(s):-1:1
+    for i in length(s):-1:1
         s[i] += 1
         while s[i] <= length(p.a) && countnz(s .== s[i]) > p.c[s[i]]
             s[i] += 1
@@ -48,7 +48,7 @@ Base.length(p::MultisetPermuations) = begin
 
     # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
     R, z = PowerSeriesRing(QQ, p.k + 1, "z")
-    gf = prod([sum([divexact(z^j, fac(j)) for j = 0:m]) for m in p.c])
+    gf = prod([sum([divexact(z^j, fac(j)) for j in 0:m]) for m in p.c])
     l = fac(p.k) * coeff(gf, p.k)
 
     @assert den(l) == 1

@@ -18,7 +18,7 @@ pi(digits::Integer) = begin
     set!(t, osqr)
     lsh!(t, 1)
     isqrt!(t)
-    b = div(osqr, t)
+    b = osqr ÷ t
 
     s = big(0)
     d = a - b

@@ -1,5 +1,5 @@
 function test_triangle_istriangular()
-    @test find([istriangular(i) for i = 1:400]) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231, 253, 276, 300, 325, 351, 378]
+    @test find([istriangular(i) for i in 1:400]) == [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231, 253, 276, 300, 325, 351, 378]
 end
 
 function test_triangle_nthtriangular()

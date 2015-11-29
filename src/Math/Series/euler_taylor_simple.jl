@@ -26,7 +26,7 @@ euler(digits::Integer) = begin
     p, q = binarysplitting(zero(n), n)
 
     o = big(10)^digits # one
-    o + div(o * p, q)
+    o + (o * p) ÷ q
 end
 
 termfunc(k) = k * (ndigits(k) - 2)
