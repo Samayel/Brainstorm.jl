@@ -54,11 +54,11 @@ function test_pi_machin()
     end
 end
 
-function test_pi_agm()
-    int_simple    = Brainstorm.Math.Series.Pi.Iterative.AGM.Int.Simple.pi
-    int_inplace   = Brainstorm.Math.Series.Pi.Iterative.AGM.Int.Inplace.pi
-    float_simple  = Brainstorm.Math.Series.Pi.Iterative.AGM.Float.Simple.pi
-    float_inplace = Brainstorm.Math.Series.Pi.Iterative.AGM.Float.Inplace.pi
+function test_pi_gausslegendre()
+    int_simple    = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Int.Simple.pi
+    int_inplace   = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Int.Inplace.pi
+    float_simple  = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Simple.pi
+    float_inplace = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Inplace.pi
 
     with_bigfloat_precision(400_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000)]
@@ -85,7 +85,7 @@ function test_pi_all()
 
     test_pi_chudnovsky()
     test_pi_machin()
-    test_pi_agm()
+    test_pi_gausslegendre()
     test_pi_sine()
 
     println("PASS")

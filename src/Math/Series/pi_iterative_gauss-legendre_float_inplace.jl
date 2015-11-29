@@ -39,7 +39,7 @@ _pi(digits) = begin
         rsh!(t, 1)
 
         mul!(b, a)
-        sqrt!(b) 
+        sqrt!(b)
         set!(a, t)
 
         # d = a - b
