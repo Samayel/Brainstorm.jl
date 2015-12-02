@@ -114,7 +114,7 @@ binarysplitting!(s, hyperbolic, sqrx, a, b) = begin
     # recursively compute P(a, b), Q(a, b) and T(a, b)
 
     # m is the midpoint of a and b
-    m = (a + b) >> 1
+    m = (a + b) >>> 1
 
     # recursively calculate P(a, m), Q(a, m) and T(a, m)
     binarysplitting!(s, hyperbolic, sqrx, a, m)

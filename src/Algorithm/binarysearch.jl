@@ -13,7 +13,7 @@ binarysearch{T<:Integer}(f, z, α::T, β::T) = begin
         return α, β
     end
 
-    m = (α + β) >> 1
+    m = (α + β) >>> 1
     y = f(m)
 
     y > z && return binarysearch(f, z, α, m)
