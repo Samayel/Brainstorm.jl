@@ -4,7 +4,7 @@
 # http://jeremykun.com/2014/02/24/elliptic-curves-as-python-objects/
 # http://jeremykun.com/2014/03/19/connecting-elliptic-curves-with-finite-fields-a-reprise/
 
-export curve, point
+export curve, point, contains, samecurve
 
 import Base: +, -, *
 import Nemo: parent, divexact
@@ -81,7 +81,7 @@ end
 point(ec::Curve) = IdealPoint(ec)
 
 Base.show(io::IO, p::ConcretePoint) = print(io, "($(p.x), $(p.y)) on elliptic curve $(curve(p))")
-Base.show(io::IO, p::IdealPoint) = print(io, "±∞ on elliptic curve $(curve(p))")
+Base.show(io::IO, p::IdealPoint) = print(io, "𝒪 on elliptic curve $(curve(p))")
 
 curve(p::Point) = p.ec
 contains(ec::Curve, p::Point) = (ec == curve(p)) && contains(ec, p.x, p.y)
