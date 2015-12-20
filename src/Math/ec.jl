@@ -1,4 +1,4 @@
-module EllipticCurves
+@reexport module EllipticCurves
 
 # http://jeremykun.com/2014/02/08/introducing-elliptic-curves/
 # http://jeremykun.com/2014/02/24/elliptic-curves-as-python-objects/
