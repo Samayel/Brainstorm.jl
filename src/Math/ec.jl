@@ -7,9 +7,10 @@
 export curve, point, contains, samecurve
 
 import Base: +, -, *
-import Nemo: parent, divexact
+import Nemo: divexact, contains
 
 using AutoHashEquals
+using Nemo: RingElem, FieldElem
 
 
 abstract Curve{F}
@@ -32,13 +33,13 @@ end
 curve(a, b) = curve(promote(a, b)...)
 curve{F}(a::F, b::F) = begin
     ec = WNFCurve(a, b)
-    singular(ec) && throw(DomainError())
+    singular(ec) && error("curve $(ec) is singular")
     ec
 end
 curve(a₁, a₂, a₃, a₄, a₆) = curve(promote(a₁, a₂, a₃, a₄, a₆)...)
 curve{F}(a₁::F, a₂::F, a₃::F, a₄::F, a₆::F) = begin
     ec = GWNFCurve(a₁, a₂, a₃, a₄, a₆)
-    singular(ec) && throw(DomainError())
+    singular(ec) && error("curve $(ec) is singular")
     ec
 end
 
@@ -56,9 +57,14 @@ end
 contains{F}(ec::WNFCurve{F}, x::F, y::F) = y^2 == x^3 + ec.a*x + ec.b
 contains{F}(ec::GWNFCurve{F}, x::F, y::F) = y^2 + ec.a₁*x*y + ec.a₃*y == x^3 + ec.a₂*x^2 + ec.a₄*x + ec.a₆
 
-parent{T<:Number}(n::T) = T
-Base.show(io::IO, ec::WNFCurve) = print(io, "y² = x³ + [$(ec.a)]x + [$(ec.b)]   x, y ∈ $(parent(ec.a))")
-Base.show(io::IO, ec::GWNFCurve) = print(io, "y² + [$(ec.a₁)]xy + [$(ec.a₃)]y == x³ + [$(ec.a₂)]x² + [$(ec.a₄)]x + [$(ec.a₆)]   x, y ∈ $(parent(ec.a₁))")
+ring{T}(n::Curve{T}) = T
+ring{T<:RingElem}(ec::WNFCurve{T}) = parent(ec.a)
+ring{T<:RingElem}(ec::GWNFCurve{T}) = parent(ec.a₁)
+
+field{T<:FieldElem}(ec::Curve{T}) = ring(ec)
+
+Base.show(io::IO, ec::WNFCurve) = print(io, "{y² = x³ + [$(ec.a)]x + [$(ec.b)]   x, y ∈ $(ring(ec))}")
+Base.show(io::IO, ec::GWNFCurve) = print(io, "{y² + [$(ec.a₁)]xy + [$(ec.a₃)]y == x³ + [$(ec.a₂)]x² + [$(ec.a₄)]x + [$(ec.a₆)]   x, y ∈ $(ring(ec))}")
 
 
 abstract Point{C<:Curve}
@@ -75,7 +81,7 @@ end
 
 point{F}(ec::Curve{F}, x, y) = point(ec, convert(F, x), convert(F, y))
 point{F}(ec::Curve{F}, x::F, y::F) = begin
-    contains(ec, x, y) || throw(DomainError())
+    contains(ec, x, y) || error("($(x), $(y)) is not a valid point on $(ec)")
     ConcretePoint(ec, x, y)
 end
 point(ec::Curve) = IdealPoint(ec)
@@ -92,10 +98,10 @@ samecurve{C}(p::Point{C}, q::Point{C}) = curve(p) == curve(q)
 -{C<:GWNFCurve}(p::ConcretePoint{C}) = ConcretePoint(curve(p), p.x, -p.y - curve(p).a₁ * p.x - curve(p).a₃)
 -(p::Point, q::Point) = p + (-q)
 
-+(p::Point, q::IdealPoint) = (samecurve(p, q) || throw(DomainError()); p)
-+(p::IdealPoint, q::ConcretePoint) = (samecurve(p, q) || throw(DomainError()); q)
++(p::Point, q::IdealPoint) = (samecurve(p, q) || error("$(p) and $(q) have different curves"); p)
++(p::IdealPoint, q::ConcretePoint) = (samecurve(p, q) || error("$(p) and $(q) have different curves"); q)
 +{C<:WNFCurve}(p::ConcretePoint{C}, q::ConcretePoint{C}) = begin
-    samecurve(p, q) || throw(DomainError())
+    samecurve(p, q) || error("$(p) and $(q) have different curves")
 
     ec = curve(p)
     if p == q
@@ -111,7 +117,7 @@ samecurve{C}(p::Point{C}, q::Point{C}) = curve(p) == curve(q)
     ConcretePoint(ec, x, -y)                # do the reflection to get the sum of the two points
 end
 +{C<:GWNFCurve}(p::ConcretePoint{C}, q::ConcretePoint{C}) = begin
-    samecurve(p, q) || throw(DomainError())
+    samecurve(p, q) || error("$(p) and $(q) have different curves")
 
     ec = curve(p)
     if p.x == q.x
