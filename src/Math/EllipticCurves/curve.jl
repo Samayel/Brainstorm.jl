@@ -1,4 +1,3 @@
-
 abstract Curve{F}
 
 # Weierstrass normal form, y² = x³ + ax + b

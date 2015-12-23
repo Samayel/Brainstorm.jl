@@ -32,13 +32,13 @@ function test_all()
     println("PASS")
 
     println("")
-    EllipticCurves.test_all()
-    println("")
     Series.test_all()
     println("")
     NumberTheory.test_all()
     println("")
     Combinatorics.test_all()
+    println("")
+    EllipticCurves.test_all()
 end
 
 end

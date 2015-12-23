@@ -1,4 +1,3 @@
-
 @auto_hash_equals immutable Point{I,C,F}
     ec::C   # the curve containing this point
     x::F
@@ -16,6 +15,40 @@ end
 
 point{F}(ec::Curve{F}) = (z = zero(ring(ec)); IdealPoint{typeof(ec),F}(ec, z, z))
 ideal(ec::Curve) = point(ec)
+
+# http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: is_x_coord(self, x)
+# http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: lift_x(self, x, all=False)
+point{T}(ec::WNFCurve{T}, x::T) = begin
+    y = x
+    try
+        y = convert(T, sqrt(x^3 + ec.a * x + ec.b))
+    catch e
+        #@show e
+    end
+
+    !contains(ec, x, y) && error("no point ($(x), y) on $(ec) could be found")
+    point(ec, x, y, true)
+end
+
+rand{T<:FiniteFieldElem}(ec::Curve{T}) = begin
+    R = field(ec)
+    q = order(R)
+
+    # the following allows the ideal point to be picked
+    rand() <= 1 / convert(BigInt, q + 1) && return ideal(ec)
+
+    for _ in 1:100
+        x = rand(R)
+        try
+            p = point(ec, x)
+            return p
+        catch e
+            #@show e
+        end
+    end
+
+    error("no random point on $(ec) could be found")
+end
 
 show(io::IO, p::ConcretePoint) = print(io, "($(p.x), $(p.y)) on elliptic curve $(curve(p))")
 show(io::IO, p::IdealPoint) = print(io, "𝒪 on elliptic curve $(curve(p))")
@@ -71,7 +104,6 @@ end
     Σy = -(c + ec.a₁) * Σx - d - ec.a₃
     point(ec, Σx, Σy, true)
 end
-divexact(x::Number, y::Number) = x / y
 
 *(n::Integer, p::IdealPoint) = p
 *(p::IdealPoint, n::Integer) = p
@@ -93,4 +125,17 @@ divexact(x::Number, y::Number) = x / y
     end
 
     r
+end
+
+logpx(p::Point, m::Integer) = begin
+    pᵢ = Dict{typeof(p.x), typeof(m)}()
+    o = zero(m)
+    q = ideal(curve(p))
+    for i in 1:m
+        q += p
+        ideal(q) && (o = i; break)
+        q.x ∈ keys(pᵢ) && continue
+        pᵢ[q.x] = i
+    end
+    pᵢ, o, q
 end
