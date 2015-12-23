@@ -38,7 +38,7 @@ macro activate_matlab(); Expr(:using, :MATLAB); end
 
 include("gmp.jl")
 include("mpfr.jl")
-include("ec.jl")
+include("EllipticCurves/ellipticcurves.jl")
 include("Series/series.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")

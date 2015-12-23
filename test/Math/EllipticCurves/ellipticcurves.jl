@@ -24,7 +24,7 @@ function test_wnf_ZZp()
     p = point(c, R(2), R(1))
 
     @test 2p == point(c, R(2), R(4))
-    @test 3p == point(c)
+    @test 3p == ideal(c)
 end
 
 function test_wnf_polyZZp()
@@ -38,7 +38,7 @@ function test_wnf_polyZZp()
     @test  -p == point(c, 2 +  t,     3t)
     @test p+p == point(c, 3 +  t, 2 + 0t)
     @test  4p == point(c, 3 + 2t, 4 + 4t)
-    @test  9p == point(c)
+    @test  9p == ideal(c)
 end
 
 function test_gwnf_QQ()
@@ -62,7 +62,7 @@ function test_gwnf_ZZp()
     p = point(c, R(2), R(1))
 
     @test 2p == point(c, R(2), R(4))
-    @test 3p == point(c)
+    @test 3p == ideal(c)
 end
 
 function test_gwnf_polyZZp()
@@ -76,7 +76,7 @@ function test_gwnf_polyZZp()
     @test  -p == point(c, 2 +  t,     3t)
     @test p+p == point(c, 3 +  t, 2 + 0t)
     @test  4p == point(c, 3 + 2t, 4 + 4t)
-    @test  9p == point(c)
+    @test  9p == ideal(c)
 end
 
 function test_all()
