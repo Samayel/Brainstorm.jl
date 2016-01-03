@@ -76,11 +76,11 @@ function test_wnf_polyZZp()
     @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == ([(i*p).x => i for i in 1:4], 9, ideal(c))
 end
 
-function test_wnf_order()
+function test_wnf_group()
     T, t = FiniteField(37, 1, "t")
     c = curve(T(-1), T(3))
     N = 42
-    @test order(c, OrderAlgorithm.BabyStepGiantStep) == N
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
     @test order(point(c, T(2), T(3)), N) == 7
     @test order(gen(c, N, 3),         N) == 3
     @test order(gen(c, N, 7),         N) == 7
@@ -88,13 +88,13 @@ function test_wnf_order()
     T, t = FiniteField(97, 1, "t")
     c = curve(T(2), T(3))
     N = 100
-    @test order(c, OrderAlgorithm.BabyStepGiantStep) == N
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
     @test order(gen(c, N, 5), N) == 5
 
     T, t = FiniteField(29, 1, "t")
     c = curve(T(-1), T(1))
     N = 37
-    @test order(c, OrderAlgorithm.BabyStepGiantStep) == N
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
     @test order(gen(c, N, 37), N) == 37
 end
 
@@ -173,7 +173,7 @@ function test_all()
     test_wnf_QQ()
     test_wnf_ZZp()
     test_wnf_polyZZp()
-    test_wnf_order()
+    test_wnf_group()
 
     test_gwnf_ZZ()
     test_gwnf_QQ()

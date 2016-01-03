@@ -6,7 +6,7 @@
 
 using Reexport.@reexport
 
-export curve, point, samecurve, ideal, ring, field
+export curve, point, samecurve, ideal, ring, field, isideal
 
 import Base: +, -, *, show, sqrt, rand, log
 import Nemo: divexact, contains, order, gen
@@ -44,6 +44,6 @@ end
 
 include("curve.jl")
 include("point.jl")
-include("order.jl")
+include("group.jl")
 
 end

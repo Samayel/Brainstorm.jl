@@ -1,4 +1,4 @@
-@reexport module OrderAlgorithm
+@reexport module GroupAlgorithm
 
 abstract Algorithm
 
@@ -9,7 +9,7 @@ immutable Schoof            <: Algorithm end
 end
 
 # https://en.wikipedia.org/wiki/Counting_points_on_elliptic_curves#Baby-step_giant-step
-order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{OrderAlgorithm.BabyStepGiantStep}) = begin
+order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{GroupAlgorithm.BabyStepGiantStep}) = begin
     o = order(field(ec))
     q = convert(BigInt, o)
     m = convert(BigInt, root(o, 4) + 1)
@@ -20,7 +20,7 @@ order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{OrderAlgorithm.BabyStepGiantStep}
     while true
         # random element P=(x,y) ∈ E(𝐅q)
         P = rand(ec)
-        while ideal(P)
+        while isideal(P)
             P = rand(ec)
         end
 
@@ -33,19 +33,19 @@ order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{OrderAlgorithm.BabyStepGiantStep}
         k = zero(m)
         R = Q
         while true
-            ideal(R) && break
+            isideal(R) && break
             R.x ∈ keys(Pⱼ) && break
             k += 1
             R += P2m
         end
-        j = ideal(R) ? 0 : Pⱼ[R.x]
+        j = isideal(R) ? 0 : Pⱼ[R.x]
         # (q + 1 + 2mk ∓ j)P = MP = 𝒪
         M = q + 1 + 2*m*k + (R == (j*P) ? -1 : 1)*j
 
         for (p, e) in factorization(M)
             for _ in 1:e
                 N = M ÷ p
-                !ideal(N*P) && break
+                !isideal(N*P) && break
                 M = N
             end
         end
@@ -66,15 +66,29 @@ order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{OrderAlgorithm.BabyStepGiantStep}
     end
 end
 
+logpx(p::Point, m::Integer) = begin
+    pᵢ = Dict{typeof(p.x), typeof(m)}()
+    o = zero(m)
+    q = ideal(curve(p))
+    for i in 1:m
+        q += p
+        isideal(q) && (o = i; break)
+        q.x ∈ keys(pᵢ) && continue
+        pᵢ[q.x] = i
+    end
+    pᵢ, o, q
+end
+
 # http://andrea.corbellini.name/2015/05/23/elliptic-curve-cryptography-finite-fields-and-discrete-logarithms/
 order(p::Point, N::Integer) = begin
     for n in factors(N)
-        ideal(n*p) && return n
+        isideal(n*p) && return n
     end
-    zero(N)
+
+    error("$(p) is not an element in a subgroup")
 end
 
-gen{T<:FiniteFieldElem}(ec::Curve{T}, N::Integer, n::Integer) = begin
+gen(ec::Curve, N::Integer, n::Integer) = begin
     isprime(n) || error("order of the subgroup ($n) must be prime")
 
     h, r = divrem(N, n)
@@ -83,7 +97,8 @@ gen{T<:FiniteFieldElem}(ec::Curve{T}, N::Integer, n::Integer) = begin
     for i in 1:100
         P = rand(ec)
         G = h*P
-        ideal(G) || return G
+        isideal(G) || return G
     end
+
     error("no generator of a subgroup with order $n could be found")
 end

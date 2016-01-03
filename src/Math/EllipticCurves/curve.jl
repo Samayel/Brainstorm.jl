@@ -18,19 +18,19 @@ end
 curve(a, b) = curve(promote(a, b)...)
 curve{F}(a::F, b::F) = begin
     ec = WNFCurve(a, b)
-    singular(ec) && error("curve $(ec) is singular")
+    issingular(ec) && error("curve $(ec) is singular")
     ec
 end
 
 curve(a₁, a₂, a₃, a₄, a₆) = curve(promote(a₁, a₂, a₃, a₄, a₆)...)
 curve{F}(a₁::F, a₂::F, a₃::F, a₄::F, a₆::F) = begin
     ec = GWNFCurve(a₁, a₂, a₃, a₄, a₆)
-    singular(ec) && error("curve $(ec) is singular")
+    issingular(ec) && error("curve $(ec) is singular")
     ec
 end
 
-singular(ec::Curve) = discriminant(ec) == 0
-smooth(ec::Curve) = !singular(ec)
+issingular(ec::Curve) = discriminant(ec) == 0
+issmooth(ec::Curve) = !singular(ec)
 
 discriminant(ec::WNFCurve) = -16 * (4*ec.a^3 + 27*ec.b^2)
 discriminant(ec::GWNFCurve) = begin

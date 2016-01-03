@@ -61,8 +61,8 @@ contains(ec::Curve, p::Point) = (ec == curve(p)) && contains(ec, p.x, p.y)
 samecurve{I,J,C,F}(p::Point{I,C,F}, q::Point{J,C,F}) = curve(p) == curve(q)
 samecurve(p::Point, q::Point) = false
 
-ideal(::IdealPoint) = true
-ideal(::ConcretePoint) = false
+isideal(::IdealPoint) = true
+isideal(::ConcretePoint) = false
 
 -(p::IdealPoint) = p
 -{C<:WNFCurve}(p::ConcretePoint{C}) = point(curve(p), p.x, -p.y, true)
@@ -127,17 +127,4 @@ end
     end
 
     r
-end
-
-logpx(p::Point, m::Integer) = begin
-    pᵢ = Dict{typeof(p.x), typeof(m)}()
-    o = zero(m)
-    q = ideal(curve(p))
-    for i in 1:m
-        q += p
-        ideal(q) && (o = i; break)
-        q.x ∈ keys(pᵢ) && continue
-        pᵢ[q.x] = i
-    end
-    pᵢ, o, q
 end
