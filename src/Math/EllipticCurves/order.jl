@@ -2,7 +2,6 @@
 
 abstract Algorithm
 
-immutable BruteForce        <: Algorithm end
 immutable BabyStepGiantStep <: Algorithm end
 immutable PollardRho        <: Algorithm end
 immutable Schoof            <: Algorithm end
@@ -67,12 +66,24 @@ order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{OrderAlgorithm.BabyStepGiantStep}
     end
 end
 
-order(p::Point, ::Type{OrderAlgorithm.BruteForce}) = begin
-    o = big(1)
-    q = p
-    while !ideal(q)
-        q += p
-        o += 1
+# http://andrea.corbellini.name/2015/05/23/elliptic-curve-cryptography-finite-fields-and-discrete-logarithms/
+order(p::Point, N::Integer) = begin
+    for n in factors(N)
+        ideal(n*p) && return n
     end
-    o
+    zero(N)
+end
+
+gen{T<:FiniteFieldElem}(ec::Curve{T}, N::Integer, n::Integer) = begin
+    isprime(n) || error("order of the subgroup ($n) must be prime")
+
+    h, r = divrem(N, n)
+    r == 0 || error("order of the subgroup ($n) must be a divisor of $N")
+
+    for i in 1:100
+        P = rand(ec)
+        G = h*P
+        ideal(G) || return G
+    end
+    error("no generator of a subgroup with order $n could be found")
 end

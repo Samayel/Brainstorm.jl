@@ -20,8 +20,9 @@ ideal(ec::Curve) = point(ec)
 # http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: lift_x(self, x, all=False)
 point{T}(ec::WNFCurve{T}, x::T) = begin
     y = x
+    r = sqrt(x^3 + ec.a * x + ec.b)
     try
-        y = convert(T, sqrt(x^3 + ec.a * x + ec.b))
+        y = convert(T, r)
     catch e
         #@show e
     end
@@ -43,6 +44,7 @@ rand{T<:FiniteFieldElem}(ec::Curve{T}) = begin
             p = point(ec, x)
             return p
         catch e
+            !isa(e, ErrorException) && rethrow()
             #@show e
         end
     end

@@ -9,10 +9,10 @@ using Reexport.@reexport
 export curve, point, samecurve, ideal, ring, field
 
 import Base: +, -, *, show, sqrt, rand, log
-import Nemo: divexact, contains, order
+import Nemo: divexact, contains, order, gen
 
 using AutoHashEquals
-using Brainstorm.Math: factorization
+using Brainstorm.Math: factorization, factors
 using Nemo
 using Nemo: FiniteFieldElem
 
