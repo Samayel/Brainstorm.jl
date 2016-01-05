@@ -18,83 +18,19 @@ using Nemo: FiniteFieldElem
 
 divexact(x::Number, y::Number) = x / y
 
-# ftp://ftp.cs.wisc.edu/pub/techreports/1988/TR795.pdf
-sqrt(x::FiniteFieldElem) = begin
+sqrt(x::FiniteFieldElem) = root(x, 2)
+
+root(x::FiniteFieldElem, n::Integer) = begin
     F = parent(x)
-    k = degree(F)
-    q = order(F)
-
-    if k == 1
-        z = ZZ(coeff(x, 0))
-        y = sqrtmod(z, q)
-        return F(y)
-    end
-
     P, p = PolynomialRing(F, "p")
-    R = ResidueRing(P, p^2 - x)
 
-    for i in 1:100
-        y = rand(F)
-        y^2 == x && return y
-
-        z = R(p + y)^BigInt((q-1) ÷ 2)
-        w = data(z)
- 
-        v = coeff(w, 0)
-        v == 0 || continue
-
-        u = coeff(w, 1)
-        r = inv(u)
-        r^2 == x && return r
+    for (y, _) in factor(p^n - x)
+        d = degree(y)
+        c = coeff(y, d - 1)
+        c^n == x && return c
     end
 
-    error("no square root could be found")
-end
-
-# https://www.ma.utexas.edu/users/voloch/Preprints/roots.pdf
-root(x::FiniteFieldElem, r::Integer) = begin
-    F = parent(x)
-    q = BigInt(characteristic(F))
-    m = BigInt(degree(F))
-
-    if gcd(q*(q-1), r) == 1
-        k = 1
-        qₖ = q % r
-        while qₖ != 1
-            k += 1
-            k > r && error("no k with q^k = 1 (mod r), q=$q, r=$r could be found")
-            qₖ = (qₖ * q) % r
-        end
-        gcd(m, k) == 1 || error("m=$m and k=$k are not coprime")
-
-        qₘ = q^m - 1
-        u = 1
-        while u < r
-            (u * qₘ + 1) % r == 0 && break
-            u += 1
-        end
-
-        v = (q^m * u) ÷ r
-    elseif (q-1) % r == 0
-        gcd((q-1) ÷ r, r) == 1 || error("(q-1)÷r=$((q-1) ÷ r) and r=$r are not coprime")
-        gcd(m, r) == 1 || error("m=$m and r=$r are not coprime")
-
-        qₘ = (q^m - 1) ÷ r
-        u = 1
-        while u < r
-            (u * qₘ + 1) % r == 0 && break
-            u += 1
-        end
-
-        v, k = divrem(q^m * u, r^2)
-        k > 0 && (v += 1)
-    else
-        error("root($(x), $(r)) is not supported in field '$(F)'")
-    end
-
-    y = x^v
-    y^r == x || error("$(x) has no $(r)th roots in field '$(F)'")
-    y
+    error("$(x) has no $(n)th roots in field '$(F)'")
 end
 
 rand(F::Union{FqFiniteField,FqNmodFiniteField}) = begin

@@ -117,6 +117,8 @@ function test_gwnf_ZZ()
     @test i + p == p
     @test p + (-p) == i
     @test p - p == i
+
+    #@test point(c, 1) == p
 end
 
 function test_gwnf_QQ()
@@ -132,6 +134,9 @@ function test_gwnf_QQ()
     @test -20p == point(c,
         872171688955240345797378940145384578112856996417727644408306502486841054959621893457430066791656001//520783120481946829397143140761792686044102902921369189488390484560995418035368116532220330470490000,
         -27483290931268103431471546265260141280423344817266158619907625209686954671299076160289194864753864983185162878307166869927581148168092234359162702751//11884621345605454720092065232176302286055268099954516777276277410691669963302621761108166472206145876157873100626715793555129780028801183525093000000)
+
+    #@test point(c, big(3//1)) == p
+    #@test point(c, big(-2//1)) == q
 end
 
 function test_gwnf_ZZp()
@@ -166,6 +171,30 @@ function test_gwnf_polyZZp()
     @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == ([(i*p).x => i for i in 1:4], 9, ideal(c))
 end
 
+#=
+function test_gwnf_group()
+    T, t = FiniteField(37, 1, "t")
+    c = curve(T(0), T(0), T(0), T(-1), T(3))
+    N = 42
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
+    @test order(point(c, T(2), T(3)), N) == 7
+    @test order(gen(c, N, 3),         N) == 3
+    @test order(gen(c, N, 7),         N) == 7
+
+    T, t = FiniteField(97, 1, "t")
+    c = curve(T(0), T(0), T(0), T(2), T(3))
+    N = 100
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
+    @test order(gen(c, N, 5), N) == 5
+
+    T, t = FiniteField(29, 1, "t")
+    c = curve(T(0), T(0), T(0), T(-1), T(1))
+    N = 37
+    @test order(c, GroupAlgorithm.BabyStepGiantStep) == N
+    @test order(gen(c, N, 37), N) == 37
+end
+=#
+
 function test_all()
     print(rpad("Math.EllipticCurves...", 50, ' '))
 
@@ -179,6 +208,7 @@ function test_all()
     test_gwnf_QQ()
     test_gwnf_ZZp()
     test_gwnf_polyZZp()
+    #test_gwnf_group()
 
     println("PASS")
 end
