@@ -85,7 +85,7 @@ order(p::Point, N::Integer) = begin
         isideal(n*p) && return n
     end
 
-    error("$(p) is not an element in a subgroup")
+    error("$(p) is not an element of a subgroup")
 end
 
 gen(ec::Curve, N::Integer, n::Integer) = begin
