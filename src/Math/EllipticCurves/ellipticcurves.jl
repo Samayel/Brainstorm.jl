@@ -26,11 +26,15 @@ root(x::FiniteFieldElem, n::Integer) = begin
 
     for (y, _) in factor(p^n - x)
         d = degree(y)
+        d == n && error("$(x) has no $(n)th roots in $(F)")
+
         c = coeff(y, d - 1)
         c^n == x && return c
     end
 
-    error("$(x) has no $(n)th roots in field '$(F)'")
+    msg = "no root in factorization of p^$(n) - $(x) over $(F) found, possible bug in algorithm"
+    println(msg)
+    error(msg)
 end
 
 rand(F::Union{FqFiniteField,FqNmodFiniteField}) = begin

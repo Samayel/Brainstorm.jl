@@ -20,14 +20,13 @@ ideal(ec::Curve) = point(ec)
 # http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: lift_x(self, x, all=False)
 point{T}(ec::WNFCurve{T}, x::T) = begin
     y = x
-    r = sqrt(x^3 + ec.a * x + ec.b)
     try
+        r = sqrt(x^3 + ec.a * x + ec.b)
         y = convert(T, r)
-    catch e
-        #@show e
+    catch
     end
 
-    !contains(ec, x, y) && error("no point ($(x), y) on $(ec) could be found")
+    !contains(ec, x, y) && error("no point with x-coordinate $(x) on $(ec)")
     point(ec, x, y, true)
 end
 
@@ -45,7 +44,6 @@ rand{T<:FiniteFieldElem}(ec::Curve{T}) = begin
             return p
         catch e
             !isa(e, ErrorException) && rethrow()
-            #@show e
         end
     end
 
