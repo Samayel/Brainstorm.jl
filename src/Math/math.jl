@@ -41,6 +41,7 @@ include("mpfr.jl")
 include("Series/series.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
+include("Algebra/algebra.jl")
 include("EllipticCurves/ellipticcurves.jl")
 
 end

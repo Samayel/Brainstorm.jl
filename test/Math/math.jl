@@ -18,10 +18,11 @@ function test_math_setbits()
     @test setbits(big(0), [1000]) == big(2)^1000
 end
 
-include("EllipticCurves/ellipticcurves.jl")
 include("Series/series.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
+include("Algebra/algebra.jl")
+include("EllipticCurves/ellipticcurves.jl")
 
 function test_all()
     println("")
@@ -37,6 +38,8 @@ function test_all()
     NumberTheory.test_all()
     println("")
     Combinatorics.test_all()
+    println("")
+    Algebra.test_all()
     println("")
     EllipticCurves.test_all()
 end
