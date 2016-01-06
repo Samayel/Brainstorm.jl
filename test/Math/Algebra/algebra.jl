@@ -45,10 +45,36 @@ function test_field_root()
     end
 end
 
+function test_field_roots()
+    K, a = FiniteField(31, 1, "a")
+    @test roots(K(22), 7) == [13]
+    @test roots(K(25), 5) == [5,18,9,20,10]
+    @test roots(K(23), 3) == [29,12,21]
+    @test roots(K(1), 2) == [1,30]
+    @test roots(K(1), 5) == [1,16,8,4,2]
+    @test roots(K(1), 7) == [1]
+
+    K, a = FiniteField(5, 4, "a")
+    @test roots(3a^2 + a + 1, 13) == [4a^2+3a+3, 4a^3+3a^2+1, 4a^3+2a^2+a+2, 4a, 3a^3+2a^2+4, 2a+1, a^3+3a^2+a, 3a^3+3a+3, 3a^3+3a^2+4, 3a^3+2a^2+2, a^3+a^2, 3a^2+2a, 3a^3+2a^2+4a]
+
+    K, a = FiniteField(29, 2, "a")
+    b = a^2 + 5a + 1
+    @test roots(b, 11) == [3a + 20]
+    @test roots(b, 5) == []
+    @test roots(b, 3) == [14a+18, 10a+13, 5a+27]
+
+    K, a = FiniteField(29, 5, "a")
+    b = a^2 + 5a + 1
+    @test roots(b, 5) == [19a^4 + 2a^3 + 2a^2 + 16a + 3]
+    @test roots(b, 7) == []
+    @test roots(b, 4) == []
+end
+
 function test_all()
     print(rpad("Math.Algebra...", 50, ' '))
 
     test_field_root()
+    test_field_roots()
 
     println("PASS")
 end
