@@ -1,10 +1,11 @@
 @reexport module Algebra
 
-import Base: sqrt, rand, log, zero, one, convert, colon
+import Base: call, sqrt, rand, log, zero, one, convert, colon
 import Nemo: root
 
-export sqrts, roots
+export sqrts, roots, elements
 
+using Brainstorm.Algorithm: @forcartesian
 using Brainstorm.Math: factorization
 using Nemo
 using Nemo: FiniteFieldElem

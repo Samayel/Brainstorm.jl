@@ -1,3 +1,11 @@
+call{T<:Union{Integer,ZZ}}(F::Union{FqFiniteField,FqNmodFiniteField}, coeffs::Array{T,1}) = begin
+    g = gen(F)
+    x = zero(F)
+    for (i, c) in enumerate(coeffs)
+        x += c * g^(i-1)
+    end
+    x
+end
 
 sqrt(a::FiniteFieldElem) = root(a, 2)
 
@@ -5,11 +13,21 @@ sqrt(a::FiniteFieldElem) = root(a, 2)
 # http://sagenb.org/src/rings/finite_rings/element_base.pyx
 root(a::FiniteFieldElem, n::Integer) = root(a, ZZ(n))
 root(a::FiniteFieldElem, n::ZZ) = begin
-    n > 1 || throw(DomainError())
-    iszero(a) && return a
+    if iszero(a)
+        n <= 0 && throw(DomainError())
+        return a
+    end
 
     K = parent(a)
     q = order(K)
+
+    if n < 0
+        a = inv(a)
+        n = -n
+    elseif n == 0
+        a == 1 || throw(DomainError())
+        return a
+    end
 
     if isone(a)
         GCD = gcd(n, q-1)
@@ -56,11 +74,22 @@ sqrts(a::FiniteFieldElem) = roots(a, 2)
 # http://sagenb.org/src/rings/finite_rings/element_base.pyx
 roots(a::FiniteFieldElem, n::Integer) = roots(a, ZZ(n))
 roots{T<:FiniteFieldElem}(a::T, n::ZZ) = begin
-    n > 1 || throw(DomainError())
-    iszero(a) && return [a]
+    if iszero(a)
+        n <= 0 && throw(DomainError())
+        return [a]
+    end
 
     K = parent(a)
     q = order(K)
+
+    if n < 0
+        a = inv(a)
+        n = -n
+    elseif n == 0
+        a == 1 || throw(DomainError())
+        e = elements(K)
+        e[e .!= 0]
+    end
 
     if isone(a)
         GCD = gcd(n, q-1)
@@ -108,14 +137,20 @@ roots{T<:FiniteFieldElem}(a::T, n::ZZ) = begin
     L
 end
 
+elements(F::Union{FqFiniteField,FqNmodFiniteField}) = begin
+    p = characteristic(F)
+    k = degree(F)
+
+    e = typeof(zero(F))[]
+    @forcartesian c [p for _ in 1:k] begin
+        push!(e, F(c .- 1))
+    end
+    e
+end
+
 rand(F::Union{FqFiniteField,FqNmodFiniteField}) = begin
     p = characteristic(F)
     k = degree(F)
-    g = gen(F)
 
-    x = zero(F)
-    for i in 0:k-1
-        x += g^i * rand(0:convert(BigInt, p-1))
-    end
-    x
+    F([rand(0:(p-1)) for _ in 1:k])
 end
