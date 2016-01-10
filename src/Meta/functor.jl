@@ -39,5 +39,10 @@ immutable TruncFun{T} <: Base.Func{1} end
 trunc(t::Type) = TruncFun{t}()
 call{T}(::TruncFun{T}, x) = Base.trunc(T, x)
 
+immutable NegFun <: Base.Func{1} end
+call(::NegFun, x) = -x
+
+immutable InvFun <: Base.Func{1} end
+call(::InvFun, x) = inv(x)
 
 end
