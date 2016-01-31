@@ -54,7 +54,7 @@ show(io::IO, p::ConcretePoint) = print(io, "($(p.x), $(p.y)) on elliptic curve $
 show(io::IO, p::IdealPoint) = print(io, "𝒪 on elliptic curve $(curve(p))")
 
 curve(p::Point) = p.ec
-contains(ec::Curve, p::Point) = (ec == curve(p)) && contains(ec, p.x, p.y)
+in(p::Point, ec::Curve) = (ec == curve(p)) && contains(ec, p.x, p.y)
 
 samecurve{I,J,C,F}(p::Point{I,C,F}, q::Point{J,C,F}) = curve(p) == curve(q)
 samecurve(p::Point, q::Point) = false

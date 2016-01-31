@@ -8,7 +8,7 @@ using Reexport.@reexport
 
 export curve, point, samecurve, ideal, ring, field, isideal
 
-import Base: +, -, *, show, rand
+import Base: +, -, *, show, rand, in
 import Nemo: divexact, contains, order, gen
 
 using AutoHashEquals
