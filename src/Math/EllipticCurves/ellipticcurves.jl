@@ -14,7 +14,7 @@ import Nemo: divexact, contains, order, gen
 using AutoHashEquals
 using Brainstorm.Math: factorization, factors
 using Nemo
-using Nemo: FiniteFieldElem
+using Nemo: FinFieldElem
 
 divexact(x::Number, y::Number) = x / y
 

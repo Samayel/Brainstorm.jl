@@ -7,12 +7,12 @@ call{T<:Union{Integer,ZZ}}(F::Union{FqFiniteField,FqNmodFiniteField}, coeffs::Ar
     x
 end
 
-sqrt(a::FiniteFieldElem) = root(a, 2)
+sqrt(a::FinFieldElem) = root(a, 2)
 
 # http://trac.sagemath.org/ticket/7931
 # http://sagenb.org/src/rings/finite_rings/element_base.pyx
-root(a::FiniteFieldElem, n::Integer) = root(a, ZZ(n))
-root(a::FiniteFieldElem, n::ZZ) = begin
+root(a::FinFieldElem, n::Integer) = root(a, ZZ(n))
+root(a::FinFieldElem, n::ZZ) = begin
     if iszero(a)
         n <= 0 && throw(DomainError())
         return a
@@ -68,12 +68,12 @@ root(a::FiniteFieldElem, n::ZZ) = begin
     b
 end
 
-sqrts(a::FiniteFieldElem) = roots(a, 2)
+sqrts(a::FinFieldElem) = roots(a, 2)
 
 # http://trac.sagemath.org/ticket/7931
 # http://sagenb.org/src/rings/finite_rings/element_base.pyx
-roots(a::FiniteFieldElem, n::Integer) = roots(a, ZZ(n))
-roots{T<:FiniteFieldElem}(a::T, n::ZZ) = begin
+roots(a::FinFieldElem, n::Integer) = roots(a, ZZ(n))
+roots{T<:FinFieldElem}(a::T, n::ZZ) = begin
     if iszero(a)
         n <= 0 && throw(DomainError())
         return [a]

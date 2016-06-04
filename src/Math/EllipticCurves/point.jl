@@ -30,7 +30,7 @@ point{T}(ec::WNFCurve{T}, x::T) = begin
     point(ec, x, y, true)
 end
 
-rand{T<:FiniteFieldElem}(ec::Curve{T}) = begin
+rand{T<:FinFieldElem}(ec::Curve{T}) = begin
     R = field(ec)
     q = order(R)
 

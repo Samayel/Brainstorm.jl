@@ -10,7 +10,7 @@ using Brainstorm.Algorithm: @forcartesian
 using Brainstorm.Math: factorization
 using Brainstorm.Meta.Functor: NegFun, InvFun
 using Nemo
-using Nemo: FiniteFieldElem
+using Nemo: FinFieldElem
 
 const ZZ = fmpz
 

@@ -9,7 +9,7 @@ immutable Schoof            <: Algorithm end
 end
 
 # https://en.wikipedia.org/wiki/Counting_points_on_elliptic_curves#Baby-step_giant-step
-order{T<:FiniteFieldElem}(ec::Curve{T}, ::Type{GroupAlgorithm.BabyStepGiantStep}) = begin
+order{T<:FinFieldElem}(ec::Curve{T}, ::Type{GroupAlgorithm.BabyStepGiantStep}) = begin
     o = order(field(ec))
     q = convert(BigInt, o)
     m = convert(BigInt, root(o, 4) + 1)
