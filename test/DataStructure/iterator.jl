@@ -34,13 +34,13 @@ end
 combine(::DefaultNestedIterator{Array{Int,1}}, outer, inner) = "$outer$inner"
 
 Base.eltype(it::DefaultNestedIterator{Array{Int,1}}) = eltype(typeof(it))
-Base.eltype(::Type{DefaultNestedIterator{Array{Int,1}}}) = ASCIIString
+Base.eltype(::Type{DefaultNestedIterator{Array{Int,1}}}) = String
 
 function test_iterator_nested_iterator()
     @test collect(nested([big(1), big(2), big(3)])) == []
 
     @test collect(nested(collect(1:3))) == ["123","132","213","231","312","321"]
-    @test eltype(nested(collect(1:3))) == ASCIIString
+    @test eltype(nested(collect(1:3))) == String
 end
 
 immutable DigitPermutationIterator <: NestedIterator
@@ -57,11 +57,11 @@ end
 combine(::DigitPermutationIterator, outer, inner) = "$outer$inner"
 
 Base.eltype(it::DigitPermutationIterator) = eltype(typeof(it))
-Base.eltype(::Type{DigitPermutationIterator}) = ASCIIString
+Base.eltype(::Type{DigitPermutationIterator}) = String
 
 function test_iterator_nested_iterator2()
     @test collect(digitperm(collect(1:4), 2)) == ["12","13","14","21","23","24","31","32","34","41","42","43"]
-    @test eltype(digitperm(collect(1:4), 2)) == ASCIIString
+    @test eltype(digitperm(collect(1:4), 2)) == String
 end
 
 

@@ -2,7 +2,7 @@ function test_pi_chudnovsky()
     simple  = Brainstorm.Math.Series.Pi.Chudnovsky.Simple.pi
     inplace = Brainstorm.Math.Series.Pi.Chudnovsky.Inplace.pi
 
-    with_bigfloat_precision(4_000_000) do
+    setprecision(4_000_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)]
 
         @test all([simple(d)  for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)] - expected .== 0)
@@ -30,7 +30,7 @@ function test_pi_machin()
     hwang2003       = Brainstorm.Math.Series.Pi.Machin.hwang2003
     wetherfield2004 = Brainstorm.Math.Series.Pi.Machin.wetherfield2004
 
-    with_bigfloat_precision(40_000) do
+    setprecision(40_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]
 
         @test all([euler(d)           for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)
@@ -60,7 +60,7 @@ function test_pi_gausslegendre()
     float_simple  = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Simple.pi
     float_inplace = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Inplace.pi
 
-    with_bigfloat_precision(400_000) do
+    setprecision(400_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000)]
 
         @test all([int_simple(d)                               for d in (1, 10, 100, 1_000, 10_000, 100_000)] - expected .== 0)
@@ -73,7 +73,7 @@ end
 function test_pi_sine()
     sine = Brainstorm.Math.Series.Pi.Iterative.Sine.pi
 
-    with_bigfloat_precision(40_000) do
+    setprecision(40_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]
 
         @test all([trunc(BigInt, sine(d)*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)] - expected .== 0)

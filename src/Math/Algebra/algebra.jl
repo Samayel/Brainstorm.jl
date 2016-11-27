@@ -5,10 +5,8 @@ import Nemo: root
 
 export sqrts, roots, elements, multiple
 
-using Base: AddFun, MulFun
 using Brainstorm.Algorithm: @forcartesian
 using Brainstorm.Math: factorization
-using Brainstorm.Meta.Functor: NegFun, InvFun
 using Nemo
 using Nemo: FinFieldElem
 

@@ -63,6 +63,9 @@ Base.eltype(it::DropWhile) = Base.eltype(typeof(it))
 Base.eltype{I,F}(::Type{TakeWhile{I,F}}) = Base.eltype(I)
 Base.eltype{I,F}(::Type{DropWhile{I,F}}) = Base.eltype(I)
 
+Base.iteratorsize(::TakeWhile) = Base.SizeUnknown()
+Base.iteratorsize(::DropWhile) = Base.SizeUnknown()
+
 #
 # END
 # http://slendermeans.org/julia-iterators.html
@@ -82,8 +85,8 @@ Base.start(it::TMap) = map(start, it.xs)
 Base.next(it::TMap, state) = begin
     next_result = map(next, it.xs, state)
     (
-        it.mapfunc(map(Functor.idx(1), next_result)...),
-        map(Functor.idx(2), next_result)
+        it.mapfunc(map(x -> x[1], next_result)...),
+        map(x -> x[2], next_result)
     )
 end
 Base.done(it::TMap, state) = any(map(done, it.xs, state))
@@ -160,3 +163,5 @@ createinner(it::NestedIterator, outerstate) = begin
 
     innerit, innerstate
 end
+
+Base.iteratorsize(::NestedIterator) = Base.SizeUnknown()

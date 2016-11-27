@@ -6,7 +6,7 @@ const bits_per_digit = log2(10)
 
 pi{T<:Integer}(digits::T) = begin
     prec = ceil(T, bits_per_digit * (digits + guard_digits + eps_digits))
-    with_bigfloat_precision(prec) do
+    setprecision(prec) do
         _pi(digits)
     end
 end

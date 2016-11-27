@@ -1,4 +1,13 @@
-call{T<:Union{Integer,ZZ}}(F::Union{FqFiniteField,FqNmodFiniteField}, coeffs::Array{T,1}) = begin
+(F::FqFiniteField){T<:Union{Integer,ZZ}}(coeffs::Array{T,1}) = begin
+    g = gen(F)
+    x = zero(F)
+    for (i, c) in enumerate(coeffs)
+        x += c * g^(i-1)
+    end
+    x
+end
+
+(F::FqNmodFiniteField){T<:Union{Integer,ZZ}}(coeffs::Array{T,1}) = begin
     g = gen(F)
     x = zero(F)
     for (i, c) in enumerate(coeffs)

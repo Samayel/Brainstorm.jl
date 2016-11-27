@@ -17,7 +17,7 @@ function test_ln2_all()
 
     ln2_N5a = Brainstorm.Math.Series.Ln2.Machin.ln2_N5a
 
-    with_bigfloat_precision(400_000) do
+    setprecision(400_000) do
         expected = [trunc(BigInt, log(big(2))*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000)]
 
         @test all([ln2_N2a(d) for d in (1, 10, 100, 1_000, 10_000, 100_000)] - expected .== 0)

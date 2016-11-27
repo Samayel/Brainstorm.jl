@@ -28,6 +28,7 @@ Base.eltype{T}(::Type{NonPeriodicContinuedFraction{T}}) = T
 Base.eltype{T}(::Type{PeriodicContinuedFraction{T}}) = T
 
 Base.length(it::NonPeriodicContinuedFraction) = length(it.denominators)
+Base.iteratorsize(::PeriodicContinuedFraction) = Base.IsInfinite()
 
 
 Base.show(io::IO, cf::ContinuedFraction) = begin
@@ -159,3 +160,4 @@ Base.eltype{T}(::Type{NonPeriodicContinuedFractionConvergentsIterator{T}}) = Tup
 Base.eltype{T}(::Type{PeriodicContinuedFractionConvergentsIterator{T}}) = Tuple{T,T}
 
 Base.length(it::NonPeriodicContinuedFractionConvergentsIterator) = length(it.cf.denominators)
+Base.iteratorsize(::PeriodicContinuedFractionConvergentsIterator) = Base.IsInfinite()

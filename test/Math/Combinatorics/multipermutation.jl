@@ -9,7 +9,7 @@ function test_multipermutation_permutations()
         ["b", "a", "a"],
     ]
     @test length(permutations(["a", "b"], [2, 1])) == 3
-    @test eltype(permutations(["a", "b"], [2, 1])) == Array{ASCIIString,1}
+    @test eltype(permutations(["a", "b"], [2, 1])) == Array{String,1}
 
     @test length(permutations(["M","I","S","P"], [1,4,4,2])) == 34650
     @test length(permutations([:right,:down], BigInt[20,20])) == 137846528820
@@ -32,7 +32,7 @@ function test_multipermutation_permutations()
         ["b", "b", "a"],
     ]
     @test length(permutations(["a", "b"], [3, 2], 3)) == 7
-    @test eltype(permutations(["a", "b"], [3, 2], 3)) == Array{ASCIIString,1}
+    @test eltype(permutations(["a", "b"], [3, 2], 3)) == Array{String,1}
 
     @test length(permutations(["M","I","S","P"], [1,4,4,2], 11)) == 34650
 end

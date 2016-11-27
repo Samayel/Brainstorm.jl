@@ -34,3 +34,5 @@ Base.done(::HailstoneIterator, state) = state <= 0
 
 Base.eltype(it::HailstoneIterator) = Base.eltype(typeof(it))
 Base.eltype{T}(::Type{HailstoneIterator{T}}) = T
+
+Base.iteratorsize(::HailstoneIterator) = Base.SizeUnknown()

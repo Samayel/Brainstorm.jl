@@ -16,9 +16,9 @@ function test_combination_combinations()
         ["c", "d"],
     ]
     @test length(combinations(["a", "b", "c", "d"], 2, Val{:unique})) == 6
-    @test eltype(combinations(["a", "b", "c", "d"], 2, Val{:unique})) == Array{ASCIIString,1}
+    @test eltype(combinations(["a", "b", "c", "d"], 2, Val{:unique})) == Array{String,1}
 
-    @test collect(combinations(["a", "b"], 3, Val{:unique})) == Array{ASCIIString,1}[]
+    @test collect(combinations(["a", "b"], 3, Val{:unique})) == Array{String,1}[]
     @test length(combinations(["a", "b"], 3, Val{:unique})) == 0
 end
 
@@ -44,7 +44,7 @@ function test_combination_combinations_with_repetition()
         ["d", "d"],
     ]
     @test length(combinations(["a", "b", "c", "d"], 2, Val{:repeated})) == 10
-    @test eltype(combinations(["a", "b", "c", "d"], 2, Val{:repeated})) == Array{ASCIIString,1}
+    @test eltype(combinations(["a", "b", "c", "d"], 2, Val{:repeated})) == Array{String,1}
 
     @test collect(combinations(["a", "b"], 3, Val{:repeated})) == Array[
         ["a", "a", "a"],
@@ -56,7 +56,7 @@ function test_combination_combinations_with_repetition()
 end
 
 function test_combination_combinations_unknown_mode()
-    @test_throws MethodError combinations(["a", "b", "c", "d"], 2, Val{:unknown})
+    @test_throws ErrorException combinations(["a", "b", "c", "d"], 2, Val{:unknown})
 end
 
 function test_combination_all()

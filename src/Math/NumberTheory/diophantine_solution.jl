@@ -150,6 +150,7 @@ Base.next(it::OneX_AnyY, state) = begin
     s, nextstate(state)
 end
 Base.done(::OneX_AnyY, _) = false
+Base.iteratorsize(::OneX_AnyY) = Base.IsInfinite()
 
 Base.start(it::AnyX_OneY) = zero(it.y)
 Base.next(it::AnyX_OneY, state) = begin
@@ -157,6 +158,7 @@ Base.next(it::AnyX_OneY, state) = begin
     s, nextstate(state)
 end
 Base.done(::AnyX_OneY, _) = false
+Base.iteratorsize(::AnyX_OneY) = Base.IsInfinite()
 
 Base.start(it::LinearXLinearY) = zero(it.mx)
 Base.next(it::LinearXLinearY, state) = begin
@@ -164,6 +166,7 @@ Base.next(it::LinearXLinearY, state) = begin
     s, nextstate(state)
 end
 Base.done(::LinearXLinearY, _) = false
+Base.iteratorsize(::LinearXLinearY) = Base.IsInfinite()
 
 Base.start(it::QuadraticXQuadraticY) = zero(it.ax)
 Base.next(it::QuadraticXQuadraticY, state) = begin
@@ -171,5 +174,6 @@ Base.next(it::QuadraticXQuadraticY, state) = begin
     s, nextstate(state)
 end
 Base.done(::QuadraticXQuadraticY, _) = false
+Base.iteratorsize(::QuadraticXQuadraticY) = Base.IsInfinite()
 
 nextstate(state::Integer) = state <= zero(state) ? abs(state) + one(state) : -state

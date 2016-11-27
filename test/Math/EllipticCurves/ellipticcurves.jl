@@ -71,9 +71,9 @@ function test_wnf_polyZZp()
     @test  4p == point(c, 3 + 2t, 4 + 4t)
     @test  9p == ideal(c)
 
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 8)  == ([(i*p).x => i for i in 1:4], 0, 8p)
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 9)  == ([(i*p).x => i for i in 1:4], 9, ideal(c))
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == ([(i*p).x => i for i in 1:4], 9, ideal(c))
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 8)  == (Dict((i*p).x => i for i in 1:4), 0, 8p)
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 9)  == (Dict((i*p).x => i for i in 1:4), 9, ideal(c))
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == (Dict((i*p).x => i for i in 1:4), 9, ideal(c))
 end
 
 function test_wnf_group()
@@ -166,9 +166,9 @@ function test_gwnf_polyZZp()
     @test  4p == point(c, 3 + 2t, 4 + 4t)
     @test  9p == ideal(c)
 
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 8)  == ([(i*p).x => i for i in 1:4], 0, 8p)
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 9)  == ([(i*p).x => i for i in 1:4], 9, ideal(c))
-    @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == ([(i*p).x => i for i in 1:4], 9, ideal(c))
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 8)  == (Dict((i*p).x => i for i in 1:4), 0, 8p)
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 9)  == (Dict((i*p).x => i for i in 1:4), 9, ideal(c))
+    @test Brainstorm.Math.EllipticCurves.logpx(p, 10) == (Dict((i*p).x => i for i in 1:4), 9, ideal(c))
 end
 
 #=

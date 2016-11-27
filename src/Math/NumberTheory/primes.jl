@@ -1,6 +1,5 @@
 export
     fastprimes,
-    PRIMES,
     maskprimes,
     twinprimes,
     coprime, eulerphi
@@ -26,8 +25,6 @@ else
     fastprimes() = false
     include("Primes/nativereexport.jl")
 end
-
-const PRIMES = Base.PRIMES
 
 Base.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
 

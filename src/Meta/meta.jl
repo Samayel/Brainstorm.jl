@@ -7,8 +7,6 @@ export @pipe
 
 @reexport using Memoize
 
-include("functor.jl")
-
 export
     @testtimed,
     get_jl_filenames

@@ -37,12 +37,6 @@ npv(flow, rate) = sum([p.amount / (1 + rate)^p.date for p in flow])
 npv{T<:Real}(cf::CashFlow{T}, rate::T) = npv(cf.flow, rate)
 npv{T<:Real}(cf::CashFlow, rate::T) = npv(convert(CashFlow{T}, cf), rate)
 
-irr(flow, r0) = fzero(NPVFun(flow), r0)
+irr(flow, r0) = fzero(r -> npv(flow, r), r0)
 irr{T<:Real}(cf::CashFlow{T}, r0::T = 0.1) = irr(cf.flow, r0)
 irr{T<:Real}(cf::CashFlow, r0::T = 0.1) = irr(convert(CashFlow{T}, cf), r0)
-
-
-immutable NPVFun{T} <: Base.Func{1}
-    flow::T
-end
-call(f::NPVFun, r) = npv(f.flow, r)

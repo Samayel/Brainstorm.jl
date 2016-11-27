@@ -4,9 +4,9 @@ one(a::GroupElem) = one(parent(a))
 # http://sagenb.org/src/groups/generic.py
 multiple(a::GroupElem, n::Integer, op) = begin
     if op === +
-        return multiple(a, n, AddFun(), NegFun(), zero(a))
+        return multiple(a, n, +, x -> -x, zero(a))
     elseif op === *
-        return multiple(a, n, MulFun(), InvFun(), one(a))
+        return multiple(a, n, *, inv, one(a))
     else
         throw(MethodError())
     end

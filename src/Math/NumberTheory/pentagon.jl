@@ -13,7 +13,7 @@ nthpentagonal(n::Integer) = (n * (3n-1)) ÷ 2
 npentagonal(n::Int, T::Type = Int) = collect(exactpentagonal(n, T))
 
 allpentagonal(T::Type = Int) = PentagonalIterator{T}()
-somepentagonal{T<:Integer}(xmax::T) = @pipe allpentagonal(T) |> takewhile(Functor.leq(xmax), _)
+somepentagonal{T<:Integer}(xmax::T) = @pipe allpentagonal(T) |> takewhile(x -> x <= xmax, _)
 exactpentagonal(n::Int, T::Type = Int) = @pipe allpentagonal(T) |> take(_, n)
 
 immutable PentagonalIterator{T<:Integer}
@@ -29,3 +29,5 @@ Base.done(::PentagonalIterator, _) = false
 
 Base.eltype(it::PentagonalIterator) = Base.eltype(typeof(it))
 Base.eltype{T<:Integer}(::Type{PentagonalIterator{T}}) = T
+
+Base.iteratorsize(::PentagonalIterator) = Base.IsInfinite()

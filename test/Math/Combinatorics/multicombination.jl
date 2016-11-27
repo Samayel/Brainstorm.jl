@@ -11,7 +11,7 @@ function test_multicombination_combinations()
         ["a", "a", "b"],
     ]
     @test length(combinations(["a", "b"], [2, 1], 3)) == 1
-    @test eltype(combinations(["a", "b"], [2, 1], 3)) == Array{ASCIIString,1}
+    @test eltype(combinations(["a", "b"], [2, 1], 3)) == Array{String,1}
 
     @test collect(combinations(["a", "b"], [3, 2], 3)) == Array[
         ["a", "a", "a"],
@@ -19,7 +19,7 @@ function test_multicombination_combinations()
         ["a", "b", "b"],
     ]
     @test length(combinations(["a", "b"], [3, 2], 3)) == 3
-    @test eltype(combinations(["a", "b"], [3, 2], 3)) == Array{ASCIIString,1}
+    @test eltype(combinations(["a", "b"], [3, 2], 3)) == Array{String,1}
 
     @test collect(combinations(["P", "O", "E", "S"], [1, 1, 2, 5], 4)) == Array[
         ["P", "O", "E", "E"],
@@ -36,7 +36,7 @@ function test_multicombination_combinations()
         ["S", "S", "S", "S"],
     ]
     @test length(combinations(["P", "O", "E", "S"], [1, 1, 2, 5], 4)) == 12
-    @test eltype(combinations(["P", "O", "E", "S"], [1, 1, 2, 5], 4)) == Array{ASCIIString,1}
+    @test eltype(combinations(["P", "O", "E", "S"], [1, 1, 2, 5], 4)) == Array{String,1}
 end
 
 function test_multicombination_all()

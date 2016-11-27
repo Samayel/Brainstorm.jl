@@ -4,6 +4,9 @@ using Brainstorm.Math.NumberTheory.Primes
 using Brainstorm: dropwhile
 using Base.Test
 
+import Primes: PRIMES
+
+
 function test_factorization()
     @test factorization(147573952589676412927) ==
         Dict{Int64,Int}(193707721 => 1, 761838257287 => 1)
@@ -37,14 +40,14 @@ end
 
 function test_nextprime()
     @test [nextprime(i) for i in -1:100] ==
-        [first(dropwhile(p -> p <= i, Base.PRIMES)) for i in -1:100]
+        [first(dropwhile(p -> p <= i, Primes.PRIMES)) for i in -1:100]
 end
 
 function test_prevprime()
     @test prevprime(0) == 0
     @test prevprime(2) == 0
     @test [prevprime(i) for i in 3:100] ==
-        [first(dropwhile(p -> p >= i, reverse(Base.PRIMES))) for i in 3:100]
+        [first(dropwhile(p -> p >= i, reverse(Primes.PRIMES))) for i in 3:100]
 end
 
 function test_nprimes()
