@@ -5,18 +5,6 @@ using Reexport.@reexport
 import Base: getindex, push!, pop!
 import Nemo: cols, rows
 
-@reexport using Base.Dates
-
-@reexport using AutoHashEquals
-@reexport using DataStructures
-@reexport using FunctionalCollections
-@reexport using ImmutableArrays
-@reexport using IndexedArrays
-@reexport using Iterators
-@reexport using Lazy
-@reexport using LightGraphs
-@reexport using Lists
-
 export
     flatten
 

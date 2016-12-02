@@ -12,8 +12,6 @@ using Roots: fzeros
 
 import Base: ==
 
-@reexport using Digits
-
 include("primes.jl")
 include("factor.jl")
 include("mod.jl")

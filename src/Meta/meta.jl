@@ -1,11 +1,6 @@
 @reexport module Meta
 
-using Pipe: @pipe
 using Reexport: @reexport
-
-export @pipe
-
-@reexport using Memoize
 
 export
     @testtimed,

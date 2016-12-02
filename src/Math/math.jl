@@ -2,12 +2,7 @@
 
 using Reexport.@reexport
 
-import DataStructures: add!
-import Nemo: sub!, mul!
-
-@reexport using Nemo
-@reexport using StatsFuns
-@reexport using ValidatedNumerics
+import Nemo: add!, sub!, mul!
 
 export
     checked_add, checked_sub,

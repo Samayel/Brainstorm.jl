@@ -1,9 +1,5 @@
 @reexport module Algorithm
 
-using Reexport.@reexport
-
-@reexport using SortingAlgorithms
-
 export @forcartesian
 
 # https://github.com/timholy/Cartesian.jl/blob/master/src/compat.jl
