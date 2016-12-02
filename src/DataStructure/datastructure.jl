@@ -1,7 +1,5 @@
 @reexport module DataStructure
 
-using Reexport.@reexport
-
 import Base: getindex, push!, pop!
 import Nemo: cols, rows
 

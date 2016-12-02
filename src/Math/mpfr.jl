@@ -1,11 +1,10 @@
 @reexport module MPFR
 
+import Base.GMP: ClongMax, CulongMax, CdoubleMax
+import Base.MPFR: ROUNDING_MODE
 import Brainstorm.Math.GMP: set!, add!, mul!, sub!, neg!, pow!, lsh!, rsh!
 
 export fma!, sqrt!, exp!, exp2!, exp10!, precision!
-
-import Base.GMP: ClongMax, CulongMax, CdoubleMax
-import Base.MPFR: ROUNDING_MODE
 
 function set!(x::BigFloat, y::BigFloat)
     ccall((:mpfr_set, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Int32), &x, &y, ROUNDING_MODE[])

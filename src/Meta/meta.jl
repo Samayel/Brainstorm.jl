@@ -1,7 +1,5 @@
 @reexport module Meta
 
-using Reexport: @reexport
-
 export
     @testtimed,
     get_jl_filenames

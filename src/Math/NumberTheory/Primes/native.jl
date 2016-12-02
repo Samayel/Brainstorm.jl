@@ -1,12 +1,12 @@
-using Brainstorm: takewhile
-using Pipe.@pipe
-
 export
     factorization,
     genprimes, countprimes, primepi,
     nextprime, prevprime,
     nprimes, nthprime,
     allprimes, someprimes
+
+using Brainstorm: takewhile
+using Pipe: @pipe
 
 factorization(n::Integer) = Base.factor(n)
 

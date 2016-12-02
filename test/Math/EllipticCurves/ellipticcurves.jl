@@ -2,6 +2,7 @@ module EllipticCurves
 
 using Base.Test
 using Brainstorm
+using Nemo
 
 function test_wnf_ZZ()
     @test curve(17, 1) == Brainstorm.Math.EllipticCurves.WNFCurve(17, 1)

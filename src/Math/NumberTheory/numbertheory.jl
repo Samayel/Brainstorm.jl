@@ -1,5 +1,7 @@
 @reexport module NumberTheory
 
+import Base: ==
+
 using Brainstorm: flatten, takewhile
 using Brainstorm.Math: checked_add, checked_sub
 using AutoHashEquals: @auto_hash_equals
@@ -9,8 +11,6 @@ using Lists: List, ListNode
 using Pipe: @pipe
 using Reexport: @reexport
 using Roots: fzeros
-
-import Base: ==
 
 include("primes.jl")
 include("factor.jl")

@@ -1,5 +1,4 @@
-export
-    factorization
+export factorization
 
 const FACTORIZATION_THRESHOLD = typemax(Int32)
 

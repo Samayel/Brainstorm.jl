@@ -20,7 +20,6 @@ before_install:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia -e 'Pkg.clone(pwd()); Pkg.build("Brainstorm")'
-  - julia -e 'using LightGraphs'       # trigger precompilation of ParserCombinator
   - julia --check-bounds=yes -e 'Pkg.test("Brainstorm"; coverage=true)'
 after_success:
   - julia -e '@linux_only Pkg.add("Coverage")'

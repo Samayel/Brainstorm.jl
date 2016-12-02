@@ -1,14 +1,11 @@
 @reexport module Combinatorics
 
-using Reexport.@reexport
+export multinomial
 
 using Brainstorm: flatten
 using Nemo: QQ, ZZ, PowerSeriesRing, coeff, divexact, fac
 using Combinatorics: factorial
 using Multicombinations: multicombinations
-
-export
-    multinomial
 
 # Multinomial coefficient where n = sum(k)
 # https://github.com/jiahao/Combinatorics.jl/blob/master/src/Combinatorics.jl

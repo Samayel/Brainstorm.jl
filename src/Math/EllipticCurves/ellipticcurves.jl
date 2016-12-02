@@ -4,17 +4,15 @@
 # http://jeremykun.com/2014/02/24/elliptic-curves-as-python-objects/
 # http://jeremykun.com/2014/03/19/connecting-elliptic-curves-with-finite-fields-a-reprise/
 
-using Reexport.@reexport
-
-export curve, point, samecurve, ideal, ring, field, isideal
-
 import Base: +, -, *, show, rand, in
 import Nemo: divexact, contains, order, gen
 
-using AutoHashEquals
+export curve, point, samecurve, ideal, ring, field, isideal
+
+using AutoHashEquals: @auto_hash_equals
 using Brainstorm.Math: factorization, factors
-using Nemo
-using Nemo: FinFieldElem
+using Nemo: FieldElem, FinFieldElem, RingElem, root
+using Reexport: @reexport
 
 divexact(x::Number, y::Number) = x / y
 

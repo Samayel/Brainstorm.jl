@@ -1,7 +1,5 @@
 @reexport module Math
 
-using Reexport.@reexport
-
 import Nemo: add!, sub!, mul!
 
 export
@@ -9,6 +7,8 @@ export
     setbits,
     @activate_mathematica,
     @activate_matlab
+
+using Reexport: @reexport
 
 checked_add(a::Number, b::Number) = checked_add(promote(a, b)...)
 checked_add{T<:Number}(a::T, b::T) = Base.checked_add(a, b)
