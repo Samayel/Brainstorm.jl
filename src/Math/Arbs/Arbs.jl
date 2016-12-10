@@ -3,8 +3,9 @@
 
 
 
-import Base: one, show, zero
+import Base: convert, one, show, zero
 
+using Brainstorm.Math.MPFR: MPFR_RNDD, MPFR_RNDU
 using Nemo
 using Nemo: _arb_set, arf_struct
 
@@ -35,25 +36,24 @@ include("arb_calc.jl")
 
 
 
-# func(x, o) = begin
-#     α = sin(x)
-#     β = (o > 1) ? cos(x) : zero(x)
-#     α, β
-# end
 
-# r = arf_interval()
-# start = arf_interval()
-# arf_set_si(start.a, 1)
-# arf_set_si(start.b, 4)
 
-# iter = 100
-# prec = 512
-# arbParent = ArbField(prec)
 
-# res = arb_calc_refine_root_bisect(r, func, start, iter, arbParent)
-# arf_interval_printd(r, 1000)
 
-# a, b = ArbField(2*prec)(), ArbField(2*prec)()
-# arb_set_arf(a, r.a)
-# arb_set_arf(b, r.b)
-# [sin(a), sin(b)]
+func(x, o) = begin
+    α = sin(x)
+    β = o > 1 ? cos(x) : zero(x)
+    α, β
+end
+
+arbParent = ArbField()
+
+interv = (big(-1.0), big(10.0))
+maxdepth = 100
+maxeval = 100000
+maxfound = 100
+iter = 10000
+
+α = arb_calc_isolate_roots(func, interv, maxdepth, maxeval, maxfound, arbParent, true)
+β = [arb_calc_refine_root_bisect(func, x, iter, arbParent) for x in α[1]]
+γ = [(func(x[1], 1)[1], func(x[2], 1)[1]) for (_, x) in β]

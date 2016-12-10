@@ -6,6 +6,12 @@ import Brainstorm.Math.GMP: set!, add!, mul!, sub!, neg!, pow!, lsh!, rsh!
 
 export fma!, sqrt!, exp!, exp2!, exp10!, precision!
 
+const MPFR_RNDN = 0
+const MPFR_RNDZ = 1
+const MPFR_RNDU = 2
+const MPFR_RNDD = 3
+const MPFR_RNDA = 4
+
 function set!(x::BigFloat, y::BigFloat)
     ccall((:mpfr_set, :libmpfr), Int32, (Ptr{BigFloat}, Ptr{BigFloat}, Int32), &x, &y, ROUNDING_MODE[])
     return x
