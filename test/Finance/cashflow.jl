@@ -10,7 +10,7 @@ function test_cashflow_irr()
         Payment(Date(2017, 12, 29), 500.0)
     ]
     cf = CashFlow(payments, daycount, evaluationdate)
-    @test irr(cf) == 0.04014237562494847
+    @test_approx_eq irr(cf) 0.040142375624945
 
     daycount = ActualActualISDA()
     evaluationdate = Date(2014, 12, 5)
@@ -23,7 +23,7 @@ function test_cashflow_irr()
         Payment(Date(2018, 12, 3), 1000.0)
     ]
     cf = CashFlow(payments, daycount, evaluationdate)
-    @test irr(cf) == 0.0295076334865826
+    @test_approx_eq irr(cf) 0.029507633486583
 end
 
 function test_cashflow_all()
