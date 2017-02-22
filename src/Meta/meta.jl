@@ -29,7 +29,7 @@ function get_jl_filenames(directory::AbstractString, skipRootFiles = false)
     for entry in readdir(directory)
         path = joinpath(directory, entry)
 
-        isdir(path) && push!(files, get_jl_filenames(path, false)...)
+        isdir(path) && !Base.endswith(path, "/.ipynb_checkpoints") && (files = vcat(files, get_jl_filenames(path, false)))
         skipRootFiles && continue
         !isfile(path) && continue
         !Base.endswith(path, ".jl") && continue
