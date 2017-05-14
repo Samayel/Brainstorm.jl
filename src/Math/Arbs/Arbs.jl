@@ -38,17 +38,19 @@ include("arb_calc.jl")
 
 
 
-
+#ArbRoots
+#- https://github.com/fredrik-johansson/arb/blob/master/examples/real_roots.c
+#- https://wiki.sagemath.org/days4schedule?action=AttachFile&do=get&target=witty.pdf
 
 func(x, o) = begin
-    α = sin(x)
-    β = o > 1 ? cos(x) : zero(x)
+    α = x^995(x^2 - 9999)^2 - 1
+    β = o > 1 ? 4(x^996)(-9999 + x^2) + 995(x^994)(-9999 + x^2)^2 : zero(x)
     α, β
 end
 
-arbParent = ArbField()
+arbParent = ArbField(8192)
 
-interv = (big(-1.0), big(10.0))
+interv = (big(98.0), big(101.0))
 maxdepth = 100
 maxeval = 100000
 maxfound = 100
