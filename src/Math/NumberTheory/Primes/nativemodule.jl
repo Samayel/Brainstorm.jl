@@ -1,4 +1,4 @@
-module Primes
+module _Primes
 
 include("native.jl")
 

@@ -1,6 +1,6 @@
 
-Base.permutations(a, c) = permutations(a, c, sum(c))
-Base.permutations(a, c, k::Integer) = MultisetPermuations(a, c, k)
+Combinatorics.permutations(a, c) = permutations(a, c, sum(c))
+Combinatorics.permutations(a, c, k::Integer) = MultisetPermuations(a, c, k)
 
 immutable MultisetPermuations{T,U,V}
     a::T

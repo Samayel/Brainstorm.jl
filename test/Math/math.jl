@@ -1,6 +1,6 @@
-module Math
+module _Math
 
-using Brainstorm.Math
+using Brainstorm._Math
 using Base.Test
 
 function test_math_setbits()
@@ -33,15 +33,15 @@ function test_all()
     println("PASS")
 
     println("")
-    Series.test_all()
+    _Series.test_all()
     println("")
-    NumberTheory.test_all()
+    _NumberTheory.test_all()
     println("")
-    Combinatorics.test_all()
+    _Combinatorics.test_all()
     println("")
-    Algebra.test_all()
+    _Algebra.test_all()
     println("")
-    EllipticCurves.test_all()
+    _EllipticCurves.test_all()
 end
 
 end

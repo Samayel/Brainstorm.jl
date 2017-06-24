@@ -1,4 +1,4 @@
-@reexport module Finance
+@reexport module _Finance
 
 using Base.Dates: year, month, day
 using Base.Dates: yearmonthday, yearmonth, monthday

@@ -1,4 +1,4 @@
-module Simple
+module _Simple
 
 include("binarysplitting.jl")
 

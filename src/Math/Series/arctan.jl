@@ -1,7 +1,7 @@
-module Arctan
+module _Arctan
 
-using Brainstorm.DataStructure: PreAllocatedStack
-using Brainstorm.Math.GMP: set!, add!, mul!, div!, pow!
+using Brainstorm._DataStructure: PreAllocatedStack
+using Brainstorm._Math._GMP: set!, add!, mul!, div!, pow!
 
 const guard_terms = 5
 const guard_digits = 5

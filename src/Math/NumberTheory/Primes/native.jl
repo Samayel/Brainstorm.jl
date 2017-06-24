@@ -5,10 +5,13 @@ export
     nprimes, nthprime,
     allprimes, someprimes
 
+import Primes
+
 using Brainstorm: takewhile
 using Pipe: @pipe
+using Primes: isprime
 
-factorization(n::Integer) = Base.factor(n)
+factorization(n::Integer) = Primes.factor(n)
 
 ##  Eratosthenes' prime number sieve
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
@@ -71,7 +74,7 @@ genprimes(a::Integer, b::Integer) = primesieve(a, b)
 genprimes(b::Integer) = primesieve(b)
 
 countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
-countprimes{T<:Integer}(a::T, b::T) = @pipe Base.primesmask(b) |> count((i, x) -> x && (i >= a), _)
+countprimes{T<:Integer}(a::T, b::T) = @pipe Primes.primesmask(b) |> count((i, x) -> x && (i >= a), _)
 primepi(n::Integer) = countprimes(2, n)
 
 nprimes(n::Integer) = primesieve(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]

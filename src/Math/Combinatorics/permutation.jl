@@ -1,10 +1,10 @@
 
-# permutations(a) = Base.permutations(a)
+# permutations(a) = Combinatorics.permutations(a)
 
-Base.permutations(a, mode::Type{Val{:unique}}) = permutations(a, length(a), mode)
-Base.permutations(a, mode::Type{Val{:repeated}}) = permutations(a, length(a), mode)
-Base.permutations{T}(a::T, k::Integer, ::Type{Val{:unique}}) = Permutations{T, Val{:unique}}(a, k)
-Base.permutations{T}(a::T, k::Integer, ::Type{Val{:repeated}}) = Permutations{T, Val{:repeated}}(a, k)
+Combinatorics.permutations(a, mode::Type{Val{:unique}}) = permutations(a, length(a), mode)
+Combinatorics.permutations(a, mode::Type{Val{:repeated}}) = permutations(a, length(a), mode)
+Combinatorics.permutations{T}(a::T, k::Integer, ::Type{Val{:unique}}) = Permutations{T, Val{:unique}}(a, k)
+Combinatorics.permutations{T}(a::T, k::Integer, ::Type{Val{:repeated}}) = Permutations{T, Val{:repeated}}(a, k)
 
 immutable Permutations{T,M}
     a::T

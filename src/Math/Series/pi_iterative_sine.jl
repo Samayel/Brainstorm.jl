@@ -1,6 +1,6 @@
-module Sine
+module _Sine
 
-using Brainstorm.Math.MPFR: add!, precision!
+using Brainstorm._Math._MPFR: add!, precision!
 
 const guard_digits = 5
 const bits_per_digit = log2(10)

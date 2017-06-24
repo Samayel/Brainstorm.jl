@@ -1,6 +1,6 @@
-module Meta
+module _Meta
 
-using Brainstorm.Meta
+using Brainstorm._Meta
 using Base.Test
 
 function test_all()

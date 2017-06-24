@@ -5,7 +5,7 @@
 
 import Base: convert, one, show, zero
 
-using Brainstorm.Math.MPFR: MPFR_RNDD, MPFR_RNDU
+using Brainstorm._Math._MPFR: MPFR_RNDD, MPFR_RNDU
 using Nemo
 using Nemo: _arb_set, arf_struct
 

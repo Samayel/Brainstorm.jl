@@ -1,4 +1,4 @@
-@reexport module Meta
+@reexport module _Meta
 
 export
     @testtimed,

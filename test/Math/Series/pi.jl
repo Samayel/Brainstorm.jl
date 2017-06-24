@@ -1,6 +1,6 @@
 function test_pi_chudnovsky()
-    simple  = Brainstorm.Math.Series.Pi.Chudnovsky.Simple.pi
-    inplace = Brainstorm.Math.Series.Pi.Chudnovsky.Inplace.pi
+    simple  = Brainstorm._Math._Series._Pi._Chudnovsky._Simple.pi
+    inplace = Brainstorm._Math._Series._Pi._Chudnovsky._Inplace.pi
 
     setprecision(4_000_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000, 1_000_000)]
@@ -11,24 +11,24 @@ function test_pi_chudnovsky()
 end
 
 function test_pi_machin()
-    euler           = Brainstorm.Math.Series.Pi.Machin.euler
-    hermann         = Brainstorm.Math.Series.Pi.Machin.hermann
-    hutton          = Brainstorm.Math.Series.Pi.Machin.hutton
-    machin          = Brainstorm.Math.Series.Pi.Machin.machin
+    euler           = Brainstorm._Math._Series._Pi._Machin.euler
+    hermann         = Brainstorm._Math._Series._Pi._Machin.hermann
+    hutton          = Brainstorm._Math._Series._Pi._Machin.hutton
+    machin          = Brainstorm._Math._Series._Pi._Machin.machin
 
-    gauss           = Brainstorm.Math.Series.Pi.Machin.gauss
-    strassnitzky    = Brainstorm.Math.Series.Pi.Machin.strassnitzky
-    klingenstierna  = Brainstorm.Math.Series.Pi.Machin.klingenstierna
-    euler3          = Brainstorm.Math.Series.Pi.Machin.euler3
-    loney           = Brainstorm.Math.Series.Pi.Machin.loney
-    stoermer        = Brainstorm.Math.Series.Pi.Machin.stoermer
+    gauss           = Brainstorm._Math._Series._Pi._Machin.gauss
+    strassnitzky    = Brainstorm._Math._Series._Pi._Machin.strassnitzky
+    klingenstierna  = Brainstorm._Math._Series._Pi._Machin.klingenstierna
+    euler3          = Brainstorm._Math._Series._Pi._Machin.euler3
+    loney           = Brainstorm._Math._Series._Pi._Machin.loney
+    stoermer        = Brainstorm._Math._Series._Pi._Machin.stoermer
 
-    takano1982      = Brainstorm.Math.Series.Pi.Machin.takano1982
-    stoermer1896    = Brainstorm.Math.Series.Pi.Machin.stoermer1896
+    takano1982      = Brainstorm._Math._Series._Pi._Machin.takano1982
+    stoermer1896    = Brainstorm._Math._Series._Pi._Machin.stoermer1896
 
-    hwang1997       = Brainstorm.Math.Series.Pi.Machin.hwang1997
-    hwang2003       = Brainstorm.Math.Series.Pi.Machin.hwang2003
-    wetherfield2004 = Brainstorm.Math.Series.Pi.Machin.wetherfield2004
+    hwang1997       = Brainstorm._Math._Series._Pi._Machin.hwang1997
+    hwang2003       = Brainstorm._Math._Series._Pi._Machin.hwang2003
+    wetherfield2004 = Brainstorm._Math._Series._Pi._Machin.wetherfield2004
 
     setprecision(40_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]
@@ -55,10 +55,10 @@ function test_pi_machin()
 end
 
 function test_pi_gausslegendre()
-    int_simple    = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Int.Simple.pi
-    int_inplace   = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Int.Inplace.pi
-    float_simple  = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Simple.pi
-    float_inplace = Brainstorm.Math.Series.Pi.Iterative.GaussLegendre.Float.Inplace.pi
+    int_simple    = Brainstorm._Math._Series._Pi._Iterative._GaussLegendre._Int._Simple.pi
+    int_inplace   = Brainstorm._Math._Series._Pi._Iterative._GaussLegendre._Int._Inplace.pi
+    float_simple  = Brainstorm._Math._Series._Pi._Iterative._GaussLegendre._Float._Simple.pi
+    float_inplace = Brainstorm._Math._Series._Pi._Iterative._GaussLegendre._Float._Inplace.pi
 
     setprecision(400_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000, 100_000)]
@@ -71,7 +71,7 @@ function test_pi_gausslegendre()
 end
 
 function test_pi_sine()
-    sine = Brainstorm.Math.Series.Pi.Iterative.Sine.pi
+    sine = Brainstorm._Math._Series._Pi._Iterative._Sine.pi
 
     setprecision(40_000) do
         expected = [trunc(BigInt, pi*(big(10)^d)) for d in (1, 10, 100, 1_000, 10_000)]

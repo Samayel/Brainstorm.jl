@@ -1,6 +1,6 @@
-module Finance
+module _Finance
 
-using Brainstorm.Finance
+using Brainstorm._Finance
 using Base.Test
 
 include("daycount.jl")

@@ -1,4 +1,4 @@
-module Test
+module _Test
 
 using Base.Test
 # using Lint.lintpkg
@@ -10,11 +10,11 @@ include("Math/math.jl")
 include("Finance/finance.jl")
 
 function test()
-    Meta.test_all()
-    DataStructure.test_all()
-    Algorithm.test_all()
-    Math.test_all()
-    Finance.test_all()
+    _Meta.test_all()
+    _DataStructure.test_all()
+    _Algorithm.test_all()
+    _Math.test_all()
+    _Finance.test_all()
 
     println("")
 

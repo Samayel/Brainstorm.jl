@@ -1,4 +1,4 @@
-@reexport module Algorithm
+@reexport module _Algorithm
 
 export @forcartesian
 

@@ -1,3 +1,3 @@
 using Brainstorm
 
-Brainstorm.Test.test()
+Brainstorm._Test.test()

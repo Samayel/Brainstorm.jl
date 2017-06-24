@@ -1,6 +1,6 @@
-module Algorithm
+module _Algorithm
 
-using Brainstorm.Algorithm
+using Brainstorm._Algorithm
 using Base.Test
 
 include("binarysearch.jl")

@@ -60,11 +60,16 @@ end
 solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
-    f(t) = (cxy^2 - 4*cx²*cy²)*t^2 + 2(cxy*cy - 2*cy²*cx)*t + (cy^2 - 4*cy²*c0)
-    z = map(x -> Base.trunc(T, x), fzeros(f))
+    # f(t) = (cxy^2 - 4*cx²*cy²)*t^2 + 2(cxy*cy - 2*cy²*cx)*t + (cy^2 - 4*cy²*c0)
+    fa = (cxy^2 - 4*cx²*cy²)
+    fb = (cxy*cy - 2*cy²*cx)
+    fc = (cy^2 - 4*cy²*c0)
+    f(t) = fa*t^2 + 2*fb*t + fc
+    D = fb^2 - fa*fc
 
-    isempty(z) && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[diophantine_nonex_noney(T)]
+    D < 0 && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[diophantine_nonex_noney(T)]
 
+    z = map(x -> Base.trunc(T, x), Float64[(-fb-sqrt(D)) / fa, (-fb+sqrt(D)) / fa])
     xytuples = Tuple{T,T}[]
 
     sort!(z)
@@ -94,15 +99,22 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     a, b, c = cx² ÷ g, cxy ÷ g, cy² ÷ g
     ra, rc = isqrt(a), copysign(isqrt(c), b)
 
-    f(t) = ra * g * t^2 + cx * t + ra * c0
+    fa = ra * g
+    fb = cx
+    fc = ra * c0
+    f(t) = fa * t^2 + fb * t + fc
 
     d = rc * cx - ra * cy
     if d == 0
-        u = map(x -> Base.trunc(T, x), fzeros(f))
+        D = fb^2 - 4*fa*fc
+        if D < 0
+            push!(solutions, diophantine_nonex_noney(T))
+        else
+            u = map(x -> Base.trunc(T, x), Float64[(-fb-sqrt(D)) / (2*fa), (-fb+sqrt(D)) / (2*fa)])
 
-        isempty(u) && push!(solutions, diophantine_nonex_noney(T))
-        for v in u
-            f(v) == 0 && push!(solutions, solve(diophantine_equation_linear_xy(cx=ra, cy=rc, c0=-v)))
+            for v in unique(u)
+                f(v) == 0 && push!(solutions, solve(diophantine_equation_linear_xy(cx=ra, cy=rc, c0=-v)))
+            end
         end
     else
         for u in 0:(abs(d) - 1)

@@ -1,6 +1,6 @@
-module Machin
+module _Machin
 
-using Brainstorm.Math.Series.Arctan: arctansum
+using Brainstorm._Math._Series._Arctan: arctansum
 
 euler(digits::Integer)           = arctansum(digits, [2,   3], 4*[1,  1])
 hermann(digits::Integer)         = arctansum(digits, [2,   7], 4*[2, -1])

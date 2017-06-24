@@ -1,7 +1,8 @@
-module NumberTheory
+module _NumberTheory
 
-using Brainstorm.Math.NumberTheory
+using Brainstorm._Math._NumberTheory
 using Base.Test
+using Primes: primes
 
 include("primes.jl")
 include("Primes/native.jl")
@@ -18,7 +19,7 @@ include("diophantine.jl")
 
 function test_all()
     test_primes_all()
-    Primes.test_all()
+    _Primes.test_all()
     test_factor_all()
     test_mod_all()
     test_decimal_all()

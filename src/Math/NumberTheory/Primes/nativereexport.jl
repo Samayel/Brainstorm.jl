@@ -1,4 +1,4 @@
-@reexport module Primes
+@reexport module _Primes
 
 include("native.jl")
 

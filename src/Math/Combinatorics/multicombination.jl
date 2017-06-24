@@ -1,5 +1,5 @@
 
-Base.combinations(a, c, k::Integer) = MultisetCombinations(a, c, k)
+Combinatorics.combinations(a, c, k::Integer) = MultisetCombinations(a, c, k)
 
 immutable MultisetCombinations{T,U,V}
     a::T

@@ -1,4 +1,4 @@
-@reexport module Math
+@reexport module _Math
 
 import Nemo: add!, sub!, mul!
 

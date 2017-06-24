@@ -1,16 +1,17 @@
-@reexport module NumberTheory
+@reexport module _NumberTheory
 
 import Base: ==
+import Primes
 
 using Brainstorm: flatten, takewhile
-using Brainstorm.Math: checked_add, checked_sub
+using Brainstorm._Math: checked_add, checked_sub
 using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using Iterators: chain, cycle, drop, imap, take
 using Lists: List, ListNode
 using Pipe: @pipe
+using Primes: isprime
 using Reexport: @reexport
-using Roots: fzeros
 
 include("primes.jl")
 include("factor.jl")

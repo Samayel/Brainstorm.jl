@@ -1,10 +1,12 @@
-@reexport module Combinatorics
+@reexport module _Combinatorics
 
-export multinomial
+export combinations, multinomial, nthperm, permutations
+
+import Combinatorics
 
 using Brainstorm: flatten
 using Nemo: QQ, ZZ, PowerSeriesRing, coeff, divexact, fac
-using Combinatorics: factorial
+using Combinatorics: combinations, factorial, nthperm, permutations
 using Multicombinations: multicombinations
 
 # Multinomial coefficient where n = sum(k)

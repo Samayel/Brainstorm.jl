@@ -1,6 +1,6 @@
-module Simple
+module _Simple
 
-using Brainstorm.Algorithm: binarysearch
+using Brainstorm._Algorithm: binarysearch
 
 include("binarysplitting.jl")
 

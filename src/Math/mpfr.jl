@@ -1,8 +1,8 @@
-@reexport module MPFR
+@reexport module _MPFR
 
 import Base.GMP: ClongMax, CulongMax, CdoubleMax
 import Base.MPFR: ROUNDING_MODE
-import Brainstorm.Math.GMP: set!, add!, mul!, sub!, neg!, pow!, lsh!, rsh!
+import Brainstorm._Math._GMP: set!, add!, mul!, sub!, neg!, pow!, lsh!, rsh!
 
 export fma!, sqrt!, exp!, exp2!, exp10!, precision!
 

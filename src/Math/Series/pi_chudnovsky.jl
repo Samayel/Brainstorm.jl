@@ -1,4 +1,4 @@
-module Chudnovsky
+module _Chudnovsky
 
 include("pi_chudnovsky_simple.jl")
 include("pi_chudnovsky_inplace.jl")

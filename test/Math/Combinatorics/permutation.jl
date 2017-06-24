@@ -160,7 +160,7 @@ function test_permutation_kpermutations_with_repetition()
 end
 
 function test_permutation_kpermutations_unknown_mode()
-    @test_throws ErrorException permutations(["a", "b", "c", "d"], 2, Val{:unknown})
+    @test_throws MethodError permutations(["a", "b", "c", "d"], 2, Val{:unknown})
 end
 
 function test_permutation_all()

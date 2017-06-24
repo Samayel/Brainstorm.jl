@@ -1,4 +1,5 @@
 export
+    isprime,
     fastprimes,
     maskprimes,
     twinprimes,
@@ -26,9 +27,9 @@ else
     include("Primes/nativereexport.jl")
 end
 
-Base.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
+Primes.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
 
-maskprimes(n::Integer) = Base.primesmask(n)
+maskprimes(n::Integer) = Primes.primesmask(n)
 
 ##  Find all twin primes
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl

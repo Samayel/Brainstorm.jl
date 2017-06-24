@@ -1,4 +1,4 @@
-@reexport module Series
+@reexport module _Series
 
 include("binarysplitting.jl")
 

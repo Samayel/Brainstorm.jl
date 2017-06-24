@@ -1,4 +1,4 @@
-module Pi
+module _Pi
 
 include("pi_chudnovsky.jl")
 include("pi_machin.jl")

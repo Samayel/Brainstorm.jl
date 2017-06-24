@@ -1,6 +1,6 @@
-module Machin
+module _Machin
 
-using Brainstorm.Math.Series.Arctan: arctanhsum
+using Brainstorm._Math._Series._Arctan: arctanhsum
 
 # http://numbers.computation.free.fr/Constants/Log2/log2.html
 ln2_N2a(digits::Integer) = arctanhsum(digits, [5,  7], [2, 2])

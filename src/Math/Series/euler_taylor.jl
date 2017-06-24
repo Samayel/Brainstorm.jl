@@ -1,4 +1,4 @@
-module Taylor
+module _Taylor
 
 include("euler_taylor_simple.jl")
 include("euler_taylor_inplace.jl")

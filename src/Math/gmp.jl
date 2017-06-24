@@ -1,7 +1,7 @@
-@reexport module GMP
+@reexport module _GMP
 
 import Base.GMP: ClongMax, CulongMax, CdoubleMax
-import Brainstorm.Math: add!, sub!, mul!
+import Brainstorm._Math: add!, sub!, mul!
 
 export
     set!,

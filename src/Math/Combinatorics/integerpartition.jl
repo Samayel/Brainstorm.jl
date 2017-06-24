@@ -1,2 +1,2 @@
 
-# partitions(n) = Base.partitions(n)
+# partitions(n) = Combinatorics.partitions(n)

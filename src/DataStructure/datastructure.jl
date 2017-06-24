@@ -1,4 +1,4 @@
-@reexport module DataStructure
+@reexport module _DataStructure
 
 import Base: getindex, push!, pop!
 import Nemo: cols, rows

@@ -1,8 +1,8 @@
-module DataStructure
+module _DataStructure
 
-import Brainstorm.DataStructure: create, combine
+import Brainstorm._DataStructure: create, combine
 
-using Brainstorm.DataStructure
+using Brainstorm._DataStructure
 using Base.Test
 
 include("iterator.jl")

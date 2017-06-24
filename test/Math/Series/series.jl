@@ -1,4 +1,4 @@
-module Series
+module _Series
 
 using Brainstorm
 using Base.Test

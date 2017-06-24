@@ -3,7 +3,7 @@ export factorization
 const FACTORIZATION_THRESHOLD = typemax(Int32)
 
 factorization(n::Integer) = n < FACTORIZATION_THRESHOLD ?
-    Base.factor(n) :
+    Primes.factor(n) :
     mfactor(n)
 
 Base.eltype(it::PrimeSieve.PrimeInfIt) = Base.eltype(typeof(it))

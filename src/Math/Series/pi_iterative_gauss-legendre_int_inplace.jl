@@ -1,6 +1,6 @@
-module Inplace
+module _Inplace
 
-using Brainstorm.Math.GMP: set!, add!, sub!, mul!, div!, neg!, isqrt!, rsh!, lsh!
+using Brainstorm._Math._GMP: set!, add!, sub!, mul!, div!, neg!, isqrt!, rsh!, lsh!
 
 const guard_digits = 5
 const eps_digits = 5

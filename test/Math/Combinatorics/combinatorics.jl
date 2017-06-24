@@ -1,6 +1,6 @@
-module Combinatorics
+module _Combinatorics
 
-using Brainstorm.Math.Combinatorics
+using Brainstorm._Math._Combinatorics
 using Base.Test
 
 include("permutation.jl")

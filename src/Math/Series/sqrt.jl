@@ -1,6 +1,6 @@
-module Sqrt
+module _Sqrt
 
-using Brainstorm.Math.GMP: set!, add!, mul!, neg!, lsh!, rsh!
+using Brainstorm._Math._GMP: set!, add!, mul!, neg!, lsh!, rsh!
 
 const bits_per_digit = log2(10)
 const guard_rounds = 1

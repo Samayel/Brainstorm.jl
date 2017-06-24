@@ -1,10 +1,9 @@
-module Primes
+module _Primes
 
-using Brainstorm.Math.NumberTheory.Primes
+using Brainstorm._Math._NumberTheory._Primes
 using Brainstorm: dropwhile
 using Base.Test
-
-import Primes: PRIMES
+using Primes: primes, PRIMES
 
 
 function test_factorization()
@@ -22,7 +21,7 @@ function test_genprimes()
     @test genprimes(10, 20) == [11, 13, 17, 19]
     @test genprimes(11, 19) == [11, 13, 17, 19]
     @test genprimes(1000, 1100) == [1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097]
-    @test genprimes(10^6) == Base.primes(10^6)
+    @test genprimes(10^6) == primes(10^6)
     @test eltype(genprimes(10)) == typeof(2)
     @test eltype(genprimes(10, 20)) == typeof(11)
 end
@@ -40,14 +39,14 @@ end
 
 function test_nextprime()
     @test [nextprime(i) for i in -1:100] ==
-        [first(dropwhile(p -> p <= i, Primes.PRIMES)) for i in -1:100]
+        [first(dropwhile(p -> p <= i, PRIMES)) for i in -1:100]
 end
 
 function test_prevprime()
     @test prevprime(0) == 0
     @test prevprime(2) == 0
     @test [prevprime(i) for i in 3:100] ==
-        [first(dropwhile(p -> p >= i, reverse(Primes.PRIMES))) for i in 3:100]
+        [first(dropwhile(p -> p >= i, reverse(PRIMES))) for i in 3:100]
 end
 
 function test_nprimes()

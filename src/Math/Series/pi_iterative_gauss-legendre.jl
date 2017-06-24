@@ -1,4 +1,4 @@
-module GaussLegendre
+module _GaussLegendre
 
 # http://www.johndcook.com/blog/2012/06/03/calculating-pi-with-agm-and-mpmath/
 # http://numbers.computation.free.fr/Constants/Pi/iterativePi.html

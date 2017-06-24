@@ -1,4 +1,4 @@
-module Simple
+module _Simple
 
 const guard_digits = 5
 const eps_digits = 5

@@ -1,4 +1,4 @@
-module Algebra
+module _Algebra
 
 using Base.Test
 using Brainstorm

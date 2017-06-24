@@ -1,7 +1,7 @@
-module Inplace
+module _Inplace
 
-using Brainstorm.DataStructure: PreAllocatedStack
-using Brainstorm.Math.GMP: set!, add!, mul!, div!, neg!, pow!, isqrt!
+using Brainstorm._DataStructure: PreAllocatedStack
+using Brainstorm._Math._GMP: set!, add!, mul!, div!, neg!, pow!, isqrt!
 
 include("binarysplitting.jl")
 
