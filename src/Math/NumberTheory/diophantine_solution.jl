@@ -20,7 +20,7 @@ export
     diophantine_quadraticx_quadraticy
 
 
-abstract AbstractDiophantineSolution{T<:Integer}
+abstract type AbstractDiophantineSolution{T<:Integer} end
 
 @auto_hash_equals immutable DiophantineSolutionXY{T<:Integer} <: AbstractDiophantineSolution{T}
     x::T
@@ -28,14 +28,14 @@ abstract AbstractDiophantineSolution{T<:Integer}
 end
 
 
-abstract AbstractDiophantineSolutions{T<:AbstractDiophantineSolution}
+abstract type AbstractDiophantineSolutions{T<:AbstractDiophantineSolution} end
 
 @auto_hash_equals immutable DiophantineSolutions{T<:AbstractDiophantineSolution} <: AbstractDiophantineSolutions{T}
     solutions::Array{T,1}
 end
 
 
-abstract AbstractDiophantineSolutionsXY{T<:Integer} <: AbstractDiophantineSolutions{DiophantineSolutionXY{T}}
+abstract type AbstractDiophantineSolutionsXY{T<:Integer} <: AbstractDiophantineSolutions{DiophantineSolutionXY{T}} end
 
 immutable DiophantineSolutionsNoneXNoneY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
 end
@@ -68,14 +68,14 @@ end
 end
 
 
-typealias SolutionXY              DiophantineSolutionXY
-typealias Solutions               DiophantineSolutions
-typealias NoneX_NoneY             DiophantineSolutionsNoneXNoneY
-typealias AnyX_AnyY               DiophantineSolutionsAnyXAnyY
-typealias OneX_AnyY               DiophantineSolutionsOneXAnyY
-typealias AnyX_OneY               DiophantineSolutionsAnyXOneY
-typealias LinearXLinearY          DiophantineSolutionsLinearXLinearY
-typealias QuadraticXQuadraticY    DiophantineSolutionsQuadraticXQuadraticY
+const SolutionXY            = DiophantineSolutionXY
+const Solutions             = DiophantineSolutions
+const NoneX_NoneY           = DiophantineSolutionsNoneXNoneY
+const AnyX_AnyY             = DiophantineSolutionsAnyXAnyY
+const OneX_AnyY             = DiophantineSolutionsOneXAnyY
+const AnyX_OneY             = DiophantineSolutionsAnyXOneY
+const LinearXLinearY        = DiophantineSolutionsLinearXLinearY
+const QuadraticXQuadraticY  = DiophantineSolutionsQuadraticXQuadraticY
 
 
 diophantine_solution{T<:Integer}(x::T, y::T) = SolutionXY(x, y)

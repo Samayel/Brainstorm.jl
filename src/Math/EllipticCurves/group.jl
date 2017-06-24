@@ -1,6 +1,6 @@
 @reexport module _GroupAlgorithm
 
-abstract Algorithm
+abstract type Algorithm end
 
 immutable BabyStepGiantStep <: Algorithm end
 immutable PollardRho        <: Algorithm end

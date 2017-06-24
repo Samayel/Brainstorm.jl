@@ -35,7 +35,7 @@ primitive_pythagorean_triples(T::Type = Int) = PrimitivePythagoreanTripleIterato
 primitive_pythagorean_triples{T}(maxperimeter::T) = PrimitivePythagoreanTriplePerimeterIterator{T}(maxperimeter)
 
 
-abstract PrimitivePythagoreanTripleIteratorBase{T<:Integer}
+abstract type PrimitivePythagoreanTripleIteratorBase{T<:Integer} end
 
 immutable PrimitivePythagoreanTripleIterator{T<:Integer} <: PrimitivePythagoreanTripleIteratorBase{T}
 end

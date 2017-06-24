@@ -5,7 +5,7 @@ export
     convergents
 
 
-abstract ContinuedFraction{T<:Integer}
+abstract type ContinuedFraction{T<:Integer} end
 
 @auto_hash_equals immutable NonPeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
     denominators::Array{T,1}
@@ -131,7 +131,7 @@ confrac{T<:Integer}(n::T, δ::T, d::T) = begin
 end
 
 
-abstract ContinuedFractionConvergentsIterator{T<:Integer}
+abstract type ContinuedFractionConvergentsIterator{T<:Integer} end
 
 immutable NonPeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
     cf::NonPeriodicContinuedFraction{T}

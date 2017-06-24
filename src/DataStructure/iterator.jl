@@ -12,7 +12,7 @@ export
 #Base.next(it::Iterators.Repeat{Function}, state) = it.x(), state - 1
 #Base.next(it::Iterators.RepeatForever{Function}, state) = it.x(), nothing
 
-abstract WhileIterator
+abstract type WhileIterator end
 
 immutable TakeWhile{I, F} <: WhileIterator
     xs::I
@@ -98,7 +98,7 @@ Base.length(it::TMap) = minimum(map(length, it.xs))
 
 
 
-abstract NestedIterator
+abstract type NestedIterator end
 
 immutable DefaultNestedIterator{T} <: NestedIterator
     source::T

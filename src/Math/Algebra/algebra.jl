@@ -1,6 +1,6 @@
 @reexport module _Algebra
 
-import Base: call, sqrt, rand, log, zero, one, convert, colon
+import Base: sqrt, rand, log, zero, one, convert, colon
 import Nemo: root, roots
 
 export sqrts, elements, multiple

@@ -1,4 +1,4 @@
-abstract Curve{F}
+abstract type Curve{F} end
 
 # (short) Weierstrass normal form, y² = x³ + ax + b
 @auto_hash_equals immutable WNFCurve{F} <: Curve{F}

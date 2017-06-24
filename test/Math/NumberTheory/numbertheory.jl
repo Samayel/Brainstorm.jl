@@ -2,6 +2,7 @@ module _NumberTheory
 
 using Brainstorm._Math._NumberTheory
 using Base.Test
+using Iterators: take
 using Primes: primes
 
 include("primes.jl")

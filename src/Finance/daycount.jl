@@ -9,13 +9,13 @@ export ActualActualISDA
 
 
 
-abstract DayCountConvention
+abstract type DayCountConvention end
 
-abstract FixedYear{N} <: DayCountConvention
-abstract ActualYear <: DayCountConvention
+abstract type FixedYear{N} <: DayCountConvention end
+abstract type ActualYear <: DayCountConvention end
 
 
-abstract Thirty360 <: FixedYear{360}
+abstract type Thirty360 <: FixedYear{360} end
 
 immutable Thirty360Bond <: Thirty360 end
 immutable Thirty360US <: Thirty360
@@ -27,14 +27,14 @@ immutable ThirtyE360ISDA <: Thirty360
 end
 
 
-abstract ActualFixedYear{N} <: FixedYear{N}
+abstract type ActualFixedYear{N} <: FixedYear{N} end
 
 immutable Actual365Fixed <: ActualFixedYear{365} end
 immutable Actual364 <: ActualFixedYear{364} end
 immutable Actual360 <: ActualFixedYear{360} end
 
 
-abstract ActualActual <: ActualYear
+abstract type ActualActual <: ActualYear end
 
 immutable ActualActualISDA <: ActualActual end
 

@@ -4,8 +4,8 @@
     y::F
 end
 
-typealias ConcretePoint{C,F} Point{false,C,F}
-typealias IdealPoint{C,F}    Point{true, C,F}
+const ConcretePoint{C,F} = Point{false,C,F}
+const IdealPoint{C,F}    = Point{true, C,F}
 
 point{F}(ec::Curve{F}, x, y) = point(ec, convert(F, x), convert(F, y))
 point{F}(ec::Curve{F}, x::F, y::F, valid = false) = begin
