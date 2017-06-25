@@ -3,11 +3,6 @@ end
 
 @lintpragma("Ignore undefined module AutoHashEquals.@auto_hash_equals")
 @lintpragma("Ignore undefined module DataStructures.SortedDict")
-@lintpragma("Ignore undefined module Iterators.chain")
-@lintpragma("Ignore undefined module Iterators.cycle")
-@lintpragma("Ignore undefined module Iterators.drop")
-@lintpragma("Ignore undefined module Iterators.imap")
-@lintpragma("Ignore undefined module Iterators.take")
 @lintpragma("Ignore undefined module Lint.lintpkg")
 @lintpragma("Ignore undefined module Lists.List")
 @lintpragma("Ignore undefined module Lists.ListNode")

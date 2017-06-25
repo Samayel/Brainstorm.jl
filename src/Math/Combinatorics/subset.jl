@@ -1,3 +1,3 @@
 
-# subsets(xs) = Iterators.subsets(xs)
-# subsets(xs, k) = Iterators.subsets(xs, k)
+# subsets(xs) = IterTools.subsets(xs)
+# subsets(xs, k) = IterTools.subsets(xs, k)

@@ -8,10 +8,6 @@ export
 # http://slendermeans.org/julia-iterators.html
 #
 
-# Some iterators have been moved into Base
-#Base.next(it::Iterators.Repeat{Function}, state) = it.x(), state - 1
-#Base.next(it::Iterators.RepeatForever{Function}, state) = it.x(), nothing
-
 abstract type WhileIterator end
 
 immutable TakeWhile{I, F} <: WhileIterator
