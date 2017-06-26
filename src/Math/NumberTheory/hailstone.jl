@@ -8,7 +8,7 @@ nexthailstone(n::Integer) = begin
 end
 
 hailstonelengthcalc(x, cache) = 1 + hailstonelength(nexthailstone(x), cache)
-hailstonelength{T<:Integer}(n::T, cache::Array{T,1} = zeros(T, 0)) = begin
+hailstonelength(n::T, cache::Array{T,1} = zeros(T, 0)) where {T<:Integer} = begin
     n <= 0 && throw(DomainError())
     n == 1 && return one(T)
 
@@ -18,7 +18,7 @@ hailstonelength{T<:Integer}(n::T, cache::Array{T,1} = zeros(T, 0)) = begin
 end
 
 
-immutable HailstoneIterator{T<:Integer}
+struct HailstoneIterator{T<:Integer}
     n::T
 end
 
@@ -28,11 +28,11 @@ allhailstone(n::Integer) = begin
 end
 
 Base.start(it::HailstoneIterator) = it.n
-Base.next{T<:Integer}(::HailstoneIterator{T}, state) =
+Base.next(::HailstoneIterator{T}, state) where {T<:Integer} =
     (state, state == 1 ? zero(T) : nexthailstone(state))
 Base.done(::HailstoneIterator, state) = state <= 0
 
 Base.eltype(it::HailstoneIterator) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{HailstoneIterator{T}}) = T
+Base.eltype(::Type{HailstoneIterator{T}}) where {T} = T
 
 Base.iteratorsize(::HailstoneIterator) = Base.SizeUnknown()

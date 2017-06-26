@@ -1,7 +1,7 @@
 export
     PreAllocatedStack
 
-type PreAllocatedStack{T<:Integer, S}
+mutable struct PreAllocatedStack{T<:Integer, S}
     top::T
     stack::Vector{S}
 end

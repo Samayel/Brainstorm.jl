@@ -98,7 +98,7 @@ end
 # =>            2k > digits * log(10) / log(x)
 # =>             k > [digits * log(10) / log(x)] / 2
 #
-terms{T<:Integer}(digits::T, rx) = trunc(T, (digits / 2) * log(rx, 10) + guard_terms)
+terms(digits::T, rx) where {T<:Integer} = trunc(T, (digits / 2) * log(rx, 10) + guard_terms)
 
 _arctan(hyperbolic, rx, n, s) = begin
     # calculate P(0, N), Q(0, N) and T(0, N)

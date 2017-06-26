@@ -4,21 +4,21 @@ export
 
 
 # Dx + Ey + F = 0
-immutable DiophantineEquationLinearXY{T<:Integer}
+struct DiophantineEquationLinearXY{T<:Integer}
     cx::T  # D
     cy::T  # E
     c0::T  # F
 end
 
-diophantine_equation_linear_xy{T<:Integer}(;cx::T=0, cy::T=0, c0::T=0) = DiophantineEquationLinearXY(cx, cy, c0)
+diophantine_equation_linear_xy(;cx::T=0, cy::T=0, c0::T=0) where {T<:Integer} = DiophantineEquationLinearXY(cx, cy, c0)
 
 Base.show(io::IO, eq::DiophantineEquationLinearXY) = print(io, "$(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 
-evaluate{T<:Integer}(eq::DiophantineEquationLinearXY{T}, sol::DiophantineSolutionXY{T}) = evaluate(eq, sol.x, sol.y)
-evaluate{T<:Integer}(eq::DiophantineEquationLinearXY{T}, x::T, y::T) = eq.cx * x + eq.cy * y + eq.c0
+evaluate(eq::DiophantineEquationLinearXY{T}, sol::DiophantineSolutionXY{T}) where {T<:Integer} = evaluate(eq, sol.x, sol.y)
+evaluate(eq::DiophantineEquationLinearXY{T}, x::T, y::T) where {T<:Integer} = eq.cx * x + eq.cy * y + eq.c0
 
 
-solve{T<:Integer}(eq::DiophantineEquationLinearXY{T}) = begin
+solve(eq::DiophantineEquationLinearXY{T}) where {T<:Integer} = begin
     cx, cy, c0 = eq.cx, eq.cy, eq.c0
 
     cx == cy == c0 == 0 && return diophantine_anyx_anyy(T)

@@ -6,8 +6,8 @@
 ################################################################################
 
 # typealias arb_t arb
-typealias arb_ptr Vector{arb_t}
-typealias arb_srcptr arb_ptr
+const arb_ptr = Vector{arb_t}
+const arb_srcptr = arb_ptr
 
 ###############################################################################
 #

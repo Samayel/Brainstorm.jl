@@ -163,7 +163,7 @@ arb_calc_isolate_roots(func, block::arf_interval_t, maxdepth, maxeval, maxfound,
     blocks, flags
 end
 
-arb_calc_isolate_roots{T}(func, block::T, maxdepth, maxeval, maxfound, arb::ArbField, verbose = false) = begin
+arb_calc_isolate_roots(func, block::T, maxdepth, maxeval, maxfound, arb::ArbField, verbose = false) where {T} = begin
     interval = convert(arf_interval_t, block)
     blocks, flags = arb_calc_isolate_roots(func, interval, maxdepth, maxeval, maxfound, arb, verbose)
     [convert(T, b) for b in blocks], flags

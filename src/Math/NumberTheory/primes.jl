@@ -33,7 +33,7 @@ maskprimes(n::Integer) = Primes.primesmask(n)
 
 ##  Find all twin primes
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-twinprimes{T<:Integer}(n::T, m::T) = begin
+twinprimes(n::T, m::T) where {T<:Integer} = begin
     P = genprimes(n, m)
     inds = find(diff(P) .== 2)
     hcat(P[inds], P[inds+1])
@@ -41,7 +41,7 @@ end
 
 ##  Coprimality
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-coprime{T<:Integer}(n::T, m::T) = begin
+coprime(n::T, m::T) where {T<:Integer} = begin
     n == 0 && m == 0 && return false
     gcd(n, m) == 1
 end

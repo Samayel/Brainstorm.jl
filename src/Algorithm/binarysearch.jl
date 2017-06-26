@@ -1,6 +1,6 @@
 export binarysearch
 
-binarysearch{T<:Integer}(f, z, α::T, β::T) = begin
+binarysearch(f, z, α::T, β::T) where {T<:Integer} = begin
     if β - α == 1
         y = f(α)
         y == z && return α, α

@@ -16,7 +16,7 @@ exponent for a, it's enough to find the least d such that (q^d)*(t/(q^e))
 yields 1 when used as exponent.
 =#
 multiplicativeorder(a::Integer, m::Integer) = multiplicativeorder(promote(a, m)...)
-multiplicativeorder{T<:Integer}(a::T, m::T) = begin
+multiplicativeorder(a::T, m::T) where {T<:Integer} = begin
     coprime(a, m) || error("$a and $m are not coprime")
 
     res = one(m)
@@ -36,7 +36,7 @@ end
 ##  Solve linear modulo equation a * x = b mod m
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 linearmod(a::Integer, b::Integer, m::Integer) = linearmod(promote(a, b, m)...)
-linearmod{T<:Integer}(a::T, b::T, m::T) = begin
+linearmod(a::T, b::T, m::T) where {T<:Integer} = begin
     m > 1 || error("Argument 'm' must be an integer greater 1")
 
     g, u, v = gcdx(a, m)
@@ -48,7 +48,7 @@ end
 
 ##  Find a primitive root modulo m
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-primitiveroot{T<:Integer}(m::T) = begin
+primitiveroot(m::T) where {T<:Integer} = begin
     isprime(m) || error("Argument 'm' must be a prime number")
     m == 2 && return one(T)
 

@@ -5,7 +5,7 @@
 #
 ################################################################################
 
-immutable arf_interval_struct
+struct arf_interval_struct
     a::arf_t
     b::arf_t
 
@@ -13,9 +13,9 @@ immutable arf_interval_struct
     arf_interval_struct(a::arf_t, b::arf_t) = new(a, b)
 end
 
-typealias arf_interval_t arf_interval_struct
-typealias arf_interval_ptr Vector{arf_interval_t}
-typealias arf_interval_srcptr arf_interval_ptr
+const arf_interval_t = arf_interval_struct
+const arf_interval_ptr = Vector{arf_interval_t}
+const arf_interval_srcptr = arf_interval_ptr
 
 arf_interval() = arf_interval_struct()
 arf_interval(a::arf_t, b::arf_t) = arf_interval_struct(a, b)
@@ -29,8 +29,8 @@ arf_interval(a::arf_t, b::arf_t) = arf_interval_struct(a, b)
 convert(::Type{arf_interval_struct}, x) = arf_interval(convert(arf_struct, x[1]), convert(arf_struct, x[2]))
 convert(::Type{arf_interval_struct}, x::arf_interval_struct) = x
 
-convert{T,S}(::Type{Tuple{T,S}}, x::arf_interval_struct)          = (convert(T, x.a), convert(S, x.b))
-convert{T}(::Type{Vector{T}}, x::arf_interval_struct)             = [convert(T, x.a), convert(T, x.b)]
+convert(::Type{Tuple{T,S}}, x::arf_interval_struct) where {T,S}   = (convert(T, x.a), convert(S, x.b))
+convert(::Type{Vector{T}}, x::arf_interval_struct) where {T}      = [convert(T, x.a), convert(T, x.b)]
 
 convert(::Type{Tuple{Fslong,Fslong}}, x::arf_interval_struct)     = (convert(Fslong, x.a, ARF_RND_DOWN), convert(Fslong, x.b, ARF_RND_UP))
 convert(::Type{Vector{Fslong}}, x::arf_interval_struct)           = [convert(Fslong, x.a, ARF_RND_DOWN), convert(Fslong, x.b, ARF_RND_UP)]

@@ -4,7 +4,7 @@ export
 
 
 # Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0
-immutable DiophantineEquationQuadraticXY{T<:Integer}
+struct DiophantineEquationQuadraticXY{T<:Integer}
     cx²::T # A
     cxy::T # B
     cy²::T # C
@@ -13,15 +13,15 @@ immutable DiophantineEquationQuadraticXY{T<:Integer}
     c0::T  # F
 end
 
-diophantine_equation_quadratic_xy{T<:Integer}(;cx²::T=0, cxy::T=0, cy²::T=0, cx::T=0, cy::T=0, c0::T=0) = DiophantineEquationQuadraticXY(cx², cxy, cy², cx, cy, c0)
+diophantine_equation_quadratic_xy(;cx²::T=0, cxy::T=0, cy²::T=0, cx::T=0, cy::T=0, c0::T=0) where {T<:Integer} = DiophantineEquationQuadraticXY(cx², cxy, cy², cx, cy, c0)
 
 Base.show(io::IO, eq::DiophantineEquationQuadraticXY) = print(io, "$(eq.cx²)x² + $(eq.cxy)xy + $(eq.cy²)y² + $(eq.cx)x + $(eq.cy)y + $(eq.c0) = 0")
 
-evaluate{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}, sol::DiophantineSolutionXY{T}) = evaluate(eq, sol.x, sol.y)
-evaluate{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}, x::T, y::T) = eq.cx² * x^2 + eq.cxy * x * y + eq.cy² * y^2 + eq.cx * x + eq.cy * y + eq.c0
+evaluate(eq::DiophantineEquationQuadraticXY{T}, sol::DiophantineSolutionXY{T}) where {T<:Integer} = evaluate(eq, sol.x, sol.y)
+evaluate(eq::DiophantineEquationQuadraticXY{T}, x::T, y::T) where {T<:Integer} = eq.cx² * x^2 + eq.cxy * x * y + eq.cy² * y^2 + eq.cx * x + eq.cy * y + eq.c0
 
 
-solve{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
     cx² == cxy == cy² == 0 && return AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solve(diophantine_equation_linear_xy(cx=cx, cy=cy, c0=c0))]
@@ -33,7 +33,7 @@ solve{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     solve_hyperbolic(eq)
 end
 
-solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve_simplehyperbolic(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     cxy, cx, cy, c0 = eq.cxy, eq.cx, eq.cy, eq.c0
 
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
@@ -57,7 +57,7 @@ solve_simplehyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begi
     solutions
 end
 
-solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve_elliptical(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
     # f(t) = (cxy^2 - 4*cx²*cy²)*t^2 + 2(cxy*cy - 2*cy²*cx)*t + (cy^2 - 4*cy²*c0)
@@ -90,7 +90,7 @@ solve_elliptical{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[solution]
 end
 
-solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve_parabolic(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     cx², cxy, cy², cx, cy, c0 = eq.cx², eq.cxy, eq.cy², eq.cx, eq.cy, eq.c0
 
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]
@@ -129,13 +129,13 @@ solve_parabolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
     solutions
 end
 
-solve_hyperbolic{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve_hyperbolic(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     (eq.cx == eq.cy == 0) ?
         solve_hyperbolic_homogeneous(eq) :
         solve_hyperbolic_general_quadratic(eq)
 end
 
-solve_hyperbolic_homogeneous{T<:Integer}(eq::DiophantineEquationQuadraticXY{T}) = begin
+solve_hyperbolic_homogeneous(eq::DiophantineEquationQuadraticXY{T}) where {T<:Integer} = begin
     cx², cxy, cy², c0 = eq.cx², eq.cxy, eq.cy², eq.c0
 
     solutions = AbstractDiophantineSolutions{DiophantineSolutionXY{T}}[]

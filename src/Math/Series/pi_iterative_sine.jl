@@ -5,7 +5,7 @@ using Brainstorm._Math._MPFR: add!, precision!
 const guard_digits = 5
 const bits_per_digit = log2(10)
 
-pi{T<:Integer}(digits::T) = begin
+pi(digits::T) where {T<:Integer} = begin
     setprecision(8) do
         target_prec = ceil(T, bits_per_digit * (digits + guard_digits))
         _pi(target_prec)

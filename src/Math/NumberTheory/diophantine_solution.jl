@@ -22,7 +22,7 @@ export
 
 abstract type AbstractDiophantineSolution{T<:Integer} end
 
-@auto_hash_equals immutable DiophantineSolutionXY{T<:Integer} <: AbstractDiophantineSolution{T}
+@auto_hash_equals struct DiophantineSolutionXY{T<:Integer} <: AbstractDiophantineSolution{T}
     x::T
     y::T
 end
@@ -30,35 +30,35 @@ end
 
 abstract type AbstractDiophantineSolutions{T<:AbstractDiophantineSolution} end
 
-@auto_hash_equals immutable DiophantineSolutions{T<:AbstractDiophantineSolution} <: AbstractDiophantineSolutions{T}
+@auto_hash_equals struct DiophantineSolutions{T<:AbstractDiophantineSolution} <: AbstractDiophantineSolutions{T}
     solutions::Array{T,1}
 end
 
 
 abstract type AbstractDiophantineSolutionsXY{T<:Integer} <: AbstractDiophantineSolutions{DiophantineSolutionXY{T}} end
 
-immutable DiophantineSolutionsNoneXNoneY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+struct DiophantineSolutionsNoneXNoneY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
 end
 
-immutable DiophantineSolutionsAnyXAnyY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+struct DiophantineSolutionsAnyXAnyY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
 end
 
-@auto_hash_equals immutable DiophantineSolutionsOneXAnyY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+@auto_hash_equals struct DiophantineSolutionsOneXAnyY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
     x::T
 end
 
-@auto_hash_equals immutable DiophantineSolutionsAnyXOneY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+@auto_hash_equals struct DiophantineSolutionsAnyXOneY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
     y::T
 end
 
-@auto_hash_equals immutable DiophantineSolutionsLinearXLinearY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+@auto_hash_equals struct DiophantineSolutionsLinearXLinearY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
     mx::T
     nx::T
     my::T
     ny::T
 end
 
-@auto_hash_equals immutable DiophantineSolutionsQuadraticXQuadraticY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
+@auto_hash_equals struct DiophantineSolutionsQuadraticXQuadraticY{T<:Integer} <: AbstractDiophantineSolutionsXY{T}
     ax::T
     bx::T
     cx::T
@@ -78,18 +78,18 @@ const LinearXLinearY        = DiophantineSolutionsLinearXLinearY
 const QuadraticXQuadraticY  = DiophantineSolutionsQuadraticXQuadraticY
 
 
-diophantine_solution{T<:Integer}(x::T, y::T) = SolutionXY(x, y)
+diophantine_solution(x::T, y::T) where {T<:Integer} = SolutionXY(x, y)
 
-diophantine_solutions{T<:AbstractDiophantineSolution}(s::Array{T,1}) = Solutions{T}(s)
-diophantine_solutions{T<:Integer}(s::Tuple{T,T}...) = diophantine_solutions([diophantine_solution(x, y) for (x, y) in s])
-diophantine_solutions{T<:Integer}(s::AbstractArray{Tuple{T,T},1}) = diophantine_solutions(s...)
+diophantine_solutions(s::Array{T,1}) where {T<:AbstractDiophantineSolution} = Solutions{T}(s)
+diophantine_solutions(s::Tuple{T,T}...) where {T<:Integer} = diophantine_solutions([diophantine_solution(x, y) for (x, y) in s])
+diophantine_solutions(s::AbstractArray{Tuple{T,T},1}) where {T<:Integer} = diophantine_solutions(s...)
 
 diophantine_nonex_noney(T::Type = Int) = NoneX_NoneY{T}()
 diophantine_anyx_anyy(T::Type = Int) = AnyX_AnyY{T}()
-diophantine_onex_anyy{T<:Integer}(x::T) = OneX_AnyY{T}(x)
-diophantine_anyx_oney{T<:Integer}(y::T) = AnyX_OneY{T}(y)
-diophantine_linearx_lineary{T<:Integer}(mx::T, nx::T, my::T, ny::T) = LinearXLinearY{T}(mx, nx, my, ny)
-diophantine_quadraticx_quadraticy{T<:Integer}(ax::T, bx::T, cx::T, ay::T, by::T, cy::T) = QuadraticXQuadraticY{T}(ax, bx, cx, ay, by, cy)
+diophantine_onex_anyy(x::T) where {T<:Integer} = OneX_AnyY{T}(x)
+diophantine_anyx_oney(y::T) where {T<:Integer} = AnyX_OneY{T}(y)
+diophantine_linearx_lineary(mx::T, nx::T, my::T, ny::T) where {T<:Integer} = LinearXLinearY{T}(mx, nx, my, ny)
+diophantine_quadraticx_quadraticy(ax::T, bx::T, cx::T, ay::T, by::T, cy::T) where {T<:Integer} = QuadraticXQuadraticY{T}(ax, bx, cx, ay, by, cy)
 
 
 Base.show(io::IO, sol::SolutionXY)              = print(io, "x=$(sol.x) ∧ y=$(sol.y)")
@@ -101,7 +101,7 @@ Base.show(io::IO, sol::AnyX_OneY)               = print(io, "∀t∈ℤ: x=t ∧
 Base.show(io::IO, sol::LinearXLinearY)          = print(io, "∀t∈ℤ: x=$(formatlinear(sol.mx, sol.nx)) ∧ y=$(formatlinear(sol.my, sol.ny))")
 Base.show(io::IO, sol::QuadraticXQuadraticY)    = print(io, "∀t∈ℤ: x=$(formatquadratic(sol.ax, sol.bx, sol.cx)) ∧ y=$(formatquadratic(sol.ay, sol.by, sol.cy))")
 
-formatlinear{T<:Integer}(m::T, n::T) = begin
+formatlinear(m::T, n::T) where {T<:Integer} = begin
     nstr = string(n)
     m == 0 && return nstr
     n > 0 && (nstr = "+" * nstr)
@@ -112,7 +112,7 @@ formatlinear{T<:Integer}(m::T, n::T) = begin
     mstr * nstr
 end
 
-formatquadratic{T<:Integer}(a::T, b::T, c::T) = begin
+formatquadratic(a::T, b::T, c::T) where {T<:Integer} = begin
     linstr = formatlinear(b, c)
     a == 0 && return linstr
     ((b > 0) || (b == 0 && c > 0)) && (linstr = "+" * linstr)
@@ -125,13 +125,13 @@ end
 
 
 Base.eltype(it::AbstractDiophantineSolutions) = eltype(typeof(it))
-Base.eltype{T}(::Type{Solutions{T}}) = T
-Base.eltype{T<:Integer}(::Type{NoneX_NoneY{T}}) = DiophantineSolutionXY{T}
-Base.eltype{T<:Integer}(::Type{AnyX_AnyY{T}}) = DiophantineSolutionXY{T}
-Base.eltype{T<:Integer}(::Type{OneX_AnyY{T}}) = DiophantineSolutionXY{T}
-Base.eltype{T<:Integer}(::Type{AnyX_OneY{T}}) = DiophantineSolutionXY{T}
-Base.eltype{T<:Integer}(::Type{LinearXLinearY{T}}) = DiophantineSolutionXY{T}
-Base.eltype{T<:Integer}(::Type{QuadraticXQuadraticY{T}}) = DiophantineSolutionXY{T}
+Base.eltype(::Type{Solutions{T}}) where {T} = T
+Base.eltype(::Type{NoneX_NoneY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
+Base.eltype(::Type{AnyX_AnyY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
+Base.eltype(::Type{OneX_AnyY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
+Base.eltype(::Type{AnyX_OneY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
+Base.eltype(::Type{LinearXLinearY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
+Base.eltype(::Type{QuadraticXQuadraticY{T}}) where {T<:Integer} = DiophantineSolutionXY{T}
 
 
 Base.start(it::Solutions) = start(it.solutions)

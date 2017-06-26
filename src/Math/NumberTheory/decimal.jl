@@ -20,7 +20,7 @@ decimalperiod(_, n) = begin
 end
 
 ispandigital(n::Integer) = digits(n) |> ispandigital
-ispandigital{T<:Number}(digits::Array{T,1}) = begin
+ispandigital(digits::Array{T,1}) where {T<:Number} = begin
     r = 0
     l = length(digits)
     for d in digits

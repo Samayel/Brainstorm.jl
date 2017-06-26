@@ -1,4 +1,4 @@
-@auto_hash_equals immutable Point{I,C,F}
+@auto_hash_equals struct Point{I,C,F}
     ec::C   # the curve containing this point
     x::F
     y::F
@@ -7,18 +7,18 @@ end
 const ConcretePoint{C,F} = Point{false,C,F}
 const IdealPoint{C,F}    = Point{true, C,F}
 
-point{F}(ec::Curve{F}, x, y) = point(ec, convert(F, x), convert(F, y))
-point{F}(ec::Curve{F}, x::F, y::F, valid = false) = begin
+point(ec::Curve{F}, x, y) where {F} = point(ec, convert(F, x), convert(F, y))
+point(ec::Curve{F}, x::F, y::F, valid = false) where {F} = begin
     valid || contains(ec, x, y) || error("($(x), $(y)) is not a valid point on $(ec)")
     ConcretePoint{typeof(ec),F}(ec, x, y)
 end
 
-point{F}(ec::Curve{F}) = (z = zero(ring(ec)); IdealPoint{typeof(ec),F}(ec, z, z))
+point(ec::Curve{F}) where {F} = (z = zero(ring(ec)); IdealPoint{typeof(ec),F}(ec, z, z))
 ideal(ec::Curve) = point(ec)
 
 # http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: is_x_coord(self, x)
 # http://sagenb.org/src/schemes/elliptic_curves/ell_generic.py: lift_x(self, x, all=False)
-point{T}(ec::WNFCurve{T}, x::T) = begin
+point(ec::WNFCurve{T}, x::T) where {T} = begin
     y = x
     try
         r = sqrt(x^3 + ec.a * x + ec.b)
@@ -30,7 +30,7 @@ point{T}(ec::WNFCurve{T}, x::T) = begin
     point(ec, x, y, true)
 end
 
-rand{T<:FinFieldElem}(ec::Curve{T}) = begin
+rand(ec::Curve{T}) where {T<:FinFieldElem} = begin
     R = field(ec)
     q = order(R)
 
@@ -56,20 +56,20 @@ show(io::IO, p::IdealPoint) = print(io, "𝒪 on elliptic curve $(curve(p))")
 curve(p::Point) = p.ec
 in(p::Point, ec::Curve) = (ec == curve(p)) && contains(ec, p.x, p.y)
 
-samecurve{I,J,C,F}(p::Point{I,C,F}, q::Point{J,C,F}) = curve(p) == curve(q)
+samecurve(p::Point{I,C,F}, q::Point{J,C,F}) where {I,J,C,F} = curve(p) == curve(q)
 samecurve(p::Point, q::Point) = false
 
 isideal(::IdealPoint) = true
 isideal(::ConcretePoint) = false
 
 -(p::IdealPoint) = p
--{C<:WNFCurve}(p::ConcretePoint{C}) = point(curve(p), p.x, -p.y, true)
--{C<:GWNFCurve}(p::ConcretePoint{C}) = point(curve(p), p.x, -p.y - curve(p).a₁ * p.x - curve(p).a₃, true)
+-(p::ConcretePoint{C}) where {C<:WNFCurve} = point(curve(p), p.x, -p.y, true)
+-(p::ConcretePoint{C}) where {C<:GWNFCurve} = point(curve(p), p.x, -p.y - curve(p).a₁ * p.x - curve(p).a₃, true)
 -(p::Point, q::Point) = p + (-q)
 
 +(p::Point, q::IdealPoint) = (samecurve(p, q) || error("$(p) and $(q) have different curves"); p)
 +(p::IdealPoint, q::ConcretePoint) = (samecurve(p, q) || error("$(p) and $(q) have different curves"); q)
-+{C<:WNFCurve}(p::ConcretePoint{C}, q::ConcretePoint{C}) = begin
++(p::ConcretePoint{C}, q::ConcretePoint{C}) where {C<:WNFCurve} = begin
     samecurve(p, q) || error("$(p) and $(q) have different curves")
 
     ec = curve(p)
@@ -85,7 +85,7 @@ isideal(::ConcretePoint) = false
     y = m * (x - p.x) + p.y
     point(ec, x, -y, true)                  # do the reflection to get the sum of the two points
 end
-+{C<:GWNFCurve}(p::ConcretePoint{C}, q::ConcretePoint{C}) = begin
++(p::ConcretePoint{C}, q::ConcretePoint{C}) where {C<:GWNFCurve} = begin
     samecurve(p, q) || error("$(p) and $(q) have different curves")
 
     ec = curve(p)

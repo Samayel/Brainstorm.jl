@@ -10,12 +10,12 @@ export
 
 abstract type WhileIterator end
 
-immutable TakeWhile{I, F} <: WhileIterator
+struct TakeWhile{I, F} <: WhileIterator
     xs::I
     cond::F
 end
 
-immutable DropWhile{I, F} <: WhileIterator
+struct DropWhile{I, F} <: WhileIterator
     xs::I
     cond::F
 end
@@ -56,8 +56,8 @@ Base.done(::DropWhile, state) = state[1]
 
 Base.eltype(it::TakeWhile) = Base.eltype(typeof(it))
 Base.eltype(it::DropWhile) = Base.eltype(typeof(it))
-Base.eltype{I,F}(::Type{TakeWhile{I,F}}) = Base.eltype(I)
-Base.eltype{I,F}(::Type{DropWhile{I,F}}) = Base.eltype(I)
+Base.eltype(::Type{TakeWhile{I,F}}) where {I,F} = Base.eltype(I)
+Base.eltype(::Type{DropWhile{I,F}}) where {I,F} = Base.eltype(I)
 
 Base.iteratorsize(::TakeWhile) = Base.SizeUnknown()
 Base.iteratorsize(::DropWhile) = Base.SizeUnknown()
@@ -69,7 +69,7 @@ Base.iteratorsize(::DropWhile) = Base.SizeUnknown()
 
 
 
-immutable TMap{T}
+struct TMap{T}
     mapfunc::Base.Callable
     xs::Vector{Any}
 end
@@ -88,7 +88,7 @@ end
 Base.done(it::TMap, state) = any(map(done, it.xs, state))
 
 Base.eltype(it::TMap) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{TMap{T}}) = T
+Base.eltype(::Type{TMap{T}}) where {T} = T
 
 Base.length(it::TMap) = minimum(map(length, it.xs))
 
@@ -96,12 +96,12 @@ Base.length(it::TMap) = minimum(map(length, it.xs))
 
 abstract type NestedIterator end
 
-immutable DefaultNestedIterator{T} <: NestedIterator
+struct DefaultNestedIterator{T} <: NestedIterator
     source::T
     level::Int
 end
 
-nested{T}(s::T, l::Int = 1) = DefaultNestedIterator{T}(s, l)
+nested(s::T, l::Int = 1) where {T} = DefaultNestedIterator{T}(s, l)
 
 create(::NestedIterator, ::Any) = []
 combine(::NestedIterator, outer, inner) = "$outer,$inner"

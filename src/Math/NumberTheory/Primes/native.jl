@@ -15,7 +15,7 @@ factorization(n::Integer) = Primes.factor(n)
 
 ##  Eratosthenes' prime number sieve
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-primesieve{T<:Integer}(n::T) = begin
+primesieve(n::T) where {T<:Integer} = begin
     n <= 1 && return T[]
 
     p = collect(one(T):convert(T, 2):n)
@@ -36,7 +36,7 @@ end
 ##  Find all prime numbers in  a given interval
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
 primesieve(n::Integer, m::Integer) = primesieve(promote(n, m)...)
-primesieve{T<:Integer}(n::T, m::T) = begin
+primesieve(n::T, m::T) where {T<:Integer} = begin
     n > m && error("Argument 'm' must not be less than 'n'.")
     n = max(n, 1)
     m = max(m, 1)
@@ -74,7 +74,7 @@ genprimes(a::Integer, b::Integer) = primesieve(a, b)
 genprimes(b::Integer) = primesieve(b)
 
 countprimes(a::Integer, b::Integer) = countprimes(promote(a, b)...)
-countprimes{T<:Integer}(a::T, b::T) = @pipe Primes.primesmask(b) |> count((i, x) -> x && (i >= a), _)
+countprimes(a::T, b::T) where {T<:Integer} = @pipe Primes.primesmask(b) |> count((i, x) -> x && (i >= a), _)
 primepi(n::Integer) = countprimes(2, n)
 
 nprimes(n::Integer) = primesieve(ceil(Integer, n*log(n+2) + n*log(log(n+2))))[1:n]
@@ -82,7 +82,7 @@ nprimes(n::Integer, start::Integer) = @pipe allprimes(start) |> take(_, n) |> co
 nthprime(n::Integer) = nprimes(n)[n]
 
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-nextprime{T<:Integer}(n::T) = begin
+nextprime(n::T) where {T<:Integer} = begin
     n <= 1 && return convert(T, 2)
     n == 2 && return convert(T, 3)
 
@@ -109,7 +109,7 @@ nextprime{T<:Integer}(n::T) = begin
 end
 
 # https://github.com/hwborchers/Numbers.jl/blob/master/src/primes.jl
-prevprime{T<:Integer}(n::T) = begin
+prevprime(n::T) where {T<:Integer} = begin
     n <= 2 && return zero(T)
     n == 3 && return convert(T, 2)
 
@@ -138,10 +138,10 @@ end
 allprimes(n::Integer = 2) = PrimeIterator(n)
 
 someprimes(n1::Integer, n2::Integer) = someprimes(promote(n1, n2)...)
-someprimes{T<:Integer}(n1::T, n2::T) = @pipe allprimes(n1) |> takewhile(n -> n <= n2, _)
+someprimes(n1::T, n2::T) where {T<:Integer} = @pipe allprimes(n1) |> takewhile(n -> n <= n2, _)
 someprimes(n2::Integer) = someprimes(2, n2)
 
-type PrimeIterator{T<:Integer}
+mutable struct PrimeIterator{T<:Integer}
     n::T
 end
 
@@ -149,7 +149,7 @@ Base.start(it::PrimeIterator) = nextprime(it.n - one(it.n))
 Base.next(::PrimeIterator, state) = state, nextprime(state)
 Base.done(::PrimeIterator, _) = false
 Base.eltype(it::PrimeIterator) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{PrimeIterator{T}}) = T
+Base.eltype(::Type{PrimeIterator{T}}) where {T} = T
 
 Base.iteratorsize(::PrimeIterator) = Base.IsInfinite()
 

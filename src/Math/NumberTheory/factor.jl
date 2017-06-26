@@ -41,7 +41,7 @@ factorization_sorted(n::Integer) = factorization(n) |> SortedDict
 primefactors(n::Integer) = sort!(collect(keys(factorization(n))))
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
-factors{T<:Integer}(n::T, negative::Bool = false) = begin
+factors(n::T, negative::Bool = false) where {T<:Integer} = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
     f = [one(n)]
@@ -58,15 +58,14 @@ factors{T<:Integer}(n::T, negative::Bool = false) = begin
     negative ? flatten([f -f]') : f
 end
 
-function indexfactorization2number{T<:Integer}(x::Array{T,1})
-    prod([big(nthprime(i))^k for (i, k) in enumerate(x)])
-end
+indexfactorization2number(x::Array{T,1}) where {T<:Integer} =
+    prod(big(nthprime(i))^k for (i, k) in enumerate(x))
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors(d::Integer) =
-    minimum([indexfactorization2number(e) for e in least_number_with_d_divisors_exponents(d)])
+    minimum(indexfactorization2number(e) for e in least_number_with_d_divisors_exponents(d))
 
-function least_number_with_d_divisors_exponents{T<:Integer}(d::T, i::Int = 1, prevn::T = zero(T))
+least_number_with_d_divisors_exponents(d::T, i::Int = 1, prevn::T = zero(T)) where {T<:Integer} = begin
     d <= 1 && return Vector{T}[T[]]
 
     f = factorization_sorted(d)

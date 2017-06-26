@@ -7,11 +7,11 @@ export
 
 abstract type ContinuedFraction{T<:Integer} end
 
-@auto_hash_equals immutable NonPeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
+@auto_hash_equals struct NonPeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
     denominators::Array{T,1}
 end
 
-@auto_hash_equals immutable PeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
+@auto_hash_equals struct PeriodicContinuedFraction{T<:Integer} <: ContinuedFraction{T}
     denominators::Array{T,1}
     periodstart::Int
 end
@@ -24,8 +24,8 @@ Base.done(it::NonPeriodicContinuedFraction, state) = state > length(it.denominat
 Base.done(::PeriodicContinuedFraction, _) = false
 
 Base.eltype(it::ContinuedFraction) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{NonPeriodicContinuedFraction{T}}) = T
-Base.eltype{T}(::Type{PeriodicContinuedFraction{T}}) = T
+Base.eltype(::Type{NonPeriodicContinuedFraction{T}}) where {T} = T
+Base.eltype(::Type{PeriodicContinuedFraction{T}}) where {T} = T
 
 Base.length(it::NonPeriodicContinuedFraction) = length(it.denominators)
 Base.iteratorsize(::PeriodicContinuedFraction) = Base.IsInfinite()
@@ -44,7 +44,7 @@ Base.show(io::IO, cf::ContinuedFraction) = begin
 end
 
 
-Base.rationalize{T<:Integer}(cf::ContinuedFraction{T}, len::Int = -1) = begin
+Base.rationalize(cf::ContinuedFraction{T}, len::Int = -1) where {T<:Integer} = begin
     len >= 0 || (len = length(cf.denominators))
     len > 0 || return one(T) // zero(T)   # [] = +Inf;  [a; b] = a + 1 / [b] = a + 1 / (b + 1 / []) = a + 1 / (b + 1 / +Inf) = a + 1 / b
 
@@ -52,10 +52,10 @@ Base.rationalize{T<:Integer}(cf::ContinuedFraction{T}, len::Int = -1) = begin
 end
 
 
-confrac{T<:Integer}(d::Array{T,1}) = NonPeriodicContinuedFraction(d)
-confrac{T<:Integer}(d::Array{T,1}, p::Int) = PeriodicContinuedFraction(d, p)
+confrac(d::Array{T,1}) where {T<:Integer} = NonPeriodicContinuedFraction(d)
+confrac(d::Array{T,1}, p::Int) where {T<:Integer} = PeriodicContinuedFraction(d, p)
 
-confrac{T<:Integer}(rat::Rational{T}) = begin
+confrac(rat::Rational{T}) where {T<:Integer} = begin
     n, d = rat.num, rat.den
 
     denominators = T[]
@@ -69,7 +69,7 @@ confrac{T<:Integer}(rat::Rational{T}) = begin
 end
 
 # == (n + sqrt(δ)) / d
-confrac{T<:Integer}(n::T, δ::T, d::T) = begin
+confrac(n::T, δ::T, d::T) where {T<:Integer} = begin
     d == 0 && throw(Error("The denominator is zero."))
     δ < 0 && throw(Error("The number is not real, so it does not have a continued fraction expansion."))
     δ == 0 && return confrac(n // d)
@@ -133,18 +133,18 @@ end
 
 abstract type ContinuedFractionConvergentsIterator{T<:Integer} end
 
-immutable NonPeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
+struct NonPeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
     cf::NonPeriodicContinuedFraction{T}
 end
 
-immutable PeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
+struct PeriodicContinuedFractionConvergentsIterator{T<:Integer} <: ContinuedFractionConvergentsIterator{T}
     cf::PeriodicContinuedFraction{T}
 end
 
 convergents(cf::NonPeriodicContinuedFraction) = NonPeriodicContinuedFractionConvergentsIterator(cf)
 convergents(cf::PeriodicContinuedFraction) = PeriodicContinuedFractionConvergentsIterator(cf)
 
-Base.start{T<:Integer}(it::ContinuedFractionConvergentsIterator{T}) = start(it.cf), one(T), zero(T), zero(T), one(T)
+Base.start(it::ContinuedFractionConvergentsIterator{T}) where {T<:Integer} = start(it.cf), one(T), zero(T), zero(T), one(T)
 Base.next(it::ContinuedFractionConvergentsIterator, state) = begin
     cfs, p, q, r, s = state
 
@@ -156,8 +156,8 @@ end
 Base.done(it::ContinuedFractionConvergentsIterator, state) = done(it.cf, state[1])
 
 Base.eltype(it::ContinuedFractionConvergentsIterator) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{NonPeriodicContinuedFractionConvergentsIterator{T}}) = Tuple{T,T}
-Base.eltype{T}(::Type{PeriodicContinuedFractionConvergentsIterator{T}}) = Tuple{T,T}
+Base.eltype(::Type{NonPeriodicContinuedFractionConvergentsIterator{T}}) where {T} = Tuple{T,T}
+Base.eltype(::Type{PeriodicContinuedFractionConvergentsIterator{T}}) where {T} = Tuple{T,T}
 
 Base.length(it::NonPeriodicContinuedFractionConvergentsIterator) = length(it.cf.denominators)
 Base.iteratorsize(::PeriodicContinuedFractionConvergentsIterator) = Base.IsInfinite()

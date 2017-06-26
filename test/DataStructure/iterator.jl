@@ -43,7 +43,7 @@ function test_iterator_nested_iterator()
     @test eltype(nested(collect(1:3))) == String
 end
 
-immutable DigitPermutationIterator <: NestedIterator
+struct DigitPermutationIterator <: NestedIterator
     source::Array{Int,1}
     maxlen::Int
 end

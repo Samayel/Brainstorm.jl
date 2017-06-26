@@ -1,7 +1,7 @@
 
 Combinatorics.combinations(a, c, k::Integer) = MultisetCombinations(a, c, k)
 
-immutable MultisetCombinations{T,U,V}
+struct MultisetCombinations{T,U,V}
     a::T
     c::U
     k::V
@@ -40,7 +40,7 @@ end
 Base.done(c::MultisetCombinations, s) = !isempty(s) && s[1] > length(c.a)
 
 Base.eltype(c::MultisetCombinations) = eltype(typeof(c))
-Base.eltype{T,U,V}(::Type{MultisetCombinations{T,U,V}}) = Array{eltype(T),1}
+Base.eltype(::Type{MultisetCombinations{T,U,V}}) where {T,U,V} = Array{eltype(T),1}
 
 Base.length(c::MultisetCombinations) = begin
     c.k == 0 && return big(1)
@@ -51,7 +51,7 @@ Base.length(c::MultisetCombinations) = begin
 
     # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
     R, z = PowerSeriesRing(ZZ, c.k + 1, "z")
-    gf = prod([sum([z^j for j in 0:m]) for m in c.c])
+    gf = prod(sum(z^j for j in 0:m) for m in c.c)
     l = coeff(gf, c.k)
 
     convert(BigInt, l)

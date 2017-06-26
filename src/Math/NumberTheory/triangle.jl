@@ -10,14 +10,14 @@ nthtriangular(n::Integer) = (n * (n+1)) ÷ 2
 ntriangular(n::Int, T::Type = Int) = collect(exacttriangular(n, T))
 
 alltriangular(T::Type = Int) = TriangularIterator{T}()
-sometriangular{T<:Integer}(xmax::T) = @pipe alltriangular(T) |> takewhile(x -> x <= xmax, _)
+sometriangular(xmax::T) where {T<:Integer} = @pipe alltriangular(T) |> takewhile(x -> x <= xmax, _)
 exacttriangular(n::Int, T::Type = Int) = @pipe alltriangular(T) |> take(_, n)
 
-immutable TriangularIterator{T<:Integer}
+struct TriangularIterator{T<:Integer}
 end
 
-Base.start{T<:Integer}(::TriangularIterator{T}) = zero(T), one(T)
-Base.next{T<:Integer}(::TriangularIterator{T}, state) = begin
+Base.start(::TriangularIterator{T}) where {T<:Integer} = zero(T), one(T)
+Base.next(::TriangularIterator{T}, state) where {T<:Integer} = begin
     s, n = state
     s += n
     s, (s, n + 1)
@@ -25,32 +25,32 @@ end
 Base.done(::TriangularIterator, _) = false
 
 Base.eltype(it::TriangularIterator) = Base.eltype(typeof(it))
-Base.eltype{T<:Integer}(::Type{TriangularIterator{T}}) = T
+Base.eltype(::Type{TriangularIterator{T}}) where {T<:Integer} = T
 
 Base.iteratorsize(::TriangularIterator) = Base.IsInfinite()
 
 
 
 primitive_pythagorean_triples(T::Type = Int) = PrimitivePythagoreanTripleIterator{T}()
-primitive_pythagorean_triples{T}(maxperimeter::T) = PrimitivePythagoreanTriplePerimeterIterator{T}(maxperimeter)
+primitive_pythagorean_triples(maxperimeter::T) where {T} = PrimitivePythagoreanTriplePerimeterIterator{T}(maxperimeter)
 
 
 abstract type PrimitivePythagoreanTripleIteratorBase{T<:Integer} end
 
-immutable PrimitivePythagoreanTripleIterator{T<:Integer} <: PrimitivePythagoreanTripleIteratorBase{T}
+struct PrimitivePythagoreanTripleIterator{T<:Integer} <: PrimitivePythagoreanTripleIteratorBase{T}
 end
 
-immutable PrimitivePythagoreanTriplePerimeterIterator{T<:Integer} <: PrimitivePythagoreanTripleIteratorBase{T}
+struct PrimitivePythagoreanTriplePerimeterIterator{T<:Integer} <: PrimitivePythagoreanTripleIteratorBase{T}
     maximum::T
 end
 
 
-Base.start{T}(::PrimitivePythagoreanTripleIterator{T}) = begin
+Base.start(::PrimitivePythagoreanTripleIterator{T}) where {T} = begin
     q = List{Array{T,1}}()
     n = push!(q, [3,4,5])
     q, n
 end
-Base.start{T}(it::PrimitivePythagoreanTriplePerimeterIterator{T}) = begin
+Base.start(it::PrimitivePythagoreanTriplePerimeterIterator{T}) where {T} = begin
     q = List{Array{T,1}}()
     n = it.maximum >= 12 ? push!(q, [3,4,5]) : q.node
     q, n
@@ -71,16 +71,16 @@ Base.done(::PrimitivePythagoreanTripleIteratorBase, state) = begin
 end
 
 Base.eltype(it::PrimitivePythagoreanTripleIteratorBase) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{PrimitivePythagoreanTripleIterator{T}}) = Array{T,1}
-Base.eltype{T}(::Type{PrimitivePythagoreanTriplePerimeterIterator{T}}) = Array{T,1}
+Base.eltype(::Type{PrimitivePythagoreanTripleIterator{T}}) where {T} = Array{T,1}
+Base.eltype(::Type{PrimitivePythagoreanTriplePerimeterIterator{T}}) where {T} = Array{T,1}
 
 Base.iteratorsize(::PrimitivePythagoreanTripleIterator) = Base.IsInfinite()
 Base.iteratorsize(::PrimitivePythagoreanTriplePerimeterIterator) = Base.SizeUnknown()
 
 
-iseol{T}(q::List{T}, n::ListNode{T}) = n == q.node
+iseol(q::List{T}, n::ListNode{T}) where {T} = n == q.node
 
-next!{T}(q::List{T}, n::ListNode{T}) = begin
+next!(q::List{T}, n::ListNode{T}) where {T} = begin
     n = n.next
     iseol(q, n) || return n
 
@@ -91,7 +91,7 @@ next!{T}(q::List{T}, n::ListNode{T}) = begin
     n
 end
 
-next!{T}(q::List{T}, n::ListNode{T}, maxsum) = begin
+next!(q::List{T}, n::ListNode{T}, maxsum) where {T} = begin
     n = n.next
     iseol(q, n) || return n
 

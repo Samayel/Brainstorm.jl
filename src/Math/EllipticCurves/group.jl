@@ -2,14 +2,14 @@
 
 abstract type Algorithm end
 
-immutable BabyStepGiantStep <: Algorithm end
-immutable PollardRho        <: Algorithm end
-immutable Schoof            <: Algorithm end
+struct BabyStepGiantStep <: Algorithm end
+struct PollardRho        <: Algorithm end
+struct Schoof            <: Algorithm end
 
 end
 
 # https://en.wikipedia.org/wiki/Counting_points_on_elliptic_curves#Baby-step_giant-step
-order{T<:FinFieldElem}(ec::Curve{T}, ::Type{_GroupAlgorithm.BabyStepGiantStep}) = begin
+order(ec::Curve{T}, ::Type{_GroupAlgorithm.BabyStepGiantStep}) where {T<:FinFieldElem} = begin
     o = order(field(ec))
     q = convert(BigInt, o)
     m = convert(BigInt, root(o, 4) + 1)

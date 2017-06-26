@@ -12,7 +12,7 @@ multiple(a::GroupElem, n::Integer, op) = begin
     end
 end
 
-multiple{T<:GroupElem}(a::T, n::Integer, op, inverse, identity::T) = begin
+multiple(a::T, n::Integer, op, inverse, identity::T) where {T<:GroupElem} = begin
     n == 0 && return identity
 
     if n < 0
@@ -61,8 +61,8 @@ multiple{T<:GroupElem}(a::T, n::Integer, op, inverse, identity::T) = begin
 end
 
 # TODO: improve! => http://sagenb.org/src/groups/generic.py
-log{T<:GroupElem}(a::T, base::T, ord::fmpz) = log(a, base, BigInt(ord))
-log{T<:GroupElem}(a::T, base::T, ord::Integer) = begin
+log(a::T, base::T, ord::fmpz) where {T<:GroupElem} = log(a, base, BigInt(ord))
+log(a::T, base::T, ord::Integer) where {T<:GroupElem} = begin
     n = 1
     b = base
     while a != b

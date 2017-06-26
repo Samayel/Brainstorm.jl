@@ -17,30 +17,30 @@ abstract type ActualYear <: DayCountConvention end
 
 abstract type Thirty360 <: FixedYear{360} end
 
-immutable Thirty360Bond <: Thirty360 end
-immutable Thirty360US <: Thirty360
+struct Thirty360Bond <: Thirty360 end
+struct Thirty360US <: Thirty360
     eom::Bool
 end
-immutable ThirtyE360 <: Thirty360 end
-immutable ThirtyE360ISDA <: Thirty360
+struct ThirtyE360 <: Thirty360 end
+struct ThirtyE360ISDA <: Thirty360
     maturity::Date
 end
 
 
 abstract type ActualFixedYear{N} <: FixedYear{N} end
 
-immutable Actual365Fixed <: ActualFixedYear{365} end
-immutable Actual364 <: ActualFixedYear{364} end
-immutable Actual360 <: ActualFixedYear{360} end
+struct Actual365Fixed <: ActualFixedYear{365} end
+struct Actual364 <: ActualFixedYear{364} end
+struct Actual360 <: ActualFixedYear{360} end
 
 
 abstract type ActualActual <: ActualYear end
 
-immutable ActualActualISDA <: ActualActual end
+struct ActualActualISDA <: ActualActual end
 
 
 
-yearlength{N}(::FixedYear{N}, year = 0) = N
+yearlength(::FixedYear{N}, year = 0) where {N} = N
 
 yearlength(::ActualYear, year) = isleapyear(year) ? 366 : 365
 
@@ -102,9 +102,9 @@ end
 
 
 
-yearfraction{S<:Real}(c::Union{Thirty360, ActualFixedYear}, a, b, s::Type{S} = Float64) = convert(S, daycount(c, a, b)) / yearlength(c)
+yearfraction(c::Union{Thirty360, ActualFixedYear}, a, b, s::Type{S} = Float64) where {S<:Real} = convert(S, daycount(c, a, b)) / yearlength(c)
 
-yearfraction{S<:Real}(c::ActualActualISDA, a, b, ::Type{S} = Float64) = begin
+yearfraction(c::ActualActualISDA, a, b, ::Type{S} = Float64) where {S<:Real} = begin
     firstyear = 1 - yearfraction(c, a)
     betweenyears = year(b) - year(a) - 1
     lastyear = yearfraction(c, b)
@@ -112,4 +112,4 @@ yearfraction{S<:Real}(c::ActualActualISDA, a, b, ::Type{S} = Float64) = begin
     convert(S, firstyear + betweenyears + lastyear)
 end
 
-yearfraction{S<:Real}(c::ActualActualISDA, date, ::Type{S} = Float64) = (dayofyear(date) - 1) // yearlength(c, date)
+yearfraction(c::ActualActualISDA, date, ::Type{S} = Float64) where {S<:Real} = (dayofyear(date) - 1) // yearlength(c, date)

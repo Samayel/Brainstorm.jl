@@ -8,7 +8,7 @@ const guard_terms = 5
 
 # Compute int(pi * 10^digits)
 # This is done using Chudnovsky's series with binary splitting
-pi{T<:Integer}(digits::T) = begin
+pi(digits::T) where {T<:Integer} = begin
     # how many terms to compute
     n = ceil(T, digits / digits_per_term) + guard_terms
 

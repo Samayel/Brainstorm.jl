@@ -1,4 +1,4 @@
-(F::FqFiniteField){T<:Union{Integer,fmpz}}(coeffs::Array{T,1}) = begin
+(F::FqFiniteField)(coeffs::Array{T,1}) where {T<:Union{Integer,fmpz}} = begin
     g = gen(F)
     x = zero(F)
     for (i, c) in enumerate(coeffs)
@@ -7,7 +7,7 @@
     x
 end
 
-(F::FqNmodFiniteField){T<:Union{Integer,fmpz}}(coeffs::Array{T,1}) = begin
+(F::FqNmodFiniteField)(coeffs::Array{T,1}) where {T<:Union{Integer,fmpz}} = begin
     g = gen(F)
     x = zero(F)
     for (i, c) in enumerate(coeffs)
@@ -82,7 +82,7 @@ sqrts(a::FinFieldElem) = roots(a, 2)
 # http://trac.sagemath.org/ticket/7931
 # http://sagenb.org/src/rings/finite_rings/element_base.pyx
 roots(a::FinFieldElem, n::Integer) = roots(a, fmpz(n))
-roots{T<:FinFieldElem}(a::T, n::fmpz) = begin
+roots(a::T, n::fmpz) where {T<:FinFieldElem} = begin
     if iszero(a)
         n <= 0 && throw(DomainError())
         return [a]

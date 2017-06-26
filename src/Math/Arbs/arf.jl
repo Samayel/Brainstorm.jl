@@ -1,5 +1,5 @@
 
-typealias arf_rnd_t fmpr_rnd_t
+const arf_rnd_t = fmpr_rnd_t
 
 const ARF_RND_DOWN = FMPR_RND_DOWN
 const ARF_RND_UP = FMPR_RND_UP
@@ -15,7 +15,7 @@ const ARF_PREC_EXACT = WORD_MAX
 #
 ################################################################################
 
-typealias arf_t arf_struct
+const arf_t = arf_struct
 
 arf() = begin
     z = arf_struct(0, 0, 0, 0)

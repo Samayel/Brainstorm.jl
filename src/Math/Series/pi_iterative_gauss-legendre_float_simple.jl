@@ -4,7 +4,7 @@ const guard_digits = 5
 const eps_digits = 5
 const bits_per_digit = log2(10)
 
-pi{T<:Integer}(digits::T) = begin
+pi(digits::T) where {T<:Integer} = begin
     prec = ceil(T, bits_per_digit * (digits + guard_digits + eps_digits))
     setprecision(prec) do
         _pi(digits)

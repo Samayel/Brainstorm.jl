@@ -2,7 +2,7 @@
 Combinatorics.permutations(a, c) = permutations(a, c, sum(c))
 Combinatorics.permutations(a, c, k::Integer) = MultisetPermuations(a, c, k)
 
-immutable MultisetPermuations{T,U,V}
+struct MultisetPermuations{T,U,V}
     a::T
     c::U
     k::V
@@ -37,7 +37,7 @@ end
 Base.done(p::MultisetPermuations, s) = !isempty(s) && s[1] > length(p.a)
 
 Base.eltype(p::MultisetPermuations) = eltype(typeof(p))
-Base.eltype{T,U,V}(::Type{MultisetPermuations{T,U,V}}) = Array{eltype(T),1}
+Base.eltype(::Type{MultisetPermuations{T,U,V}}) where {T,U,V} = Array{eltype(T),1}
 
 Base.length(p::MultisetPermuations) = begin
     p.k == 0 && return big(1)
@@ -48,7 +48,7 @@ Base.length(p::MultisetPermuations) = begin
 
     # http://www.m-hikari.com/ams/ams-2011/ams-17-20-2011/siljakAMS17-20-2011.pdf
     R, z = PowerSeriesRing(QQ, p.k + 1, "z")
-    gf = prod([sum([divexact(z^j, fac(j)) for j in 0:m]) for m in p.c])
+    gf = prod(sum(divexact(z^j, fac(j)) for j in 0:m) for m in p.c)
     l = fac(p.k) * coeff(gf, p.k)
 
     @assert den(l) == 1

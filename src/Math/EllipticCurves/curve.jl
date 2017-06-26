@@ -1,13 +1,13 @@
 abstract type Curve{F} end
 
 # (short) Weierstrass normal form, y² = x³ + ax + b
-@auto_hash_equals immutable WNFCurve{F} <: Curve{F}
+@auto_hash_equals struct WNFCurve{F} <: Curve{F}
     a::F
     b::F
 end
 
 # generalized Weierstrass normal form, y² + a₁xy + a₃y = x³ + a₂x² + a₄x + a₆
-@auto_hash_equals immutable GWNFCurve{F} <: Curve{F}
+@auto_hash_equals struct GWNFCurve{F} <: Curve{F}
     a₁::F
     a₂::F
     a₃::F
@@ -16,14 +16,14 @@ end
 end
 
 curve(a, b) = curve(promote(a, b)...)
-curve{F}(a::F, b::F) = begin
+curve(a::F, b::F) where {F} = begin
     ec = WNFCurve(a, b)
     issingular(ec) && error("curve $(ec) is singular")
     ec
 end
 
 curve(a₁, a₂, a₃, a₄, a₆) = curve(promote(a₁, a₂, a₃, a₄, a₆)...)
-curve{F}(a₁::F, a₂::F, a₃::F, a₄::F, a₆::F) = begin
+curve(a₁::F, a₂::F, a₃::F, a₄::F, a₆::F) where {F} = begin
     ec = GWNFCurve(a₁, a₂, a₃, a₄, a₆)
     issingular(ec) && error("curve $(ec) is singular")
     ec
@@ -41,14 +41,14 @@ discriminant(ec::GWNFCurve) = begin
     -(b₂^2)*b₈ - 8*b₄^3 - 27*b₆^2 + 9*b₂*b₄*b₆
 end
 
-contains{F}(ec::WNFCurve{F}, x::F, y::F) = y^2 == x^3 + ec.a*x + ec.b
-contains{F}(ec::GWNFCurve{F}, x::F, y::F) = y^2 + ec.a₁*x*y + ec.a₃*y == x^3 + ec.a₂*x^2 + ec.a₄*x + ec.a₆
+contains(ec::WNFCurve{F}, x::F, y::F) where {F} = y^2 == x^3 + ec.a*x + ec.b
+contains(ec::GWNFCurve{F}, x::F, y::F) where {F} = y^2 + ec.a₁*x*y + ec.a₃*y == x^3 + ec.a₂*x^2 + ec.a₄*x + ec.a₆
 
-ring{T}(n::Curve{T}) = T
-ring{T<:RingElem}(ec::WNFCurve{T}) = parent(ec.a)
-ring{T<:RingElem}(ec::GWNFCurve{T}) = parent(ec.a₁)
+ring(n::Curve{T}) where {T} = T
+ring(ec::WNFCurve{T}) where {T<:RingElem} = parent(ec.a)
+ring(ec::GWNFCurve{T}) where {T<:RingElem} = parent(ec.a₁)
 
-field{T<:FieldElem}(ec::Curve{T}) = ring(ec)
+field(ec::Curve{T}) where {T<:FieldElem} = ring(ec)
 
 show(io::IO, ec::WNFCurve) = print(io, "{y² = x³ + [$(ec.a)]x + [$(ec.b)]   x, y ∈ $(ring(ec))}")
 show(io::IO, ec::GWNFCurve) = print(io, "{y² + [$(ec.a₁)]xy + [$(ec.a₃)]y == x³ + [$(ec.a₂)]x² + [$(ec.a₄)]x + [$(ec.a₆)]   x, y ∈ $(ring(ec))}")

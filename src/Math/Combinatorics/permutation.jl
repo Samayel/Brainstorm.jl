@@ -3,18 +3,18 @@
 
 Combinatorics.permutations(a, mode::Type{Val{:unique}}) = permutations(a, length(a), mode)
 Combinatorics.permutations(a, mode::Type{Val{:repeated}}) = permutations(a, length(a), mode)
-Combinatorics.permutations{T}(a::T, k::Integer, ::Type{Val{:unique}}) = Permutations{T, Val{:unique}}(a, k)
-Combinatorics.permutations{T}(a::T, k::Integer, ::Type{Val{:repeated}}) = Permutations{T, Val{:repeated}}(a, k)
+Combinatorics.permutations(a::T, k::Integer, ::Type{Val{:unique}}) where {T} = Permutations{T, Val{:unique}}(a, k)
+Combinatorics.permutations(a::T, k::Integer, ::Type{Val{:repeated}}) where {T} = Permutations{T, Val{:repeated}}(a, k)
 
-immutable Permutations{T,M}
+struct Permutations{T,M}
     a::T
     k::Int
 end
 
-Base.start{T}(v::Permutations{T, Val{:unique}}) = v.k <= length(v.a) ? collect(1:v.k) : [length(v.a) + 1]
-Base.start{T}(v::Permutations{T, Val{:repeated}}) = ones(Int, v.k)
+Base.start(v::Permutations{T, Val{:unique}}) where {T} = v.k <= length(v.a) ? collect(1:v.k) : [length(v.a) + 1]
+Base.start(v::Permutations{T, Val{:repeated}}) where {T} = ones(Int, v.k)
 
-Base.next{T,M}(v::Permutations{T,M}, s) = begin
+Base.next(v::Permutations{T,M}, s) where {T,M} = begin
     permutation = [v.a[si] for si in s]
     v.k > 0 || return permutation, [length(v.a) + 1]
 
@@ -31,23 +31,23 @@ Base.next{T,M}(v::Permutations{T,M}, s) = begin
     permutation, s
 end
 
-next!{T}(::Permutations{T, Val{:unique}}, s, i) = begin
+next!(::Permutations{T, Val{:unique}}, s, i) where {T} = begin
     s[i] += 1
     while s[i] ∈ s[1:i-1]
         s[i] += 1
     end
 end
-next!{T}(::Permutations{T, Val{:repeated}}, s, i) = s[i] += 1
+next!(::Permutations{T, Val{:repeated}}, s, i) where {T} = s[i] += 1
 
-tail{T}(v::Permutations{T, Val{:unique}}, s, i) = setdiff(collect(1:v.k), s[1:i])[1:(length(s)-i)]
-tail{T}(::Permutations{T, Val{:repeated}}, s, i) = ones(Int, length(s) - i)
+tail(v::Permutations{T, Val{:unique}}, s, i) where {T} = setdiff(collect(1:v.k), s[1:i])[1:(length(s)-i)]
+tail(::Permutations{T, Val{:repeated}}, s, i) where {T} = ones(Int, length(s) - i)
 
 Base.done(v::Permutations, s) = !isempty(s) && s[1] > length(v.a)
 
 Base.eltype(v::Permutations) = eltype(typeof(v))
-Base.eltype{T,M}(::Type{Permutations{T,M}}) = Array{eltype(T),1}
+Base.eltype(::Type{Permutations{T,M}}) where {T,M} = Array{eltype(T),1}
 
-Base.length{T}(v::Permutations{T, Val{:unique}}) = begin
+Base.length(v::Permutations{T, Val{:unique}}) where {T} = begin
     v.k <= length(v.a) || return big(0)
     factorial(big(length(v.a)), length(v.a) - v.k)
 end

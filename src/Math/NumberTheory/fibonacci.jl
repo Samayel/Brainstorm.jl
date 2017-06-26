@@ -2,7 +2,7 @@ export
     nthfibonacci, nfibonacci,
     allfibonacci, somefibonacci, exactfibonacci
 
-immutable FibonacciIterator{T<:Integer}
+struct FibonacciIterator{T<:Integer}
     x1::T
     x2::T
 end
@@ -15,17 +15,17 @@ allfibonacci(x1::Integer, x2::Integer) = FibonacciIterator(promote(x1, x2)...)
 
 somefibonacci(xmax::Integer) = somefibonacci(xmax, one(xmax), one(xmax))
 somefibonacci(xmax::Integer, x1::Integer, x2::Integer) = somefibonacci(promote(xmax, x1, x2)...)
-somefibonacci{T<:Integer}(xmax::T, x1::T, x2::T) = @pipe allfibonacci(x1, x2) |> takewhile(x -> x <= xmax, _)
+somefibonacci(xmax::T, x1::T, x2::T) where {T<:Integer} = @pipe allfibonacci(x1, x2) |> takewhile(x -> x <= xmax, _)
 
 exactfibonacci(n::Int, S::Type = Int) = exactfibonacci(n, one(S), one(S))
 exactfibonacci(n::Int, x1::Integer, x2::Integer) = exactfibonacci(n, promote(x1, x2)...)
-exactfibonacci{S<:Integer}(n::Int, x1::S, x2::S) = @pipe allfibonacci(x1, x2) |> take(_, n)
+exactfibonacci(n::Int, x1::S, x2::S) where {S<:Integer} = @pipe allfibonacci(x1, x2) |> take(_, n)
 
 Base.start(it::FibonacciIterator) = (checked_sub(it.x2, it.x1), it.x1)
 Base.next(::FibonacciIterator, state) = (state[2], (state[2], checked_add(state[1], state[2])))
 Base.done(::FibonacciIterator, _) = false
 
 Base.eltype(it::FibonacciIterator) = Base.eltype(typeof(it))
-Base.eltype{T}(::Type{FibonacciIterator{T}}) = T
+Base.eltype(::Type{FibonacciIterator{T}}) where {T} = T
 
 Base.iteratorsize(::FibonacciIterator) = Base.IsInfinite()

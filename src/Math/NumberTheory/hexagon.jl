@@ -13,14 +13,14 @@ nthhexagonal(n::Integer) = n * (2*n - 1)
 nhexagonal(n::Int, T::Type = Int) = collect(exacthexagonal(n, T))
 
 allhexagonal(T::Type = Int) = HexagonalIterator{T}()
-somehexagonal{T<:Integer}(xmax::T) = @pipe allhexagonal(T) |> takewhile(x -> x <= xmax, _)
+somehexagonal(xmax::T) where {T<:Integer} = @pipe allhexagonal(T) |> takewhile(x -> x <= xmax, _)
 exacthexagonal(n::Int, T::Type = Int) = @pipe allhexagonal(T) |> take(_, n)
 
-immutable HexagonalIterator{T<:Integer}
+struct HexagonalIterator{T<:Integer}
 end
 
-Base.start{T<:Integer}(::HexagonalIterator{T}) = zero(T), one(T)
-Base.next{T<:Integer}(::HexagonalIterator{T}, state) = begin
+Base.start(::HexagonalIterator{T}) where {T<:Integer} = zero(T), one(T)
+Base.next(::HexagonalIterator{T}, state) where {T<:Integer} = begin
     s, n = state
     s += 4*n - 3
     s, (s, n + 1)
@@ -28,6 +28,6 @@ end
 Base.done(::HexagonalIterator, _) = false
 
 Base.eltype(it::HexagonalIterator) = Base.eltype(typeof(it))
-Base.eltype{T<:Integer}(::Type{HexagonalIterator{T}}) = T
+Base.eltype(::Type{HexagonalIterator{T}}) where {T<:Integer} = T
 
 Base.iteratorsize(::HexagonalIterator) = Base.IsInfinite()
