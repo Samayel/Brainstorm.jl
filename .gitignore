@@ -7,3 +7,5 @@ msieve.dat
 *.sage-history
 
 **/.ipynb_checkpoints/
+
+.sync/
