@@ -1,6 +1,7 @@
 @reexport module _NumberTheory
 
 import Base: ==
+import Nemo
 import Primes
 
 using Brainstorm: flatten, takewhile
@@ -9,8 +10,9 @@ using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using IterTools: chain, cycle, drop, imap, take
 using Lists: List, ListNode
+using Nemo: factor, fmpz
 using Pipe: @pipe
-using Primes: isprime, primes, primesmask, factor, ismersenneprime, isrieselprime, nextprime, prevprime, prime, prodfactors, radical, totient
+using Primes: isprime, primes, primesmask, ismersenneprime, isrieselprime, nextprime, prevprime, prime, radical, totient
 using Reexport: @reexport
 
 include("primes.jl")

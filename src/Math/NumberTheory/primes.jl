@@ -2,7 +2,6 @@ export
     isprime, ismersenneprime, isrieselprime,
     primes, primesmask,
     nextprime, prevprime, prime,
-    factor, prodfactors,
     radical, totient,
     coprime
 

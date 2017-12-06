@@ -1,10 +1,16 @@
 export
+    factor,
     isperfectsquare,
     divisorcount, divisorsigma,
     isperfect, isdeficient, isabundant,
-    factor_sorted,
     primefactors, factors,
     least_number_with_d_divisors
+
+Nemo.factor(n::T, out::Type{O} = Dict{T, Int}) where {T<:Integer, O<:Associative{T, Int}} = begin
+    factorization = factor(fmpz(n))
+    pairs = (convert(T, p) => e for (p, e) in factorization)
+    out(pairs)
+end
 
 isperfectsquare(n::Integer) = n == isqrt(n)^2
 
@@ -36,8 +42,6 @@ isperfect(n::Integer) = divisorsigma(n, 1) - n == n
 isdeficient(n::Integer) = divisorsigma(n, 1) - n < n
 isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
-factor_sorted(n::Integer) = factor(n) |> SortedDict
-
 primefactors(n::Integer) = sort!(collect(keys(factor(n))))
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
@@ -68,7 +72,7 @@ least_number_with_d_divisors(d::Integer) =
 least_number_with_d_divisors_exponents(d::T, i::Int = 1, prevn::T = zero(T)) where {T<:Integer} = begin
     d <= 1 && return Vector{T}[T[]]
 
-    f = factor_sorted(d)
+    f = factor(d, SortedDict{T, Int})
     pmax = last(f)[1]
     k = sum(values(f))
 
