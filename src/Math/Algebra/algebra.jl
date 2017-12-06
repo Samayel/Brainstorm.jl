@@ -6,7 +6,7 @@ import Nemo: root, roots
 export sqrts, elements, multiple
 
 using Brainstorm._Algorithm: @forcartesian
-using Brainstorm._Math: factorization
+using Brainstorm._Math: factor
 using Nemo: characteristic, degree, fmpz, FinFieldElem, FqFiniteField, FqNmodFiniteField, gen, GroupElem, isone, iszero, order, remove
 
 convert(::Type{Integer}, n::fmpz) = BigInt(n)

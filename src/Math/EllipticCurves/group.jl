@@ -42,7 +42,7 @@ order(ec::Curve{T}, ::Type{_GroupAlgorithm.BabyStepGiantStep}) where {T<:FinFiel
         # (q + 1 + 2mk ∓ j)P = MP = 𝒪
         M = q + 1 + 2*m*k + (R == (j*P) ? -1 : 1)*j
 
-        for (p, e) in factorization(M)
+        for (p, e) in factor(M)
             for _ in 1:e
                 N = M ÷ p
                 !isideal(N*P) && break

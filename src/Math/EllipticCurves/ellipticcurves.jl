@@ -10,7 +10,7 @@ import Nemo: divexact, contains, order, gen
 export curve, point, samecurve, ideal, ring, field, isideal
 
 using AutoHashEquals: @auto_hash_equals
-using Brainstorm._Math: factorization, factors, isprime
+using Brainstorm._Math: factor, factors, isprime
 using Nemo: FieldElem, FinFieldElem, RingElem, root
 using Reexport: @reexport
 

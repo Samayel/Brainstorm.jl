@@ -11,7 +11,7 @@ satisfying 10^s=10^(s+t) (mod n)."
 =#
 decimalperiod(_, n) = begin
     n0 = one(n)
-    for (p, k) in factorization(n)
+    for (p, k) in factor(n)
         p == 2 && continue
         p == 5 && continue
         n0 *= p^k

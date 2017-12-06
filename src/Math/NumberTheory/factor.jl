@@ -2,7 +2,7 @@ export
     isperfectsquare,
     divisorcount, divisorsigma,
     isperfect, isdeficient, isabundant,
-    factorization_sorted,
+    factor_sorted,
     primefactors, factors,
     least_number_with_d_divisors
 
@@ -13,7 +13,7 @@ divisorcount(n::Integer) = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
     c = one(n)
-    for k in values(factorization(n))
+    for k in values(factor(n))
         c *= k + 1
     end
     c
@@ -26,7 +26,7 @@ divisorsigma(n::Integer, s = 1) = begin
     s == 0 && return divisorcount(n)
 
     σ = one(n)
-    for (p, k) in factorization(n)
+    for (p, k) in factor(n)
         σ *= (p^((k + 1) * s) - 1) ÷ (p^s - 1)
     end
     σ
@@ -36,16 +36,16 @@ isperfect(n::Integer) = divisorsigma(n, 1) - n == n
 isdeficient(n::Integer) = divisorsigma(n, 1) - n < n
 isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
-factorization_sorted(n::Integer) = factorization(n) |> SortedDict
+factor_sorted(n::Integer) = factor(n) |> SortedDict
 
-primefactors(n::Integer) = sort!(collect(keys(factorization(n))))
+primefactors(n::Integer) = sort!(collect(keys(factor(n))))
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
 factors(n::T, negative::Bool = false) where {T<:Integer} = begin
     n > 0 || error("Argument 'n' must be an integer greater 0")
 
     f = [one(n)]
-    for (p, k) in factorization(n)
+    for (p, k) in factor(n)
         f = reduce(vcat, f, [f * p^j for j in 1:k])::Array{T,1}
     end
 
@@ -59,7 +59,7 @@ factors(n::T, negative::Bool = false) where {T<:Integer} = begin
 end
 
 indexfactorization2number(x::Array{T,1}) where {T<:Integer} =
-    prod(big(nthprime(i))^k for (i, k) in enumerate(x))
+    prod(big(prime(i))^k for (i, k) in enumerate(x))
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors(d::Integer) =
@@ -68,12 +68,12 @@ least_number_with_d_divisors(d::Integer) =
 least_number_with_d_divisors_exponents(d::T, i::Int = 1, prevn::T = zero(T)) where {T<:Integer} = begin
     d <= 1 && return Vector{T}[T[]]
 
-    f = factorization_sorted(d)
+    f = factor_sorted(d)
     pmax = last(f)[1]
     k = sum(values(f))
 
-    p = nthprime(k+i-1)
-    p_i = nthprime(i)
+    p = prime(k+i-1)
+    p_i = prime(i)
     m = floor(Integer, log(p) / log(p_i))
 
     c = [pmax]

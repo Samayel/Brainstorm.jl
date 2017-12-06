@@ -20,7 +20,7 @@ multiplicativeorder(a::T, m::T) where {T<:Integer} = begin
     coprime(a, m) || error("$a and $m are not coprime")
 
     res = one(m)
-    for (p, k) in factorization(m)
+    for (p, k) in factor(m)
         m = p^k
         t = (m ÷ p) * (p-1)
         for f in factors(t)

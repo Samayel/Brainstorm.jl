@@ -6,7 +6,6 @@ using IterTools: take
 using Primes: primes
 
 include("primes.jl")
-include("Primes/native.jl")
 include("factor.jl")
 include("mod.jl")
 include("decimal.jl")
@@ -20,7 +19,6 @@ include("diophantine.jl")
 
 function test_all()
     test_primes_all()
-    _Primes.test_all()
     test_factor_all()
     test_mod_all()
     test_decimal_all()

@@ -10,7 +10,7 @@ using DataStructures: SortedDict
 using IterTools: chain, cycle, drop, imap, take
 using Lists: List, ListNode
 using Pipe: @pipe
-using Primes: isprime
+using Primes: isprime, primes, primesmask, factor, ismersenneprime, isrieselprime, nextprime, prevprime, prime, prodfactors, radical, totient
 using Reexport: @reexport
 
 include("primes.jl")
