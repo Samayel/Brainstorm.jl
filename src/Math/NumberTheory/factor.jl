@@ -8,19 +8,19 @@ export
 
 isperfectsquare(n::Integer) = n == isqrt(n)^2
 
-Nemo.factor(n::T, out::Type{O} = Dict{T, Int}) where {T<:Integer, O<:Associative{T, Int}} = begin
+Nemo.factor(n::Int128) = factor(big(n))
+Nemo.factor(n::T) where {T<:Integer} = factor(n, Dict{T, Int})
+Nemo.factor(n::T, out::Type{O}) where {T<:Integer, OP<:Integer, OK<:Integer, O<:Associative{OP, OK}} = begin
     factorization = factor(fmpz(n))
-    pairs = (convert(T, p) => k for (p, k) in factorization)
+    pairs = (convert(OP, p) => convert(OK, k) for (p, k) in factorization)
     out(pairs)
 end
 
 ##  Euler's Phi (or: totient) function
-eulerphi(n::Integer) = eulerphi(n, factor(n))
-eulerphi(n::T, factorization::Associative{T, Int}) where {T<:Integer} = begin
-    n > 0 || error("Argument 'n' must be an integer greater 0")		
-
+eulerphi(n::Integer) = eulerphi(factor(n))
+eulerphi(f::Associative{T, <:Integer}) where {T<:Integer} = begin
     phi = one(T)
-    for (p, k) in factorization
+    for (p, k) in f
         phi *= p^(k-1) * (p - 1)
     end
     phi

@@ -3,7 +3,7 @@ function test_factor_isperfectsquare()
 end
 
 function test_factor_factor()
-    @test factor(big(147573952589676412927)) == Dict{BigInt,Int}(193707721 => 1, 761838257287 => 1)
+    @test factor(147573952589676412927) == Dict{BigInt,Int}(193707721 => 1, 761838257287 => 1)
     @test factor((2^31-1)*(2^17-1)) == Dict((2^31-1) => 1, (2^17-1) => 1)
     @test factor((big(2)^31-1)^2) == Dict(big(2^31-1) => 2)
 
