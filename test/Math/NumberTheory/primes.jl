@@ -1,4 +1,3 @@
-
 function test_primes_coprime()
     @test coprime(1, 3) == true
     @test coprime(2, 3) == true

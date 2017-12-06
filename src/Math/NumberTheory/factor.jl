@@ -1,18 +1,30 @@
 export
-    factor,
     isperfectsquare,
+    factor, eulerphi,
     divisorcount, divisorsigma,
     isperfect, isdeficient, isabundant,
     primefactors, factors,
     least_number_with_d_divisors
 
+isperfectsquare(n::Integer) = n == isqrt(n)^2
+
 Nemo.factor(n::T, out::Type{O} = Dict{T, Int}) where {T<:Integer, O<:Associative{T, Int}} = begin
     factorization = factor(fmpz(n))
-    pairs = (convert(T, p) => e for (p, e) in factorization)
+    pairs = (convert(T, p) => k for (p, k) in factorization)
     out(pairs)
 end
 
-isperfectsquare(n::Integer) = n == isqrt(n)^2
+##  Euler's Phi (or: totient) function
+eulerphi(n::Integer) = eulerphi(n, factor(n))
+eulerphi(n::T, factorization::Associative{T, Int}) where {T<:Integer} = begin
+    n > 0 || error("Argument 'n' must be an integer greater 0")		
+
+    phi = one(T)
+    for (p, k) in factorization
+        phi *= p^(k-1) * (p - 1)
+    end
+    phi
+end
 
 # https://oeis.org/wiki/Divisor_function
 divisorcount(n::Integer) = begin

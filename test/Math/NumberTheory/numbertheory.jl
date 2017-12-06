@@ -2,8 +2,8 @@ module _NumberTheory
 
 using Brainstorm._Math._NumberTheory
 using Base.Test
+using DataStructures: SortedDict
 using IterTools: take
-using Primes: primes
 
 include("primes.jl")
 include("factor.jl")
