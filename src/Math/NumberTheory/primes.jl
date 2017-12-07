@@ -4,6 +4,8 @@ export
     nextprime, prevprime, prime,
     coprime
 
-Primes.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
+Nemo.isprime(n::UInt) = Nemo.is_prime(n)
+Nemo.isprime(n::Integer) = typemin(UInt) <= n <= typemax(UInt) ? isprime(UInt(n)) : Nemo.isprime(fmpz(n))
+Nemo.isprime(n::Integer, mask) = n <= length(mask) ? mask[n] : isprime(n)
 
 coprime(n::Integer, m::Integer) = n != 0 && m != 0 && gcd(n, m) == 1

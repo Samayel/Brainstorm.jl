@@ -2,7 +2,6 @@
 
 import Base: ==
 import Nemo
-import Primes
 
 using Brainstorm: flatten, takewhile
 using Brainstorm._Math: checked_add, checked_sub
@@ -10,9 +9,9 @@ using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using IterTools: chain, cycle, drop, imap, take
 using Lists: List, ListNode
-using Nemo: factor, fmpz
+using Nemo: factor, fmpz, isprime
 using Pipe: @pipe
-using Primes: isprime, primes, primesmask, ismersenneprime, isrieselprime, nextprime, prevprime, prime, radical, totient
+using Primes: primes, primesmask, ismersenneprime, isrieselprime, nextprime, prevprime, prime
 using Reexport: @reexport
 
 include("primes.jl")
