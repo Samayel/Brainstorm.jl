@@ -18,6 +18,11 @@ function test_factor_eulerphi()
     @test eulerphi(2) == 1
     @test eulerphi(3) == 2
     @test eulerphi(9) == 6
+
+    @test eulerphi(factor(1)) == 1
+    @test eulerphi(factor(2)) == 1
+    @test eulerphi(factor(3)) == 2
+    @test eulerphi(factor(9)) == 6
 end
 
 function test_factor_divisorcount()
