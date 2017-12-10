@@ -17,7 +17,7 @@ yields 1 when used as exponent.
 =#
 multiplicativeorder(a::Integer, m::Integer) = multiplicativeorder(promote(a, m)...)
 multiplicativeorder(a::T, m::T) where {T<:Integer} = begin
-    coprime(a, m) || error("$a and $m are not coprime")
+    iscoprime(a, m) || error("$a and $m are not coprime")
 
     res = one(m)
     for (p, k) in factor(m)

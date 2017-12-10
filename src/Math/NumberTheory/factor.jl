@@ -54,7 +54,7 @@ isperfect(n::Integer) = divisorsigma(n, 1) - n == n
 isdeficient(n::Integer) = divisorsigma(n, 1) - n < n
 isabundant(n::Integer) = divisorsigma(n, 1) - n > n
 
-primefactors(n::Integer) = sort!(collect(keys(factor(n))))
+primefactors(n::Integer) = (sort! ∘ collect ∘ keys ∘ factor)(n)
 
 # http://rosettacode.org/wiki/Factors_of_an_integer
 factors(n::T, negative::Bool = false) where {T<:Integer} = begin
@@ -75,7 +75,7 @@ factors(n::T, negative::Bool = false) where {T<:Integer} = begin
 end
 
 indexfactorization2number(x::Array{T,1}) where {T<:Integer} =
-    prod(big(prime(i))^k for (i, k) in enumerate(x))
+    prod(big(nthprime(i))^k for (i, k) in enumerate(x))
 
 # http://www.primepuzzles.net/problems/prob_019.htm
 least_number_with_d_divisors(d::Integer) =
@@ -88,8 +88,8 @@ least_number_with_d_divisors_exponents(d::T, i::Int = 1, prevn::T = zero(T)) whe
     pmax = last(f)[1]
     k = sum(values(f))
 
-    p = prime(k+i-1)
-    p_i = prime(i)
+    p = nthprime(k+i-1)
+    p_i = nthprime(i)
     m = floor(Integer, log(p) / log(p_i))
 
     c = [pmax]

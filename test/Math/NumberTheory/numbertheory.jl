@@ -2,6 +2,7 @@ module _NumberTheory
 
 using Brainstorm._Math._NumberTheory
 using Base.Test
+using Brainstorm: dropwhile
 using DataStructures: SortedDict
 using IterTools: take
 
