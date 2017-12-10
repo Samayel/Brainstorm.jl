@@ -1,7 +1,10 @@
 export
+    sqrtmod,
     multiplicativeorder,
     linearmod,
     primitiveroot
+
+Nemo.sqrtmod(x::Integer, m::T) where T<:Integer = convert(T, sqrtmod(fmpz(x), fmpz(m)))
 
 #=
 http://rosettacode.org/wiki/Multiplicative_order
