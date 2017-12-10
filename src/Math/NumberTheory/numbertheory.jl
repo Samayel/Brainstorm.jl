@@ -10,7 +10,7 @@ using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
 using IterTools: chain, cycle, drop, imap, take
 using Lists: List, ListNode
-using Nemo: eulerphi, factor, fmpz, isprime, is_prime
+using Nemo: eulerphi, factor, fmpz, isprime, is_prime, sigma
 using Pipe: @pipe
 using Primes: ismersenneprime, isrieselprime, primes, primesmask
 using Reexport: @reexport

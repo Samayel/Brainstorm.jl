@@ -10,11 +10,12 @@ isperfectsquare(n::Integer) = n == isqrt(n)^2
 
 Nemo.factor(n::Int128) = (factor ∘ big)(n)
 Nemo.factor(n::T) where {T<:Integer} = factor(n, Dict{T, Int})
-Nemo.factor(n::T, out::Type{O}) where {T<:Integer, OP<:Integer, OK<:Integer, O<:Associative{OP, OK}} = begin
+Nemo.factor(n::Integer, out::Type{O}) where {OP<:Integer, OK<:Integer, O<:Associative{OP, OK}} = begin
     factorization = (factor ∘ fmpz)(n)
     pairs = (convert(OP, p) => convert(OK, k) for (p, k) in factorization)
     out(pairs)
 end
+Nemo.factor(n::Integer, out::Type{Nemo.Fac}) = (factor ∘ fmpz)(n)
 
 ##  Euler's Phi (or: totient) function
 Nemo.eulerphi(n::T) where {T<:Integer} = convert(T, (eulerphi ∘ fmpz)(n))
@@ -27,24 +28,22 @@ Nemo.eulerphi(f::Associative{T, <:Integer}) where {T<:Integer} = begin
 end
 
 # https://oeis.org/wiki/Divisor_function
-divisorcount(n::Integer) = begin
-    n > 0 || error("Argument 'n' must be an integer greater 0")
-
-    c = one(n)
-    for k in values(factor(n))
+divisorcount(n::T) where {T<:Integer} = convert(T, sigma(fmpz(n), 0))
+divisorcount(f::Associative{T, <:Integer}) where {T<:Integer} = begin
+    c = one(T)
+    for k in values(f)
         c *= k + 1
     end
     c
 end
-divisorsigma(n::Integer, s = 1) = begin
+
+divisorsigma(n::T, s = 1) where {T<:Integer} = convert(T, sigma(fmpz(n), s))
+divisorsigma(f::Associative{T, <:Integer}, s = 1) where {T<:Integer} = begin
     s >= 0 || error("Argument 's' must be an integer greater or equal 0")
-    n >  0 || error("Argument 'n' must be an integer greater 0")
+    s == 0 && return divisorcount(f)
 
-    n == 1 && return one(n)
-    s == 0 && return divisorcount(n)
-
-    σ = one(n)
-    for (p, k) in factor(n)
+    σ = one(T)
+    for (p, k) in f
         σ *= (p^((k + 1) * s) - 1) ÷ (p^s - 1)
     end
     σ

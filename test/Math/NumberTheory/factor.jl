@@ -32,6 +32,13 @@ function test_factor_divisorcount()
     @test divisorcount(20) == 6
     @test divisorcount(99) == 6
     @test divisorcount(100) == 9
+
+    @test divisorcount(factor(1)) == 1
+    @test divisorcount(factor(2)) == 2
+    @test divisorcount(factor(7)) == 2
+    @test divisorcount(factor(20)) == 6
+    @test divisorcount(factor(99)) == 6
+    @test divisorcount(factor(100)) == 9
 end
 
 function test_factor_divisorsigma()
@@ -42,14 +49,29 @@ function test_factor_divisorsigma()
     @test divisorsigma(99) == 156
     @test divisorsigma(100) == 217
 
-    @test_throws ErrorException divisorsigma(1, -1)
+    @test divisorsigma(factor(1)) == 1
+    @test divisorsigma(factor(2)) == 3
+    @test divisorsigma(factor(7)) == 8
+    @test divisorsigma(factor(20)) == 42
+    @test divisorsigma(factor(99)) == 156
+    @test divisorsigma(factor(100)) == 217
 
+    @test_throws DomainError divisorsigma(1, -1)
+    @test_throws ErrorException divisorsigma(factor(1), -1)
+    
     @test divisorsigma(1, 0) == 1
     @test divisorsigma(2, 0) == 2
     @test divisorsigma(7, 0) == 2
     @test divisorsigma(20, 0) == 6
     @test divisorsigma(99, 0) == 6
     @test divisorsigma(100, 0) == 9
+
+    @test divisorsigma(factor(1), 0) == 1
+    @test divisorsigma(factor(2), 0) == 2
+    @test divisorsigma(factor(7), 0) == 2
+    @test divisorsigma(factor(20), 0) == 6
+    @test divisorsigma(factor(99), 0) == 6
+    @test divisorsigma(factor(100), 0) == 9
 
     @test divisorsigma(1, 1) == 1
     @test divisorsigma(2, 1) == 3
@@ -58,12 +80,26 @@ function test_factor_divisorsigma()
     @test divisorsigma(99, 1) == 156
     @test divisorsigma(100, 1) == 217
 
+    @test divisorsigma(factor(1), 1) == 1
+    @test divisorsigma(factor(2), 1) == 3
+    @test divisorsigma(factor(7), 1) == 8
+    @test divisorsigma(factor(20), 1) == 42
+    @test divisorsigma(factor(99), 1) == 156
+    @test divisorsigma(factor(100), 1) == 217
+
     @test divisorsigma(1, 2) == 1
     @test divisorsigma(2, 2) == 5
     @test divisorsigma(7, 2) == 50
     @test divisorsigma(20, 2) == 546
     @test divisorsigma(99, 2) == 11102
     @test divisorsigma(100, 2) == 13671
+
+    @test divisorsigma(factor(1), 2) == 1
+    @test divisorsigma(factor(2), 2) == 5
+    @test divisorsigma(factor(7), 2) == 50
+    @test divisorsigma(factor(20), 2) == 546
+    @test divisorsigma(factor(99), 2) == 11102
+    @test divisorsigma(factor(100), 2) == 13671
 end
 
 function test_factor_isperfect()
