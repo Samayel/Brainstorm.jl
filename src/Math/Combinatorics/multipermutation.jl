@@ -51,6 +51,6 @@ Base.length(p::MultisetPermuations) = begin
     gf = prod(sum(divexact(z^j, fac(j)) for j in 0:m) for m in p.c)
     l = fac(p.k) * coeff(gf, p.k)
 
-    @assert den(l) == 1
-    convert(BigInt, num(l))
+    @assert denominator(l) == 1
+    convert(BigInt, numerator(l))
 end
