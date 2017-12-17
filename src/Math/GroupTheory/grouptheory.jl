@@ -1,8 +1,9 @@
 @reexport module _GroupTheory
 
-import Base: *, ^, circshift!, getindex, inv, one
+import Base: circshift!
+import Nemo
 
-using AutoHashEquals: @auto_hash_equals
+using Nemo: PermutationGroup, perm
 
 include("permutation.jl")
 
