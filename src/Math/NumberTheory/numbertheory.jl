@@ -4,11 +4,12 @@ import Base: ==
 import Nemo
 import Primes
 
+using Base.Iterators: cycle
 using Brainstorm: flatten, takewhile
 using Brainstorm._Math: checked_add, checked_sub
 using AutoHashEquals: @auto_hash_equals
 using DataStructures: SortedDict
-using IterTools: chain, cycle, drop, imap, take
+using IterTools: chain, drop, imap, take
 using Lists: List, ListNode
 using Nemo: eulerphi, factor, fmpz, isprime, is_prime, sigma, sqrtmod
 using Pipe: @pipe

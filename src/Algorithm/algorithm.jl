@@ -31,5 +31,6 @@ macro forcartesian(sym, sz, ex)
 end
 
 include("binarysearch.jl")
+include("cycledetection.jl")
 
 end
