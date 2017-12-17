@@ -1,6 +1,6 @@
 @reexport module _GroupTheory
 
-import Base: circshift!
+import Base: circshift!, getindex
 import Nemo
 
 using Nemo: PermutationGroup, perm
