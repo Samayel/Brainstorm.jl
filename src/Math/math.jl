@@ -34,6 +34,7 @@ macro activate_matlab(); Expr(:using, :MATLAB); end
 include("gmp.jl")
 include("mpfr.jl")
 include("Series/series.jl")
+include("GroupTheory/grouptheory.jl")
 include("NumberTheory/numbertheory.jl")
 include("Combinatorics/combinatorics.jl")
 include("Algebra/algebra.jl")
